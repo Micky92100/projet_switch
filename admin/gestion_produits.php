@@ -44,8 +44,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         echo '<td>' . $id_salle['id_salle'] . '</td>';
         echo '<td>' . $id_salle['titre'] . '</td>';
         echo '<td>' . $id_salle['categorie'] . '</td>';
-        echo '<td>' . substr($id_salle['description'], 0, 14) . ' ...
-                    </td>';
+        echo '<td>' . substr($id_salle['description'], 0, 14) . '</td>';
         echo '<td><img src="' . URL . 'img/' . $id_salle['photo'] .
             '" class="img-thumbnail" width="140"></td>';
         echo '<td>' . $id_salle['pays'] . '</td>';

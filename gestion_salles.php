@@ -180,7 +180,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'modifier' && !empty($_GET['id_
     $infos_salle->execute();
 
     if ($infos_salle->rowCount() > 0) {
-        $salle_actuel = $infos_salle->fetch(PDO::FETCH_ASSOC);
+        $salle_actuelle = $infos_salle->fetch(PDO::FETCH_ASSOC);
 
         $id_salle = $salle_actuelle['id_salle'];
         $titre = $salle_actuelle['titre'];

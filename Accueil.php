@@ -76,7 +76,7 @@
                             <a class="nav-link" href="fiche_produit.php">fiche produit</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Connexion.php">Connexion</a>
+                            <a class="nav-link" href="connexion.php">Connexion</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_membre.php">gestion membre</a>
@@ -266,8 +266,8 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="css/vendor/jquery/jquery.min.js"></script>
+    <script src="css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
