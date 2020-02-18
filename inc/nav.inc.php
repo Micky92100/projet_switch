@@ -7,7 +7,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="../Accueil.php">Qui sommes nous
+                            <a class="nav-link" href="../index.php">Qui sommes nous
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
