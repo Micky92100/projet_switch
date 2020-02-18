@@ -70,9 +70,9 @@ if (
     $categorie = trim($_POST['categorie']);
 
     // récupération de la photo actuelle pour les modifs
-    // if (!empty($_POST['photo_actuelle'])) {
-    //     $photo_bdd = $_POST['photo_actuelle'];
-    // }
+     if (!empty($_POST['photo_actuelle'])) {
+         $photo_bdd = $_POST['photo_actuelle'];
+     }
     if(empty($cp) || !is_numeric($cp)) {
         $msg .= '<div class="alert alert-danger mt-3">Attention, le code postal est obligatoire et doit être numérique.</div>';
     }
@@ -113,10 +113,11 @@ if (
         //         // pour ne pas écraser une image du même nom, on renomme l'image en rajoutant la référence qui est une information unique
                 $nom_photo = $_FILES['photo']['name'];
 
-                $photo_bdd = $nom_photo; // représente l'insertion en BDD
+//                $photo_bdd = $nom_photo; // représente l'insertion en BDD
 
         //         // on prépare le chemin où on va enregistrer l'image
-                $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
+//                $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
+                $photo_dossier = 'img/' . $nom_photo;
                  var_dump($photo_dossier);
 
         //         // copy(); permet de copier un fichier depuis un emplacement fourni en premier argument vers un emplacement fourni en deuxième
