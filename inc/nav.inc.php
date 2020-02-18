@@ -30,10 +30,16 @@
                             <a class="nav-link" href="gestion_avis.php">gestion avis</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="gestion_produits.php">gestion produits</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="statistiques.php">statistiques</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="profil.php">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="inscription.php">Inscription</a>
                         </li>
                     </ul>
                 </div>

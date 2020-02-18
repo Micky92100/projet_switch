@@ -39,6 +39,9 @@
                             <a class="nav-link" href="gestion_commandes.php">gestion commandes</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="gestion_produits.php">gestion produits</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="gestion_avis.php">gestion avis</a>
                         </li>
                         <li class="nav-item">

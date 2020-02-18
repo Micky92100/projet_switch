@@ -32,7 +32,7 @@ include 'inc/nav.inc.php';
 						<li class="list-group-item">Email : <b><?php echo $_SESSION['membre']['email']; ?></b></li>
 						<li class="list-group-item">Sexe : <b>
 						<?php 
-							if($_SESSION['membre']['sexe'] == 'm') {
+							if($_SESSION['membre']['civilite'] == 'm') {
 								echo 'Homme';
 							} else {
 								echo 'Femme';
