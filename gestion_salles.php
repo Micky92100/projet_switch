@@ -111,7 +111,7 @@ if (
             if ($verif_extension) {
 
         //         // pour ne pas écraser une image du même nom, on renomme l'image en rajoutant la référence qui est une information unique
-                $nom_photo = $id_salle . '-' .  $_FILES['photo']['name'];
+                $nom_photo = $_FILES['photo']['name'];
 
                 $photo_bdd = $nom_photo; // représente l'insertion en BDD
 
@@ -248,7 +248,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         echo '<td>' . $id_salle['titre'] . '</td>';
         echo '<td>' . $id_salle['categorie'] . '</td>';
         echo '<td>' . substr($id_salle['description'], 0, 14) . '</td>';
-        echo '<td><img src="' . URL . 'img/' . $id_salle['photo'] .
+        echo '<td><img src="img/' . $id_salle['photo'] .
             '" class="img-thumbnail" width="140"></td>';
         echo '<td>' . $id_salle['pays'] . '</td>';
         echo '<td>' . $id_salle['ville'] . '</td>';
