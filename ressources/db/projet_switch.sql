@@ -121,7 +121,7 @@ INSERT INTO `salle` (`id_salle`, `titre`, `description`, `photo`, `pays`, `ville
 (4, 'ùklù', 'ùkùùùlk', 'salle4.jpg', 'France', 'Paris', '^gfjhgjjk', 78999, 1, 'reunion'),
 (5, 'xxxx', 'qqqqq', 'salle5.jpg', 'France', 'Paris', '2 rue antonie richard', 78000, 1, 'reunion'),
 (6, 'fazeuohbdfuiazo', 'zdadda', 'salle6.jpg', 'France', 'Paris', 'dzadazd', 78000, 50, 'bureau'),
-(7, 'my room', 'it\'s my room', 'salle7.jpg', 'France', 'Paris', 'my address', 78000, 50, 'bureau'),
+(7, 'my room', 'its my room', 'salle7.jpg', 'France', 'Paris', 'my address', 78000, 50, 'bureau'),
 (8, 'test', 'test', 'salle8.jpg', 'France', 'Lyon', 'test', 87965, 1, 'reunion');
 
 --
