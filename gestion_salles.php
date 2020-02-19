@@ -113,7 +113,7 @@ if (
         //         // pour ne pas écraser une image du même nom, on renomme l'image en rajoutant la référence qui est une information unique
                 $nom_photo = $_FILES['photo']['name'];
 
-//                $photo_bdd = $nom_photo; // représente l'insertion en BDD
+                $photo_bdd = $nom_photo; // représente l'insertion en BDD
 
         //         // on prépare le chemin où on va enregistrer l'image
 //                $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
