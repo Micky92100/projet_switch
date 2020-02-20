@@ -7,16 +7,25 @@ include 'inc/fonction.inc.php';
 // 	header('location:' . URL . 'connexion.php');
 // 	exit(); // bloque l'exécution du code 
 // }
- var_dump($_POST);
+var_dump($_POST);
 //*********************************************************************
 //*********************************************************************
 // SUPPRESSION D'UN ARTICLE
 //*********************************************************************
 //*********************************************************************
+
+
+
+
+
+
 if (isset($_GET['action']) && $_GET['action'] == 'supprimer' && !empty($_GET['id_salle'])) {
     $suppression = $pdo->prepare("DELETE FROM salle WHERE id_salle = :id_salle");
-    $suppression->bindParam(":id_salle", $_GET['id_salle'], PDO::PARAM_STR);
+    $suppression->bindParam(":id_salle", $_GET['id_salle'], PDO::PARAM_INT);
     $suppression->execute();
+
+    $msg .= '<div class="validation bg-success">Suppression du produit : ' . $_GET['id_salle'] . '</div>';
+
 
     $_GET['action'] = 'affichage'; // pour provoquer l'affichage du tableau
 
@@ -70,13 +79,13 @@ if (
     $categorie = trim($_POST['categorie']);
 
     // récupération de la photo actuelle pour les modifs
-     if (!empty($_POST['photo_actuelle'])) {
-         $photo_bdd = $_POST['photo_actuelle'];
-     }
-    if(empty($cp) || !is_numeric($cp)) {
+    if (!empty($_POST['photo_actuelle'])) {
+        $photo_bdd = $_POST['photo_actuelle'];
+    }
+    if (empty($cp) || !is_numeric($cp)) {
         $msg .= '<div class="alert alert-danger mt-3">Attention, le code postal est obligatoire et doit être numérique.</div>';
     }
-    
+
     // controle sur la id salle car elle est unique en BDD
     $verif_reference = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :salle");
     $verif_reference->bindParam(':salle', $id_salle, PDO::PARAM_STR);
@@ -87,46 +96,46 @@ if (
     if ($verif_reference->rowCount() > 0 && empty($id_salle)) {
         $msg .= '<div class="alert alert-danger mt-3">Attention, référence indisponible car déjà attribuée.</div>';
     } //else {
-        // vérification du format de l'image, formats accèptés : jpg, jpeg, png, gif
-        // est-ce qu'une image a été posté : 
-        if (!empty($_FILES['photo']['name'])) {
+    // vérification du format de l'image, formats accèptés : jpg, jpeg, png, gif
+    // est-ce qu'une image a été posté : 
+    if (!empty($_FILES['photo']['name'])) {
 
         //     // on vérifie le format de l'image en récupérant son extension
-            $extension = strrchr($_FILES['photo']['name'], '.');
+        $extension = strrchr($_FILES['photo']['name'], '.');
         //     // strrchr() découpe une chaine fournie en premier argument en partant de la fin. On remonte jusqu'au caractère fourni en deuxième argument et on récupère tout depuis ce caractère.
         //     // exemple strrchr('image.png', '.'); => on récupère .png
-            var_dump($extension);
+        var_dump($extension);
 
         //     // on enlève le point et on passe l'extension en minuscule pour pouvoir la comparer.
-            $extension = strtolower(substr($extension, 1));
+        $extension = strtolower(substr($extension, 1));
         //     // exemple : .PNG => png    .Jpeg => jpeg
 
         //     // on déclare un tableau array contenant les extensions autorisées :
-            $tab_extension_valide = array('png', 'gif', 'jpg', 'jpeg');
+        $tab_extension_valide = array('png', 'gif', 'jpg', 'jpeg');
 
         //     // in_array(ce_quon_cherche, tableau_ou_on_cherche);
         //     // in_array() renvoie true si le premier argument correspond à une des valeurs présentes dans le tableau array fourni en deuxième argument. Sinon false
-            $verif_extension = in_array($extension, $tab_extension_valide);
+        $verif_extension = in_array($extension, $tab_extension_valide);
 
-            if ($verif_extension) {
+        if ($verif_extension) {
 
-        //         // pour ne pas écraser une image du même nom, on renomme l'image en rajoutant la référence qui est une information unique
-                $nom_photo = $_FILES['photo']['name'];
+            //         // pour ne pas écraser une image du même nom, on renomme l'image en rajoutant la référence qui est une information unique
+            $nom_photo = $_FILES['photo']['name'];
 
-                $photo_bdd = $nom_photo; // représente l'insertion en BDD
+            $photo_bdd = $nom_photo; // représente l'insertion en BDD
 
-        //         // on prépare le chemin où on va enregistrer l'image
-//                $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
-                $photo_dossier = 'img/' . $nom_photo;
-                 var_dump($photo_dossier);
+            //         // on prépare le chemin où on va enregistrer l'image
+            //                $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
+            $photo_dossier = 'img/' . $nom_photo;
+            var_dump($photo_dossier);
 
-        //         // copy(); permet de copier un fichier depuis un emplacement fourni en premier argument vers un emplacement fourni en deuxième
-                copy($_FILES['photo']['tmp_name'], $photo_dossier);
-            } else {
-                $msg .= '<div class="alert alert-danger mt-3">Attention, le format de la photo est invalide, extensions autorisées : jpg, jpeg, png, gif.</div>';
-            }
+            //         // copy(); permet de copier un fichier depuis un emplacement fourni en premier argument vers un emplacement fourni en deuxième
+            copy($_FILES['photo']['tmp_name'], $photo_dossier);
+        } else {
+            $msg .= '<div class="alert alert-danger mt-3">Attention, le format de la photo est invalide, extensions autorisées : jpg, jpeg, png, gif.</div>';
         }
-   
+    }
+
 
     // on peut déclencher l'enregistrement s'il n'y a pas eu d'erreur dans les traitements précédents
     if (empty($msg)) {
@@ -173,11 +182,7 @@ if (
 if (isset($_GET['action']) && $_GET['action'] == 'modifier' && !empty($_GET['id_salle'])) {
 
     $infos_salle = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :id_salle");
-    $infos_salle->bindparam(
-        ":id_salle",
-        $_GET['id_salle'],
-        PDO::PARAM_STR
-    );
+    $infos_salle->bindparam(":id_salle", $_GET['id_salle'], PDO::PARAM_STR);
     $infos_salle->execute();
 
     if ($infos_salle->rowCount() > 0) {
@@ -208,15 +213,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'modifier' && !empty($_GET['id_
 //***************************
 ?>
 <div class="starter-template">
-		<h1><i class="fas fa-ghost" style="color: #4c6ef5;"></i> Gestion salle <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
-		<p class="lead"><?php echo $msg; ?></p>
-		
-		<p class="text-center">
-			<a href="?action=ajouter" class="btn btn-outline-danger">Ajout article</a>
-			<a href="?action=affichage" class="btn btn-outline-primary">Affichage article</a>
-		</p>
-		
-	</div>
+    <h1><i class="fas fa-ghost" style="color: #4c6ef5;"></i> Gestion salle <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
+    <p class="lead"><?php echo $msg; ?></p>
+
+    <p class="text-center">
+        <a href="?action=ajouter" class="btn btn-outline-danger">Ajout article</a>
+        <a href="?action=affichage" class="btn btn-outline-primary">Affichage article</a>
+    </p>
+
+</div>
 
 <?php
 
@@ -258,9 +263,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         echo '<td>' . $id_salle['cp'] . '</td>';
         echo '<td>' . $id_salle['capacite'] . '</td>';
 
-        echo '<td><a href="?action=modifier&id_article=' . $id_salle['id_salle'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
+        echo '<td><a href="?action=modifier&id_salle=' . $id_salle['id_salle'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
 
-        echo '<td><a href="?action=supprimer&id_article=' . $id_salle['id_salle'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
+        echo '<td><a href="?action=supprimer&id_salle=' . $id_salle['id_salle'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
 
         echo '</tr>';
     }
@@ -309,7 +314,7 @@ include 'inc/nav.inc.php';
                         // <img src="' . URL . 'img/' . $photo_actuelle . '" class="w-25 img-thumbnail" alt="image de l\'article">
                         // <input type="hidden" name="photo_actuelle" value="' . $photo_actuelle . '"></div>';
                         // }
-                        
+
                         ?>
 
                         <?php if (!empty($photo_actuelle)) : ?>
@@ -333,79 +338,79 @@ include 'inc/nav.inc.php';
                     <div class="col-6">
 
 
-                    <div class="form-group">
+                        <div class="form-group">
 
-                        <label for="ville">Ville</label>
+                            <label for="ville">Ville</label>
 
-                        <select name="ville" id="ville" class="form-control">
-                            <option <?php if ($ville == 'Paris') {
-                                        echo 'selected';
-                                    } ?>>Paris</option>
-                            <option <?php if ($ville == 'Lyon') {
-                                        echo 'selected';
-                                    } ?>>Lyon</option>
-                            <option <?php if ($ville == 'Marseille') {
-                                        echo 'selected';
-                                    } ?>>Marseille</option>
-                        </select>
+                            <select name="ville" id="ville" class="form-control">
+                                <option <?php if ($ville == 'Paris') {
+                                            echo 'selected';
+                                        } ?>>Paris</option>
+                                <option <?php if ($ville == 'Lyon') {
+                                            echo 'selected';
+                                        } ?>>Lyon</option>
+                                <option <?php if ($ville == 'Marseille') {
+                                            echo 'selected';
+                                        } ?>>Marseille</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">adresse</label>
+                            <input type="text" name="adresse" id="adresse" value="<?php echo $adresse; ?>" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cp">Code Postal</label>
+                            <input type="text" name="cp" id="cp" value="<?php echo $cp; ?>" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="capacite">Capacite</label>
+                            <select name="capacite" id="capacite" class="form-control">
+
+                                <option <?php if ($capacite == '1') {
+                                            echo 'selected';
+                                        } ?>>1</option>
+                                <option <?php if ($capacite == '20') {
+                                            echo 'selected';
+                                        } ?>>20</option>
+                                <option <?php if ($capacite == '50') {
+                                            echo 'selected';
+                                        } ?>>50</option>
+                                <option <?php if ($capacite == '100') {
+                                            echo 'selected';
+                                        } ?>>100</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categorie">Catégorie</label>
+                            <select name="categorie" id="categorie" class="form-control">
+                                <option <?php if ($categorie == 'reunion') {
+                                            echo 'selected';
+                                        } ?>>reunion</option>
+                                <option <?php if ($categorie == 'bureau') {
+                                            echo 'selected';
+                                        } ?>>bureau</option>
+                                <option <?php if ($categorie == 'formation') {
+                                            echo 'selected';
+                                        } ?>>formation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pays">Pays</label>
+                            <select name="pays" id="pays" class="form-control">
+                                <option <?php if ($pays == 'france') {
+                                            echo 'selected';
+                                        } ?>>France</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-2">
+                            <button type="submit" name="enregistrement" id="enregistrement" class="form-control btn btn-outline-dark"> Enregistrer </button>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="adresse">adresse</label>
-                        <input type="text" name="adresse" id="adresse" value="<?php echo $adresse; ?>" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cp">Code Postal</label>
-                        <input type="text" name="cp" id="cp" value="<?php echo $cp; ?>" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="capacite">Capacite</label>
-                        <select name="capacite" id="capacite" class="form-control">
-
-                            <option <?php if ($capacite == '1') {
-                                        echo 'selected';
-                                    } ?>>1</option>
-                            <option <?php if ($capacite == '20') {
-                                        echo 'selected';
-                                    } ?>>20</option>
-                            <option <?php if ($capacite == '50') {
-                                        echo 'selected';
-                                    } ?>>50</option>
-                            <option <?php if ($capacite == '100') {
-                                        echo 'selected';
-                                    } ?>>100</option>
-
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="categorie">Catégorie</label>
-                        <select name="categorie" id="categorie" class="form-control">
-                            <option <?php if ($categorie == 'reunion') {
-                                        echo 'selected';
-                                    } ?>>reunion</option>
-                            <option <?php if ($categorie == 'bureau') {
-                                        echo 'selected';
-                                    } ?>>bureau</option>
-                            <option <?php if ($categorie == 'formation') {
-                                        echo 'selected';
-                                    } ?>>formation</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pays">Pays</label>
-                        <select name="pays" id="pays" class="form-control">
-                            <option <?php if ($pays == 'france') {
-                                    echo 'selected';
-                                } ?>>France</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-2">
-                        <button type="submit" name="enregistrement" id="enregistrement" class="form-control btn btn-outline-dark"> Enregistrer </button>
-                    </div>
-                </div>
                 </div>
             </form>
         </div>

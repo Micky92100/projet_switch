@@ -1,26 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include 'inc/init.inc.php';
+include 'inc/fonction.inc.php';
+?>
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Switch</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/shop-homepage.css" rel="stylesheet">
-
-</head>
-
-<body>
+<?php
+// récupération des catégories en BDD
 
 
+$liste_categorie = $pdo->query("SELECT DISTINCT categorie FROM salle");
+
+ $liste_ville = $pdo->query("SELECT DISTINCT ville FROM salle");
+
+
+
+
+// Récupération des catégorie en BDD
+if(isset($_GET['categorie'])) {
+    $choix_categorie = $_GET['categorie'];
+	$liste_article = $pdo->prepare("SELECT * FROM salle WHERE categorie = :categorie ORDER BY titre");
+	$liste_article->bindParam(':categorie', $choix_categorie, PDO::PARAM_STR);
+    $liste_article->execute();
+    
+ } else if(isset($_GET['ville'])) {
+     $choix_ville = $_GET['ville'];
+    $liste_article = $pdo->prepare("SELECT * FROM salle WHERE ville =
+     :ville ORDER BY titre");
+    $liste_article->bindParam(':ville', $choix_ville, PDO::PARAM_STR);
+     $liste_article->execute();
+   } else {
+    $liste_article = $pdo->query("SELECT * FROM salle ORDER BY titre");
+    }   
+
+var_dump($_GET);
+include 'inc/header.inc.php';
+include 'inc/nav.inc.php';
+?>
+    
+    <div class="starter-template">
+		<h1><i style="color: #4c6ef5;"></i> Accueil <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
+		<p class="lead"><?php echo $msg; ?></p>
+	</div>
+
+	<div class="row">
+		<div class="col-3">
+			<!-- Récupérer la liste des catégories article en BDD pour les afficher dans des liens a href="" dans une liste ul li -->
+			<?php 
+								
+				echo '<ul class="list-group">
+					<li class="list-group-item active">Catégories</li>';
+						
+				echo '<li class="list-group-item"><a href="' . URL . 'index.php">Tous les produits</a></li>';		
+						
+				while($categorie = $liste_categorie->fetch(PDO::FETCH_ASSOC)) {
+					// echo '<pre>'; var_dump($categorie); echo '</pre><hr>';
+                    echo '<li class="list-group-item"><a href="?categorie=' . $categorie['categorie'] . '">' . $categorie['categorie'] . 
+                    '</a></li>';
+				}		
+                
+		// 		echo '</ul>';
+				
+        //         echo '<hr>';
+                
+                echo '<ul class="list-group">
+               <li class="list-group-item active">ville</li>';	
+                
+              while($ville = $liste_ville->fetch(PDO::FETCH_ASSOC)) {
+        //  echo '<pre>'; var_dump($ville); echo '</pre><hr>';
+                 echo '<li class="list-group-item"><a href="?ville=' .
+                 $ville['ville'] .'">' . $ville['ville'] . 
+                '</a></li>';
+             }
+        echo '</ul>';
+			?>
+    </div>
+		<div class="col-9">
+			<div class="row justify-content-around">
+            <?php 
+            
+/////////////////////////// affichage des articles/////////////////////////
+                
+                    while($salle = $liste_article->fetch(PDO::FETCH_ASSOC)) {
+					// echo '<pre>'; var_dump($article); echo '</pre><hr>';
+					echo '<div class="col-sm-3 text-center p-2">';	
+					
+					echo '<h5>' . $salle['titre'] . '</h5>';
+					
+					echo '<img src="' . URL . 'img/' . $salle['photo'] . '" alt="' . $salle['titre'] . '" class="img-thumbnail w-100">';
+					
+					// Afficher la catégorie, le prix.
+					echo '<p>Catégorie : <b>' . $salle['categorie'] . '</b><br>';
+					echo 'Prix : <b>' . $salle['prix'] . '€</b></p>';
+					
+					// bouton voir la fiche article
+					echo '<a href="fiche_produit.php?id_salle=' . $salle['id_salle'] . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
+					
+					echo '</div>';					
+				}
+            
+            ///////////////////////FIN AFFICHAGE ARTICLES////////////////////////   
+
+
+			?>
+			</div>
+		</div>
     <!------------------DEBUT SIDEBAR------------------------------------------------------>
 
     <div class="d-flex" id="wrapper">
@@ -31,6 +113,7 @@
                 <a href="#" class="list-group-item list-group-item-action bg-light">Réunion</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Bureau</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Formation</a><br>
+               
                 <div class="sidebar-heading">Ville </div>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Paris</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Lyon</a>
@@ -55,53 +138,10 @@
         </div>
         <!----------------------------Fin SIDEBAR----------------------------------------------->
 
-
-        <!------------------DEBUT NAVBAR------------------------------------------------------>
-
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">Switch</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Qui sommes nous
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="fiche_produit.php">fiche produit</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="connexion.php">Connexion</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="gestion_membre.php">gestion membre</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="gestion_salles.php">gestion salles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="gestion_commandes.php">gestion commandes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="gestion_avis.php">gestion avis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="statistiques.php">statistiques</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!----------------------------Fin NAVBAR----------------------------------------------->
-
+       
         <!-- Page Content -->
 
-        <div class="row">
+        <!-- <div class="row">
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
@@ -118,161 +158,10 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle2.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Salle Cézanne</a>
-                        </h4>
-                        <h5>990 €</h5>
-                        <p class="card-text">Salle spacieuse.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle11.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Salle Renoir</a>
-                        </h4>
-                        <h5>870 €</h5>
-                        <p class="card-text">Si vous avez...</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle4.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Salle Van Gogh</a>
-                        </h4>
-                        <h5>1500 €</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle5.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Salle Duchamp</a>
-                        </h4>
-                        <h5>750 €</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle6.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Bureau Bazille</a>
-                        </h4>
-                        <h5>590 €</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle7.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Salle Klee</a>
-                        </h4>
-                        <h5>1350 €</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle12.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Salle Rubens</a>
-                        </h4>
-                        <h5>1200 €</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="img/salle9.jpg" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Salle Monet</a>
-                        </h4>
-                        <h5>710 €</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
         </div>
-        <!-- /.row -->
-
-
-        <!-- /.col-lg-9 -->
-
-    </div>
-    <!-- /.row -->
-    </div>
-    </div>
+    </div> -->
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="css/vendor/jquery/jquery.min.js"></script>
-    <script src="css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-</body>
-
-</html>
 <?php
-include 'inc/footer.inc.php'
+include 'inc/footer.inc.php';
 
-?>

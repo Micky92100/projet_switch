@@ -8,12 +8,12 @@ var_dump($_POST);
 //***************************
 ?>
 <div class="starter-template">
-		<h1><i class="fas fa-ghost" style="color: #4c6ef5;"></i> Gestion article <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
+		<h1><i class="fas fa-ghost" style="color: #4c6ef5;"></i> Gestion produit <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
 		<p class="lead"><?php echo $msg; ?></p>
 		
 		<p class="text-center">
-			<a href="?action=ajouter" class="btn btn-outline-danger">Ajout article</a>
-			<a href="?action=affichage" class="btn btn-outline-primary">Affichage article</a>
+			<a href="?action=ajouter" class="btn btn-outline-danger">Ajout produit</a>
+			<a href="?action=affichage" class="btn btn-outline-primary">Affichage produit</a>
 		</p>
 		
 	</div>
@@ -72,6 +72,10 @@ include '../inc/header.inc.php';
 include '../inc/nav.inc.php';
 ?>
 
+<li>Date d'arrivée</li>
+                <input type="date" name="reservation"><hr>
+                <li>Date de départ</li>
+                <input type="date" name="reservation">
 
 <?php
 include '../inc/footer.inc.php'
