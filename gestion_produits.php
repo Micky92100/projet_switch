@@ -62,7 +62,7 @@ if (
             $id_produit = '';
             $save = $pdo->prepare("INSERT INTO produit (id_produit, id_salle, date_arrivee, date_depart, prix, etat)
 VALUES (:id_produit, :id_salle, :date_arrivee, :date_depart, :prix, :etat)");
-            $save->bindParam(":id_produit",$id_produit, PDO::PARAM_INT);
+            $save->bindParam(":id_produit", $id_produit, PDO::PARAM_INT);
         }
         $save->bindParam(":id_salle", $id_salle, PDO::PARAM_INT);
         $save->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
@@ -143,9 +143,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         echo '<td>' . $produit['id_produit'] . '</td>';
         echo '<td>' . $produit['date_arrivee'] . '</td>';
         echo '<td>' . $produit['date_depart'] . '</td>';
-        echo '<td>' . $produit['id_salle'] . '</td>'; //include id titre et photo
-//    echo '<td><img src="../img/' . $produit['photo'] .
-//        '" class="img-thumbnail" width="140"></td>';
+
+        $infos_salle = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :id_salle");
+        $infos_salle->bindParam(":id_salle", $produit['id_salle'], PDO::PARAM_INT);
+        $infos_salle->execute();
+        if ($infos_salle->rowCount() > 0) {
+            $salle_actuelle = $infos_salle->fetch(PDO::FETCH_ASSOC);
+            echo '<td>' . $salle_actuelle['id_salle'] . ' - ' . $salle_actuelle['titre'] . ' <br> 
+<img src="img/' . $salle_actuelle['photo'] . '" class="img-thumbnail" width="140"></td>';
+        }
+
         echo '<td>' . $produit['prix'] . '</td>';
         echo '<td>' . $produit['etat'] . '</td>';
 
@@ -182,8 +189,7 @@ include 'inc/nav.inc.php';
         <select name="id_salle" id="select-salle">
 
             <?php
-            // get all the salle rows from database
-            $liste_salle = $pdo->query("SELECT * FROM salle");
+
 
             if (!empty($id_produit)) {
                 $infos_salle = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :id_salle");
@@ -200,6 +206,8 @@ include 'inc/nav.inc.php';
                                 </option>';
                 }
             }
+            // get all the salle rows from database
+            $liste_salle = $pdo->query("SELECT * FROM salle");
             // use the data to populate the <select>
             while ($salle = $liste_salle->fetch(PDO::FETCH_ASSOC)) {
 
@@ -227,13 +235,13 @@ include 'inc/nav.inc.php';
         }
         $reservation = (!empty($id_produit) && $etat == 'reservation') ? 'selected' : '';
         echo
-        '<label for="etat" style="display: '.$display.'">Etat</label>
-        <select name="etat" id="etat" style="display: '.$display.'">
-            <option value="1" '.$libre.'>libre</option>
-            <option value="0" '.$reservation.'>reservation</option>
+            '<label for="etat" style="display: ' . $display . '">Etat</label>
+        <select name="etat" id="etat" style="display: ' . $display . '">
+            <option value="1" ' . $libre . '>libre</option>
+            <option value="0" ' . $reservation . '>reservation</option>
         </select>'
         ?>
-        <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer </button>
+        <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer</button>
     </form>
 <?php
 include 'inc/footer.inc.php'
