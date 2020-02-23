@@ -30,12 +30,14 @@ $etat = "";
 //*********************************************************************
 
 if (
+        isset($_POST['id_produit']) &&
     isset($_POST['date_arrivee']) &&
     isset($_POST['date_depart']) &&
     isset($_POST['id_salle']) &&
     isset($_POST['prix']) &&
     isset($_POST['etat'])
 ) {
+    $id_produit = trim($_POST['id_produit']);
     $date_arrivee = trim($_POST['date_arrivee']);
     $date_depart = trim($_POST['date_depart']);
     $id_salle = trim($_POST['id_salle']);
@@ -71,6 +73,7 @@ VALUES (:id_produit, :id_salle, :date_arrivee, :date_depart, :prix, :etat)");
         $save->bindParam(":etat", $etat, PDO::PARAM_STR);
         $save->execute();
     }
+    $_GET['action'] = 'affichage';
 }
 //*********************************************************************
 // \FIN ENREGISTREMENT DES ARTICLES
@@ -175,6 +178,7 @@ include 'inc/nav.inc.php';
 ?>
 
     <form method="post" action="" enctype="multipart/form-data">
+        <input type="hidden" name="id_produit" value="<?php echo $id_produit; ?>">
         <label for="date_arrivee">Date d'arrivée</label><br>
         <input type="datetime-local" name="date_arrivee" id="date_arrivee"
                value="<?php echo str_replace(' ', 'T', $date_arrivee); ?>">
@@ -238,7 +242,7 @@ include 'inc/nav.inc.php';
             '<label for="etat" style="display: ' . $display . '">Etat</label>
         <select name="etat" id="etat" style="display: ' . $display . '">
             <option value="1" ' . $libre . '>libre</option>
-            <option value="0" ' . $reservation . '>reservation</option>
+            <option value="2" ' . $reservation . '>reservation</option>
         </select>'
         ?>
         <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer</button>
