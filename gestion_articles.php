@@ -3,7 +3,7 @@ include 'inc/init.inc.php';
 include 'inc/fonction.inc.php';
 
 if(!user_is_admin()) {
-    header('location:' . URL . 'connexion.php');
+//    header('location:' . URL . 'connexion.php');
     exit(); // bloque l'exécution du code
 }
 
@@ -274,7 +274,7 @@ include 'inc/nav.inc.php';
                     echo '<td>' . $article['couleur'] . '</td>';
                     echo '<td>' . $article['taille'] . '</td>';
                     echo '<td>' . $article['sexe'] . '</td>';
-                    echo '<td><img src="' . URL . 'img/' . $article['photo'] . '" class="img-thumbnail" width="140"></td>';
+                    echo '<td><img src="img/' . $article['photo'] . '" class="img-thumbnail" width="140"></td>';
                     echo '<td>' . $article['prix'] . '</td>';
                     echo '<td>' . $article['stock'] . '</td>';
 
@@ -374,7 +374,7 @@ include 'inc/nav.inc.php';
                             if(!empty($photo_actuelle)) {
                                 echo '<div class="form-group text-center">';
                                 echo '<label>Photo actuelle</label><hr>';
-                                echo '<img src="' . URL . 'img/' . $photo_actuelle . '" class="w-25 img-thumbnail" alt="image de l\'article">';
+                                echo '<img src="img/' . $photo_actuelle . '" class="w-25 img-thumbnail" alt="image de l\'article">';
                                 echo '<input type="hidden" name="photo_actuelle" value="' . $photo_actuelle . '">';
                                 echo '</div>';
                             }
