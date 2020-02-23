@@ -1,14 +1,14 @@
 <?php
 include 'inc/init.inc.php';
 include 'inc/fonction.inc.php';
-var_dump($_POST);
 
-//*********************************************************************
+
+//**********************************************²***********************
 // SUPPRESSION D'UN ARTICLE
 //*********************************************************************
 if (isset($_GET['action']) && $_GET['action'] == 'supprimer' && !empty($_GET['id_produit'])) {
     $del = $pdo->prepare("DELETE FROM produit WHERE id_produit = :id_produit");
-    $del->bindParam(":id_produit", $_GET['id_produit'], PDO::PARAM_STR);
+    $del->bindParam(":id_produit", $_GET['id_produit'], PDO::PARAM_INT);
     $del->execute();
 
     $msg .= '<div class="validation bg-success">Suppression du produit : ' . $_GET['id_produit'] . '</div>';
@@ -30,14 +30,12 @@ $etat = "";
 //*********************************************************************
 
 if (
-    isset($_POST['id_produit']) &&
     isset($_POST['date_arrivee']) &&
     isset($_POST['date_depart']) &&
     isset($_POST['id_salle']) &&
     isset($_POST['prix']) &&
     isset($_POST['etat'])
 ) {
-    $id_produit = trim($_POST['id_produit']);
     $date_arrivee = trim($_POST['date_arrivee']);
     $date_depart = trim($_POST['date_depart']);
     $id_salle = trim($_POST['id_salle']);
@@ -49,7 +47,7 @@ if (
     }
 
     $verif_reference = $pdo->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
-    $verif_reference->bindParam(':id_produit', $id_produit, PDO::PARAM_STR);
+    $verif_reference->bindParam(':id_produit', $id_produit, PDO::PARAM_INT);
     $verif_reference->execute();
 
     if ($verif_reference->rowCount() > 0 && empty($id_produit)) {
@@ -59,15 +57,17 @@ if (
     if (empty($msg)) {
         if (!empty($id_produit)) {
             $save = $pdo->prepare("UPDATE produit SET id_produit = :id_produit, id_salle = :id_salle, date_arrivee = :date_arrivee, date_depart = :date_depart, prix = :prix, etat = :etat WHERE id_produit = :id_produit");
-            $save->bindParam(":id_produit", $id_produit, PDO::PARAM_STR);
+            $save->bindParam(":id_produit", $id_produit, PDO::PARAM_INT);
         } else {
-            $save = $pdo->prepare("INSERT INTO produit (id_salle, date_arrivee, date_depart, prix, etat)
-VALUES (:id_salle, :date_arrivee, :date_depart, :prix, :etat)");
+            $id_produit = '';
+            $save = $pdo->prepare("INSERT INTO produit (id_produit, id_salle, date_arrivee, date_depart, prix, etat)
+VALUES (:id_produit, :id_salle, :date_arrivee, :date_depart, :prix, :etat)");
+            $save->bindParam(":id_produit",$id_produit, PDO::PARAM_INT);
         }
-        $save->bindParam(":id_salle", $id_salle, PDO::PARAM_STR);
+        $save->bindParam(":id_salle", $id_salle, PDO::PARAM_INT);
         $save->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
         $save->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
-        $save->bindParam(":prix", $prix, PDO::PARAM_STR);
+        $save->bindParam(":prix", $prix, PDO::PARAM_INT);
         $save->bindParam(":etat", $etat, PDO::PARAM_STR);
         $save->execute();
     }
@@ -83,7 +83,7 @@ VALUES (:id_salle, :date_arrivee, :date_depart, :prix, :etat)");
 if (isset($_GET['action']) && $_GET['action'] == 'modifier' && !empty($_GET['id_produit'])) {
 
     $infos_produit = $pdo->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
-    $infos_produit->bindParam(":id_produit", $_GET['id_produit'], PDO::PARAM_STR);
+    $infos_produit->bindParam(":id_produit", $_GET['id_produit'], PDO::PARAM_INT);
     $infos_produit->execute();
 
     if ($infos_produit->rowCount() > 0) {
@@ -119,6 +119,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'modifier' && !empty($_GET['id_
 
 if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 // on récupère les produits en bdd
+
+
     $liste_produit = $pdo->query("SELECT * FROM produit");
 
     echo '<p>Nombre d\'articles : <b>' . $liste_produit->rowCount() . '</b></p>';
@@ -164,24 +166,43 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 include 'inc/header.inc.php';
 include 'inc/nav.inc.php';
 ?>
+
     <form method="post" action="" enctype="multipart/form-data">
-        <label for="start-date">Date d'arrivée</label><br>
-        <input type="datetime-local" name="start-date" id="start-date" value="<?php echo str_replace(' ', 'T', $date_arrivee); ?>">
+        <label for="date_arrivee">Date d'arrivée</label><br>
+        <input type="datetime-local" name="date_arrivee" id="date_arrivee"
+               value="<?php echo str_replace(' ', 'T', $date_arrivee); ?>">
         <hr>
 
-        <label for="end-date">Date de départ</label><br>
-        <input type="datetime-local" name="end-date" id="end-date" value="<?php echo str_replace(' ', 'T', $date_depart); ?>"><br>
+        <label for="date_depart">Date de départ</label><br>
+        <input type="datetime-local" name="date_depart" id="date_depart"
+               value="<?php echo str_replace(' ', 'T', $date_depart); ?>"><br>
         <hr>
 
         <label for="select-salle">Salle</label>
-        <select name="salle" id="select-salle">
+        <select name="id_salle" id="select-salle">
 
             <?php
             // get all the salle rows from database
             $liste_salle = $pdo->query("SELECT * FROM salle");
 
+            if (!empty($id_produit)) {
+                $infos_salle = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :id_salle");
+                $infos_salle->bindParam(":id_salle", $id_salle, PDO::PARAM_INT);
+                $infos_salle->execute();
+
+                if ($infos_salle->rowCount() > 0) {
+                    $salle_actuelle = $infos_salle->fetch(PDO::FETCH_ASSOC);
+                    echo '<option value = ' . $salle_actuelle['id_salle'] . ' selected>
+                ' . $salle_actuelle['id_salle'] . ' 
+                - ' . $salle_actuelle['titre'] . ' 
+                - ' . $salle_actuelle['adresse'] . ', ' . $salle_actuelle['cp'] . ', ' . $salle_actuelle['ville'] . '
+                - ' . $salle_actuelle['capacite'] . '
+                                </option>';
+                }
+            }
             // use the data to populate the <select>
             while ($salle = $liste_salle->fetch(PDO::FETCH_ASSOC)) {
+
                 echo '<option value = ' . $salle['id_salle'] . '>
                 ' . $salle['id_salle'] . ' 
                 - ' . $salle['titre'] . ' 
@@ -189,21 +210,30 @@ include 'inc/nav.inc.php';
                 - ' . $salle['capacite'] . '
                 </option>';
             }
+
             ?>
         </select>
         <hr>
 
-        <label for="tarif">Tarif</label>
-        <input type="number" id="tarif" name="tarif" value="<?php echo $prix?>">
+        <label for="prix">Tarif</label>
+        <input type="number" id="prix" name="prix" value="<?php echo $prix ?>">
         <hr>
 
-        <label for="etat" style="display: none">Etat</label>
-        <select name="etat" id="etat" style="display: none">
-            <option value="1" selected>libre</option>
-            <option value="0">reservation</option>
-        </select>
-
-        <button type="submit">OK</button>
+        <?php
+        $display = (!empty($id_produit)) ? 'block' : 'none';
+        $libre = "";
+        if ((!empty($id_produit) && $etat == 'libre') || (empty($id_produit))) {
+            $libre = 'selected';
+        }
+        $reservation = (!empty($id_produit) && $etat == 'reservation') ? 'selected' : '';
+        echo
+        '<label for="etat" style="display: '.$display.'">Etat</label>
+        <select name="etat" id="etat" style="display: '.$display.'">
+            <option value="1" '.$libre.'>libre</option>
+            <option value="0" '.$reservation.'>reservation</option>
+        </select>'
+        ?>
+        <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer </button>
     </form>
 <?php
 include 'inc/footer.inc.php'
