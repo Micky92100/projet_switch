@@ -1,6 +1,6 @@
 <?php
-include '../inc/init.inc.php';
-include '../inc/fonction.inc.php';
+include 'inc/init.inc.php';
+include 'inc/fonction.inc.php';
 var_dump($_POST);
 
 //***************************
@@ -68,8 +68,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 // FIN AFFICHAGE DES PRODUITS
 //***************************
 
-include '../inc/header.inc.php';
-include '../inc/nav.inc.php';
+include 'inc/header.inc.php';
+include 'inc/nav.inc.php';
 ?>
 
 <li>Date d'arrivée</li>
@@ -78,6 +78,6 @@ include '../inc/nav.inc.php';
                 <input type="date" name="reservation">
 
 <?php
-include '../inc/footer.inc.php'
+include 'inc/footer.inc.php'
 
 ?>

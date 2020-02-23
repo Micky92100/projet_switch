@@ -30,7 +30,7 @@
                             <a class="nav-link" href="../gestion_avis.php">gestion avis</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../admin/gestion_produits.php">gestion produits</a>
+                            <a class="nav-link" href="../gestion_produits.php">gestion produits</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../statistiques.php">statistiques</a>
