@@ -1,6 +1,6 @@
 <?php
-include '../inc/init.inc.php';
-include '../inc/fonction.inc.php';
+include 'inc/init.inc.php';
+include 'inc/fonction.inc.php';
 var_dump($_POST);
 
 //***************************
@@ -45,7 +45,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         echo '<td>' . $id_salle['titre'] . '</td>';
         echo '<td>' . $id_salle['categorie'] . '</td>';
         echo '<td>' . substr($id_salle['description'], 0, 14) . '</td>';
-        echo '<td><img src="' . URL . 'img/' . $id_salle['photo'] .
+        echo '<td><img src="../img/' . $id_salle['photo'] .
             '" class="img-thumbnail" width="140"></td>';
         echo '<td>' . $id_salle['pays'] . '</td>';
         echo '<td>' . $id_salle['ville'] . '</td>';
@@ -68,8 +68,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 // FIN AFFICHAGE DES PRODUITS
 //***************************
 
-include '../inc/header.inc.php';
-include '../inc/nav.inc.php';
+include 'inc/header.inc.php';
+include 'inc/nav.inc.php';
 ?>
 
 <li>Date d'arrivée</li>
@@ -78,6 +78,6 @@ include '../inc/nav.inc.php';
                 <input type="date" name="reservation">
 
 <?php
-include '../inc/footer.inc.php'
+include 'inc/footer.inc.php'
 
 ?>

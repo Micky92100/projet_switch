@@ -7,39 +7,39 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.php">Qui sommes nous
+                            <a class="nav-link" href="../index.php">Qui sommes nous
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="fiche_produit.php">fiche produit</a>
+                            <a class="nav-link" href="../fiche_produit.php">fiche produit</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="connexion.php">Connexion</a>
+                            <a class="nav-link" href="../connexion.php">Connexion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="gestion_membre.php">gestion membre</a>
+                            <a class="nav-link" href="../gestion_membre.php">gestion membre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="gestion_salles.php">gestion salles</a>
+                            <a class="nav-link" href="../gestion_salles.php">gestion salles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="gestion_commandes.php">gestion commandes</a>
+                            <a class="nav-link" href="../gestion_commandes.php">gestion commandes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="gestion_avis.php">gestion avis</a>
+                            <a class="nav-link" href="../gestion_avis.php">gestion avis</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin/gestion_produits.php">gestion produits</a>
+                            <a class="nav-link" href="../gestion_produits.php">gestion produits</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="statistiques.php">statistiques</a>
+                            <a class="nav-link" href="../statistiques.php">statistiques</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="profil.php">Profil</a>
+                            <a class="nav-link" href="../profil.php">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="inscription.php">Inscription</a>
+                            <a class="nav-link" href="../inscription.php">Inscription</a>
                         </li>
                     </ul>
                 </div>

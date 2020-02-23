@@ -49,7 +49,7 @@ include 'inc/nav.inc.php';
 				echo '<ul class="list-group">
 					<li class="list-group-item active">Catégories</li>';
 						
-				echo '<li class="list-group-item"><a href="' . URL . 'index.php">Tous les produits</a></li>';		
+				echo '<li class="list-group-item"><a href="index.php">Tous les produits</a></li>';
 						
 				while($categorie = $liste_categorie->fetch(PDO::FETCH_ASSOC)) {
 					// echo '<pre>'; var_dump($categorie); echo '</pre><hr>';
@@ -85,7 +85,7 @@ include 'inc/nav.inc.php';
 					
 					echo '<h5>' . $salle['titre'] . '</h5>';
 					
-					echo '<img src="' . URL . 'img/' . $salle['photo'] . '" alt="' . $salle['titre'] . '" class="img-thumbnail w-100">';
+					echo '<img src="img/' . $salle['photo'] . '" alt="' . $salle['titre'] . '" class="img-thumbnail w-100">';
 					
 					// Afficher la catégorie, le prix.
 					echo '<p>Catégorie : <b>' . $salle['categorie'] . '</b><br>';
@@ -163,5 +163,5 @@ include 'inc/nav.inc.php';
     <!-- /.container -->
 
 <?php
-include 'inc/footer.inc.php';
+//include 'inc/footer.inc.php';
 
