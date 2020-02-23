@@ -322,8 +322,8 @@ include 'inc/nav.inc.php';
                             <div class="form-group text-center">
                                 <label>Photo actuelle</label>
                                 <hr>
-                                <img src="img/' <?php echo $photo_actuelle; ?> '" class="w-25 img-thumbnail" alt="image de la salle">
-                                <input type="hidden" name="photo_actuelle" value="' <?php echo $photo_actuelle; ?>'">
+                                <img src="img/<?php echo $photo_actuelle; ?>" class="w-25 img-thumbnail" alt="image de la salle">
+                                <input type="hidden" name="photo_actuelle" value="<?php echo $photo_actuelle; ?>">
                             </div>
 
                         <?php endif; ?>
