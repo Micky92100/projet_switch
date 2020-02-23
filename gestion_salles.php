@@ -21,7 +21,7 @@ var_dump($_POST);
 
 if (isset($_GET['action']) && $_GET['action'] == 'supprimer' && !empty($_GET['id_salle'])) {
     $suppression = $pdo->prepare("DELETE FROM salle WHERE id_salle = :id_salle");
-    $suppression->bindParam(":id_salle", $_GET['id_salle'], PDO::PARAM_INT);
+    $suppression->bindParam(":id_salle", $_GET['id_salle'], PDO::PARAM_STR);
     $suppression->execute();
 
     $msg .= '<div class="validation bg-success">Suppression du produit : ' . $_GET['id_salle'] . '</div>';
@@ -87,8 +87,8 @@ if (
     }
 
     // controle sur la id salle car elle est unique en BDD
-    $verif_reference = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :salle");
-    $verif_reference->bindParam(':salle', $id_salle, PDO::PARAM_STR);
+    $verif_reference = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :id_salle");
+    $verif_reference->bindParam(':id_salle', $id_salle, PDO::PARAM_STR);
     $verif_reference->execute();
 
     // si on a une ligne, alors la reference existe en bdd
@@ -159,8 +159,8 @@ if (
         $enregistrement->bindParam(":pays", $pays, PDO::PARAM_STR);
         $enregistrement->bindParam(":ville", $ville, PDO::PARAM_STR);
         $enregistrement->bindParam(":adresse", $adresse, PDO::PARAM_STR);
-        $enregistrement->bindParam(":cp", $cp, PDO::PARAM_INT);
-        $enregistrement->bindParam(":capacite", $capacite, PDO::PARAM_INT);
+        $enregistrement->bindParam(":cp", $cp, PDO::PARAM_STR);
+        $enregistrement->bindParam(":capacite", $capacite, PDO::PARAM_STR);
         $enregistrement->bindParam(":categorie", $categorie, PDO::PARAM_STR);
         $enregistrement->execute();
     }
