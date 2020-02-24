@@ -1,9 +1,4 @@
-<?php
-include '../inc/init.inc.php';
-include '../inc/function.inc.php';
 
-include '../inc/nav.inc.php';
-?>
 
 <table class="table table-bordered" style="color:grey">
     <thead>

@@ -1,6 +1,4 @@
 <?php
-include '../inc/init.inc.php';
-include '../inc/function.inc.php';
 
 
 //**********************************************²***********************
@@ -173,7 +171,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 // FIN AFFICHAGE DES PRODUITS
 //***************************
 
-include '../inc/nav.inc.php';
 ?>
 
     <form method="post" action="" enctype="multipart/form-data">
@@ -246,7 +243,3 @@ include '../inc/nav.inc.php';
         ?>
         <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer</button>
     </form>
-<?php
-include '../inc/footer.inc.php'
-
-?>

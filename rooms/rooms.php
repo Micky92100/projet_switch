@@ -1,7 +1,4 @@
 <?php
-include '../inc/init.inc.php';
-include '../inc/function.inc.php';
-
 
 // if(!user_is_admin()) {
 // 	header('location:' . URL . 'login.php');
@@ -283,7 +280,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 
 // }
 
-include '../inc/nav.inc.php';
 ?>
 
 <div class="starter-template">
@@ -415,5 +411,4 @@ include '../inc/nav.inc.php';
         </div>
     </div>
 </div>
-<?php
-require_once '../inc/footer.inc.php';
+

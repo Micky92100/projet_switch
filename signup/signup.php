@@ -1,6 +1,5 @@
 <?php
-include '../inc/init.inc.php';
-include '../inc/function.inc.php';
+
 
 // si l'utilisateur est connecté, on le renvoie sur la page profil
 // if(user_is_connect()) {
@@ -92,8 +91,6 @@ if (
     }
 }
 
-
-include '../inc/nav.inc.php';
 ?>
 
 <div class="starter-template">
@@ -148,6 +145,3 @@ include '../inc/nav.inc.php';
         </form>
     </div>
 </div>
-
-<?php
-include '../inc/footer.inc.php';
