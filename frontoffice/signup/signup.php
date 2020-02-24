@@ -1,6 +1,6 @@
 <?php
 include '../../inc/init.inc.php';
-include '../../inc/fonction.inc.php';
+include '../../inc/function.inc.php';
 
 // si l'utilisateur est connecté, on le renvoie sur la page profil
 // if(user_is_connect()) {

@@ -18,7 +18,7 @@ session_start();
 
 // déclaration de constante
 // URL racine du projet
-define('URL', 'http://localhost/PHP ifocop/PHP/switch/'); // lien absolu racine du projet
+//define('URL', 'http://localhost/PHP ifocop/PHP/switch/'); // lien absolu racine du projet
 // Chemin racine du serveur
 define('SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
 // Chemin racine du dossier du site depuis le serveur

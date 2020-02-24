@@ -1,6 +1,6 @@
 <?php 
 include '../../inc/init.inc.php';
-include '../../inc/fonction.inc.php';
+include '../../inc/function.inc.php';
 
 // restriction d'accès, si l'utilisateur n'est pas connecté, on le renvoie sur login.php
 // if(!user_is_connect()) {
