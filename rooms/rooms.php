@@ -1,6 +1,6 @@
 <?php
-include '../../inc/init.inc.php';
-include '../../inc/function.inc.php';
+include '../inc/init.inc.php';
+include '../inc/function.inc.php';
 
 
 // if(!user_is_admin()) {
@@ -126,7 +126,7 @@ if (
 
             //         // on prépare le chemin où on va enregistrer l'image
             //                $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
-            $photo_dossier = 'img/' . $nom_photo;
+            $photo_dossier = '../img/' . $nom_photo;
             var_dump($photo_dossier);
 
             //         // copy(); permet de copier un fichier depuis un emplacement fourni en premier argument vers un emplacement fourni en deuxième
@@ -254,7 +254,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         echo '<td>' . $id_salle['titre'] . '</td>';
         echo '<td>' . $id_salle['categorie'] . '</td>';
         echo '<td>' . substr($id_salle['description'], 0, 14) . '</td>';
-        echo '<td><img src="img/' . $id_salle['photo'] .
+        echo '<td><img src="../img/' . $id_salle['photo'] .
             '" class="img-thumbnail" width="140"></td>';
         echo '<td>' . $id_salle['pays'] . '</td>';
         echo '<td>' . $id_salle['ville'] . '</td>';
@@ -283,8 +283,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 
 // }
 
-include 'inc/header.inc.php';
-include 'inc/nav.inc.php';
+include '../inc/nav.inc.php';
 ?>
 
 <div class="starter-template">
@@ -311,7 +310,7 @@ include 'inc/nav.inc.php';
                         // if(!empty($photo_actuelle)) {
                         // echo '<div class="form-group text-center">
                         // <label>Photo actuelle</label><hr>
-                        // <img src="' . URL . 'img/' . $photo_actuelle . '" class="w-25 img-thumbnail" alt="image de l\'article">
+                        // <img src="' . URL . '../img/' . $photo_actuelle . '" class="w-25 img-thumbnail" alt="image de l\'article">
                         // <input type="hidden" name="photo_actuelle" value="' . $photo_actuelle . '"></div>';
                         // }
 
@@ -322,7 +321,7 @@ include 'inc/nav.inc.php';
                             <div class="form-group text-center">
                                 <label>Photo actuelle</label>
                                 <hr>
-                                <img src="img/<?php echo $photo_actuelle; ?>" class="w-25 img-thumbnail" alt="image de la salle">
+                                <img src="../img/<?php echo $photo_actuelle; ?>" class="w-25 img-thumbnail" alt="image de la salle">
                                 <input type="hidden" name="photo_actuelle" value="<?php echo $photo_actuelle; ?>">
                             </div>
 
@@ -417,4 +416,4 @@ include 'inc/nav.inc.php';
     </div>
 </div>
 <?php
-require_once '../../inc/footer.inc.php';
+require_once '../inc/footer.inc.php';

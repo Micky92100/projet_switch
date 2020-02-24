@@ -1,3 +1,11 @@
+<head>
+    <title>Switch</title>
+
+    <link href="../css/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../css/shop-homepage.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" rel="stylesheet">
+
+</head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="">Switch</a>
@@ -12,34 +20,34 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../frontoffice/product-details/product-details.php">fiche produit</a>
+                            <a class="nav-link" href="../product-details/product-details.php">fiche produit</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../frontoffice/login/login.php">Connexion</a>
+                            <a class="nav-link" href="../login/login.php">Connexion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../backoffice/user/users.php">gestion membre</a>
+                            <a class="nav-link" href="../users/users.php">gestion membre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../backoffice/rooms/rooms.php">gestion salles</a>
+                            <a class="nav-link" href="../rooms/rooms.php">gestion salles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../backoffice/orders/orders.php">gestion commandes</a>
+                            <a class="nav-link" href="../orders/orders.php">gestion commandes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../backoffice/ratings/ratings.php">gestion avis</a>
+                            <a class="nav-link" href="../ratings/ratings.php">gestion avis</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../backoffice/products/products.php">gestion produits</a>
+                            <a class="nav-link" href="../products/products.php">gestion produits</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../backoffice/stats/stats.php">statistiques</a>
+                            <a class="nav-link" href="../stats/stats.php">statistiques</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../frontoffice/profile/profile.php">Profil</a>
+                            <a class="nav-link" href="../profile/profile.php">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../frontoffice/signup/signup.php">Inscription</a>
+                            <a class="nav-link" href="../signup/signup.php">Inscription</a>
                         </li>
                     </ul>
                 </div>

@@ -32,7 +32,6 @@ if(isset($_GET['categorie'])) {
     }   
 
 var_dump($_GET);
-include 'inc/header.inc.php';
 include 'inc/nav.inc.php';
 ?>
     

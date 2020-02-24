@@ -1,6 +1,6 @@
 <?php
-include '../../inc/init.inc.php';
-include '../../inc/function.inc.php';
+include '../inc/init.inc.php';
+include '../inc/function.inc.php';
 
 
 //**********************************************²***********************
@@ -153,7 +153,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         if ($infos_salle->rowCount() > 0) {
             $salle_actuelle = $infos_salle->fetch(PDO::FETCH_ASSOC);
             echo '<td>' . $salle_actuelle['id_salle'] . ' - ' . $salle_actuelle['titre'] . ' <br> 
-<img src="img/' . $salle_actuelle['photo'] . '" class="img-thumbnail" width="140"></td>';
+<img src="../img/' . $salle_actuelle['photo'] . '" class="img-thumbnail" width="140"></td>';
         }
 
         echo '<td>' . $produit['prix'] . '</td>';
@@ -173,8 +173,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
 // FIN AFFICHAGE DES PRODUITS
 //***************************
 
-include 'inc/header.inc.php';
-include 'inc/nav.inc.php';
+include '../inc/nav.inc.php';
 ?>
 
     <form method="post" action="" enctype="multipart/form-data">
@@ -248,6 +247,6 @@ include 'inc/nav.inc.php';
         <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer</button>
     </form>
 <?php
-include '../../inc/footer.inc.php'
+include '../inc/footer.inc.php'
 
 ?>
