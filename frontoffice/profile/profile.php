@@ -2,9 +2,9 @@
 include '../../inc/init.inc.php';
 include '../../inc/fonction.inc.php';
 
-// restriction d'accès, si l'utilisateur n'est pas connecté, on le renvoie sur connexion.php
+// restriction d'accès, si l'utilisateur n'est pas connecté, on le renvoie sur login.php
 // if(!user_is_connect()) {
-// 	header('location:connexion.php');
+// 	header('location:login.php');
 // }
 
 

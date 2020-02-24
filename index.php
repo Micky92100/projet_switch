@@ -92,7 +92,7 @@ include 'inc/nav.inc.php';
 					echo 'Prix : <b>' . $salle['prix'] . '€</b></p>';
 					
 					// bouton voir la fiche article
-					echo '<a href="fiche_produit.php?id_salle=' . $salle['id_salle'] . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
+					echo '<a href="product-details.php?id_salle=' . $salle['id_salle'] . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
 					
 					echo '</div>';					
 				}

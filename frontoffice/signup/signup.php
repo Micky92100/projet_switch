@@ -4,7 +4,7 @@ include '../../inc/fonction.inc.php';
 
 // si l'utilisateur est connecté, on le renvoie sur la page profil
 // if(user_is_connect()) {
-// 	header('location:profil.php');
+// 	header('location:profile.php');
 // }
 var_dump($_POST);
 

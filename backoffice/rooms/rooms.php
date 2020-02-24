@@ -4,7 +4,7 @@ include '../../inc/fonction.inc.php';
 
 
 // if(!user_is_admin()) {
-// 	header('location:' . URL . 'connexion.php');
+// 	header('location:' . URL . 'login.php');
 // 	exit(); // bloque l'exécution du code 
 // }
 var_dump($_POST);
