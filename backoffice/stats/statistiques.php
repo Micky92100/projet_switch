@@ -1,9 +1,9 @@
 <?php
-include 'inc/init.inc.php';
-include 'inc/fonction.inc.php';
+include '../../inc/init.inc.php';
+include '../../inc/fonction.inc.php';
 
-include 'inc/header.inc.php';
-include 'inc/nav.inc.php';
+include '../../inc/header.inc.php';
+include '../../inc/nav.inc.php';
 ?>
 
 <table class="table table-striped">
@@ -43,6 +43,6 @@ include 'inc/nav.inc.php';
   </tbody>
 </table>
 <?php
-include 'inc/footer.inc.php'
+include '../../inc/footer.inc.php'
 
 ?>

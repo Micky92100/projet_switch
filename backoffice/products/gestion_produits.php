@@ -1,6 +1,6 @@
 <?php
-include 'inc/init.inc.php';
-include 'inc/fonction.inc.php';
+include '../../inc/init.inc.php';
+include '../../inc/fonction.inc.php';
 
 
 //**********************************************²***********************
@@ -248,6 +248,6 @@ include 'inc/nav.inc.php';
         <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer</button>
     </form>
 <?php
-include 'inc/footer.inc.php'
+include '../../inc/footer.inc.php'
 
 ?>

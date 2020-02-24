@@ -1,6 +1,6 @@
 <?php
-include 'inc/init.inc.php';
-include 'inc/fonction.inc.php';
+include '../../inc/init.inc.php';
+include '../../inc/fonction.inc.php';
 
 
 // if(!user_is_admin()) {
@@ -417,4 +417,4 @@ include 'inc/nav.inc.php';
     </div>
 </div>
 <?php
-require_once 'inc/footer.inc.php';
+require_once '../../inc/footer.inc.php';

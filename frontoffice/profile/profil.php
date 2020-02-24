@@ -1,6 +1,6 @@
 <?php 
-include 'inc/init.inc.php';
-include 'inc/fonction.inc.php';
+include '../../inc/init.inc.php';
+include '../../inc/fonction.inc.php';
 
 // restriction d'accès, si l'utilisateur n'est pas connecté, on le renvoie sur connexion.php
 // if(!user_is_connect()) {
@@ -10,8 +10,8 @@ include 'inc/fonction.inc.php';
 
 
 
-include 'inc/header.inc.php';
-include 'inc/nav.inc.php';
+include '../../inc/header.inc.php';
+include '../../inc/nav.inc.php';
 // echo '<pre>'; var_dump($_SESSION); echo '</pre>';
 ?>
 
@@ -54,7 +54,7 @@ include 'inc/nav.inc.php';
 					</ul>
 				</div>
 				<div class="col-6">
-					<img src="img/selfie.jpg" alt="image profil" class="img-thumbnail w-100">
+					<img src="../../img/selfie.jpg" alt="image profil" class="img-thumbnail w-100">
 				</div>
 			</div>
 		</div>
@@ -62,4 +62,4 @@ include 'inc/nav.inc.php';
 
 
 <?php 
-include 'inc/footer.inc.php';
+include '../../inc/footer.inc.php';

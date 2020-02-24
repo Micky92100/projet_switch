@@ -12,34 +12,34 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../fiche_produit.php">fiche produit</a>
+                            <a class="nav-link" href="../frontoffice/product-detail/fiche_produit.php">fiche produit</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../connexion.php">Connexion</a>
+                            <a class="nav-link" href="../frontoffice/login/connexion.php">Connexion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../gestion_membre.php">gestion membre</a>
+                            <a class="nav-link" href="../backoffice/user/gestion_membre.php">gestion membre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../gestion_salles.php">gestion salles</a>
+                            <a class="nav-link" href="../backoffice/rooms/gestion_salles.php">gestion salles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../gestion_commandes.php">gestion commandes</a>
+                            <a class="nav-link" href="../backoffice/orders/gestion_commandes.php">gestion commandes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../gestion_avis.php">gestion avis</a>
+                            <a class="nav-link" href="../backoffice/ratings/gestion_avis.php">gestion avis</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../gestion_produits.php">gestion produits</a>
+                            <a class="nav-link" href="../backoffice/products/gestion_produits.php">gestion produits</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../statistiques.php">statistiques</a>
+                            <a class="nav-link" href="../backoffice/stats/statistiques.php">statistiques</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../profil.php">Profil</a>
+                            <a class="nav-link" href="../frontoffice/profile/profil.php">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../inscription.php">Inscription</a>
+                            <a class="nav-link" href="../frontoffice/signup/inscription.php">Inscription</a>
                         </li>
                     </ul>
                 </div>
