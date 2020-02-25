@@ -81,7 +81,7 @@ VALUES (:id_produit, :id_salle, :date_arrivee, :date_depart, :prix, :etat)");
 // MODIFICATION : RECUPERATION DES INFOS DE L'ARTICLE EN BDD
 //*********************************************************************
 
-if (isset($_GET['action']) && $_GET['action'] == 'modifier' && !empty($_GET['id_produit'])) {
+if (isset($_GET['action']) && $_GET['action'] == 'edit' && !empty($_GET['id_produit'])) {
 
     $infos_produit = $pdo->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
     $infos_produit->bindParam(":id_produit", $_GET['id_produit'], PDO::PARAM_INT);
@@ -104,13 +104,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'modifier' && !empty($_GET['id_
 // AFFICHAGE DES ARTICLES
 //***************************
 ?>
+
+<?php $title = 'Gestion produits';?>
     <div class="starter-template">
         <h1><i class="fas fa-ghost" style="color: #4c6ef5;"></i> Gestion produit <i class="fas fa-ghost"
                                                                                     style="color: #4c6ef5;"></i></h1>
         <p class="lead"><?php echo $msg; ?></p>
 
         <p class="text-center">
-            <a href="?action=ajouter" class="btn btn-outline-danger">Ajout produit</a>
+            <a href="?action=add" class="btn btn-outline-danger">Ajout produit</a>
             <a href="?action=affichage" class="btn btn-outline-primary">Affichage produit</a>
         </p>
 
@@ -157,7 +159,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'affichage') {
         echo '<td>' . $produit['prix'] . '</td>';
         echo '<td>' . $produit['etat'] . '</td>';
 
-        echo '<td><a href="?action=modifier&id_produit=' . $produit['id_produit'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
+        echo '<td><a href="?action=edit&id_produit=' . $produit['id_produit'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
 
         echo '<td><a href="?action=supprimer&id_produit=' . $produit['id_produit'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
 

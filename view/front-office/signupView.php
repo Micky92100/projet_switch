@@ -3,7 +3,7 @@
 
 // si l'utilisateur est connecté, on le renvoie sur la page profil
 // if(user_is_connect()) {
-// 	header('location:profile.php');
+// 	header('location:profileView.php');
 // }
 var_dump($_POST);
 

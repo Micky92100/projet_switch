@@ -1,9 +1,9 @@
 <?php
 
 
-// restriction d'accès, si l'utilisateur n'est pas connecté, on le renvoie sur login.php
+// restriction d'accès, si l'utilisateur n'est pas connecté, on le renvoie sur loginView.php
 // if(!user_is_connect()) {
-// 	header('location:login.php');
+// 	header('location:loginView.php');
 // }
 
 

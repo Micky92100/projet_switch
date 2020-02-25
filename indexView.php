@@ -8,7 +8,7 @@
                 <!--------------------->
                 <!-- ADVANCED SEARCH -->
                 <!--------------------->
-                <form method="post" action="model.php">
+                <form method="post" action="model/model.php">
                     <label for="category">Catégories</label>
                     <select name="category" id="category" class="form-control">
                         <option value="1">Réunion</option>
@@ -50,7 +50,7 @@
                         echo '<h5>' . htmlspecialchars($room['titre']) . '</h5>';
                         echo '<img src="img/' . htmlspecialchars($room['photo']) . '" alt="' . htmlspecialchars($room['titre']) . '" class="img-thumbnail w-100">';
                         echo '<p>Catégorie : <b>' . htmlspecialchars($room['categorie']) . '</b><br>';
-                        echo '<a href="product-details.php?id_salle=' . htmlspecialchars($room['id_salle']) . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
+                        echo '<a href="productDetailsView.php?id_salle=' . htmlspecialchars($room['id_salle']) . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
                         echo '</div>';
                     }
                     ?>
@@ -60,40 +60,4 @@
     </div>
 <?php $content = ob_get_clean(); ?>
 
-<?php
-$backOfficeAdmin = null;
-?>
-
-<?php
-if (!user_is_admin()) { // TODO invert that condition once security is implemented
-    ?>
-    <?php ob_start(); ?>
-
-    <li class="nav-item">
-        <a class="nav-link">|</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="users/users.php">Membres</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="rooms/rooms.php">Salles</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="orders/orders.php">Commandes</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="ratings/ratings.php">Avis</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="products/products.php">Produits</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="stats/stats.php">Statistiques</a>
-    </li>
-    <?php $backOfficeAdmin = ob_get_clean(); ?>
-    <?php
-}
-?>
-
-
-<?php require('template.php'); ?>
+<?php require('view/template/template.php'); ?>
