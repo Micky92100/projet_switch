@@ -6,3 +6,6 @@ require('model.php');
 $rooms_list = tabulateAllRooms();
 require('indexView.php');
 
+
+
+

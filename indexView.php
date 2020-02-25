@@ -2,9 +2,6 @@
 
 <?php ob_start(); ?>
     <div class="m-3" id="main">
-        <div class="starter-template">
-            <h1>Accueil</h1>
-        </div>
         <div class="row">
             <div class="col-sm-3">
 
@@ -62,5 +59,41 @@
         </div>
     </div>
 <?php $content = ob_get_clean(); ?>
+
+<?php
+$backOfficeAdmin = null;
+?>
+
+<?php
+if (!user_is_admin()) { // TODO invert that condition once security is implemented
+    ?>
+    <?php ob_start(); ?>
+
+    <li class="nav-item">
+        <a class="nav-link">|</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="users/users.php">Membres</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="rooms/rooms.php">Salles</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="orders/orders.php">Commandes</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="ratings/ratings.php">Avis</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="products/products.php">Produits</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="stats/stats.php">Statistiques</a>
+    </li>
+    <?php $backOfficeAdmin = ob_get_clean(); ?>
+    <?php
+}
+?>
+
 
 <?php require('template.php'); ?>

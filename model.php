@@ -37,8 +37,7 @@ function tabulateAllRooms()
 {
     $pdo = dbConnect();
 
-    $rooms_list = $pdo->query("SELECT * FROM salle");
-    return $rooms_list;
+    return $pdo->query("SELECT * FROM salle");
 }
 
 
