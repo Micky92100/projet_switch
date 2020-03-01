@@ -50,7 +50,7 @@
                         echo '<h5>' . htmlspecialchars($room['titre']) . '</h5>';
                         echo '<img src="img/' . htmlspecialchars($room['photo']) . '" alt="' . htmlspecialchars($room['titre']) . '" class="img-thumbnail w-100">';
                         echo '<p>Catégorie : <b>' . htmlspecialchars($room['categorie']) . '</b><br>';
-                        echo '<a href="productDetailsView.php?id_salle=' . htmlspecialchars($room['id_salle']) . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
+                        echo '<a href="?action=editRoom&room-id=' . htmlspecialchars($room['id_salle']) . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
                         echo '</div>';
                     }
                     ?>

@@ -13,8 +13,9 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
         <a class="nav-link" href="/view/back-office/usersView.php">Membres</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/roomsView.php">Salles</a>
+        <a class="nav-link" href="?action=listRooms">Salles</a>
     </li>
+    <a href="?action=add"></a>
     <li class="nav-item">
         <a class="nav-link" href="/view/back-office/ordersView.php">Commandes</a>
     </li>
@@ -57,7 +58,7 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/index.php">Home</a>
+                        <a class="nav-link" href="../../index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/view/front-office/loginView.php">Connexion</a>
@@ -82,7 +83,12 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
 <!-- CONTENT -->
 <!------------->
 <body>
-<p id="phpMsg"><?= $msg ?></p>
+<!--<p id="phpMsg">--><? //= $msg ?><!--</p>-->
+<?php echo '$_GET = ';
+var_dump($_GET);
+echo '<br>';
+echo '$_POST = ';
+var_dump($_POST); ?>
 <?= $content ?>
 </body>
 <!------------->
