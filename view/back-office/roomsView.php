@@ -43,7 +43,7 @@
                 echo '<td>' . $room['id_salle'] . '</td>';
                 echo '<td>' . $room['titre'] . '</td>';
                 echo '<td>' . $room['categorie'] . '</td>';
-                echo '<td>' . substr($room['description'], 0, 14) . '...</td>';
+                echo '<td>' . substr($room['description'], 0, 30) . '...</td>';
                 echo '<td><img src="../../img/' . $room['photo'] . '" class="img-thumbnail" width="140" alt="' . $room['description'] . '"></td>';
                 echo '<td>' . $room['pays'] . '</td>';
                 echo '<td>' . $room['ville'] . '</td>';
@@ -72,7 +72,6 @@ $current_img = '';
 $zip = '';
 $capacity = '';
 $category = '';
-var_dump($current_room);
 
 if (!empty($current_room)) {
     $room_id = $current_room['id_salle'];
@@ -93,7 +92,7 @@ if (!empty($current_room)) {
     <div class="starter-template">
         <div class="row">
             <div class="col-12">
-                <form method="post" action="../../index.php" enctype="multipart/form-data">
+                <form method="post" action="?action=editRoom&amp;room-id=<?= $room_id ?>" enctype="multipart/form-data">
                     <input type="hidden" name="room-id" value="<?php echo $room_id; ?>">
                     <div class="row">
                         <div class="col-6">
@@ -190,7 +189,7 @@ if (!empty($current_room)) {
                                 </select>
                             </div>
                             <div class="form-group col-2">
-                                <button type="submit" id="save" class="form-control btn btn-outline-dark">OK</button>
+                                <button type="submit" class="form-control btn btn-outline-dark">OK</button>
                             </div>
                         </div>
                     </div>

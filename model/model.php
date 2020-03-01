@@ -44,11 +44,11 @@ function getRoomForUpdate($room_id)
 {
     $pdo = dbConnect();
 
-    $current_room = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :room_id");
-    $current_room->bindparam(":room_id", $room_id, PDO::PARAM_INT);
+    $current_room = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :roomId");
+    $current_room->bindparam(":roomId", $room_id, PDO::PARAM_INT);
     $current_room->execute();
 
-    var_dump($current_room);
+//    var_dump($current_room);
 
     if ($current_room->rowCount() > 0) {
         return $current_room->fetch(PDO::FETCH_ASSOC);
@@ -59,8 +59,8 @@ function deleteRoom()
 {
     $pdo = dbConnect();
 
-    $del = $pdo->prepare("DELETE FROM salle WHERE id_salle = :room-id");
-    $del->bindParam(":room-id", $_GET['room-id'], PDO::PARAM_INT);
+    $del = $pdo->prepare("DELETE FROM salle WHERE id_salle = :roomId");
+    $del->bindParam(":roomId", $_GET['room-id'], PDO::PARAM_INT);
     $del->execute();
 
     $_GET['action'] = 'listRooms';
@@ -70,7 +70,7 @@ function saveOrUpdateRoom()
 {
     $pdo = dbConnect();
 
-    $room_id = trim($_POST['room-id']);
+    $room_id = trim($_GET['room-id']);
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
     $country = trim($_POST['country']);
@@ -88,8 +88,8 @@ function saveOrUpdateRoom()
     }
 
     // controle sur la id salle car elle est unique en BDD
-    $ref_check = $pdo->prepare("SELECT * FROM salle WHERE id_salle = 1");
-    $ref_check->bindParam(':room-id', $room_id, PDO::PARAM_INT);
+    $ref_check = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :roomId");
+    $ref_check->bindParam(':roomId', $room_id, PDO::PARAM_INT);
     $ref_check->execute();
 
     // si on a une ligne, alors la reference existe en bdd
@@ -105,7 +105,7 @@ function saveOrUpdateRoom()
             $extension = strrchr($_FILES['photo']['name'], '.');
             // strrchr() découpe une chaine fournie en premier argument en partant de la fin. On remonte jusqu'au caractère fourni en deuxième argument et on récupère tout depuis ce caractère.
             // exemple strrchr('image.png', '.'); => on récupère .png
-            var_dump($extension);
+//            var_dump($extension);
 
             // on enlève le point et on passe l'extension en minuscule pour pouvoir la comparer.
             $extension = strtolower(substr($extension, 1));
@@ -128,12 +128,12 @@ function saveOrUpdateRoom()
                 // on prépare le chemin où on va enregistrer l'image
                 // $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
                 $img_file = '../img/' . $img_name;
-                var_dump($img_file);
+//                var_dump($img_file);
 
                 // copy(); permet de copier un fichier depuis un emplacement fourni en premier argument vers un emplacement fourni en deuxième
                 copy($_FILES['photo']['tmp_name'], $img_file);
             } else {
-                $msg = '<div class="alert alert-danger mt-3">Attention, le format de la photo est invalide, extensions autorisées : jpg, jpeg, png, gif.</div>';
+                $msg = '<div class="alert alert-danger mt-3">Attention, le format description de la photo est invalide, extensions autorisées : jpg, jpeg, png, gif.</div>';
             }
         }
     }
@@ -142,15 +142,17 @@ function saveOrUpdateRoom()
     if (empty($msg)) {
         if (!empty($room_id)) {
             // si $id_salle n'est pas vide c'est un UPDATE
-            $save = $pdo->prepare("UPDATE salle SET titre = :title, description = :description, photo = :img, pays = :country, ville = :city, adresse = :address, cp = :zip, capacite = :capacity,  categorie = :category WHERE id_salle = :room-id");
-            // on rajoute le bindParam pour l'id_salle car => modification
-            $save->bindParam(":room-id", $room_id, PDO::PARAM_INT);
+            $save = $pdo->prepare("UPDATE salle SET titre = :title, photo = :img, description = :description, pays = :country, ville = :city, adresse = :address, cp = :zip, capacite = :capacity, categorie = :category WHERE id_salle = :roomId");
+            // on rajoute le bindParam pour l'room_id car => modification
+            $save->bindParam(":roomId", $room_id, PDO::PARAM_INT);
+
         } else {
             // sinon un INSERT
             $save = $pdo->prepare("INSERT INTO salle
-         (titre, categorie, description, photo, pays, ville, adresse, cp, capacite) 
-        VALUES (:title, :category, :description, :img, :country, :city, :address, :zip, :capacity)");
+    (titre, categorie, description, photo, pays, ville, adresse, cp, capacite)
+    VALUES (:title, :category, :description, :img, :country, :city, :address, :zip, :capacity)");
         }
+
         $save->bindParam(":title", $title, PDO::PARAM_STR);
         $save->bindParam(":category", $category, PDO::PARAM_STR);
         $save->bindParam(":description", $description, PDO::PARAM_STR);
@@ -161,7 +163,7 @@ function saveOrUpdateRoom()
         $save->bindParam(":zip", $zip, PDO::PARAM_INT);
         $save->bindParam(":capacity", $capacity, PDO::PARAM_INT);
         $save->execute();
-        $_GET['action'] = 'listRooms';
+
     } else {
         return $msg;
     }

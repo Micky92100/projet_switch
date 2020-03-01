@@ -5,7 +5,7 @@
 // if(user_is_connect()) {
 // 	header('location:profileView.php');
 // }
-var_dump($_POST);
+//var_dump($_POST);
 
 $pseudo = '';
 $mdp = '';
