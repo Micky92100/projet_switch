@@ -83,7 +83,9 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
 <!-- CONTENT -->
 <!------------->
 <body>
-<!--<p id="phpMsg">--><? //= $msg ?><!--</p>-->
+<p id="phpMsg"><?php if (!empty($msg)) {
+        echo $msg;
+    } ?></p>
 <?php echo '$_GET = ';
 var_dump($_GET);
 echo '<br>';

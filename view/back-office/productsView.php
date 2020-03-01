@@ -9,7 +9,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'supprimer' && !empty($_GET['id
     $del->bindParam(":id_produit", $_GET['id_produit'], PDO::PARAM_INT);
     $del->execute();
 
-    $msg .= '<div class="validation bg-success">Suppression du produit : ' . $_GET['id_produit'] . '</div>';
+    $msg = '<div class="validation bg-success">Suppression du produit : ' . $_GET['id_produit'] . '</div>';
     $_GET['action'] = 'affichage';
 }
 //*********************************************************************
@@ -43,7 +43,7 @@ if (
     $etat = trim($_POST['etat']);
 
     if (empty($prix) || !is_numeric($prix)) {
-        $msg .= '<div class="alert alert-danger mt-3">Attention, le tarif est obligatoire et doit être numérique.</div>';
+        $msg = '<div class="alert alert-danger mt-3">Attention, le tarif est obligatoire et doit être numérique.</div>';
     }
 
     $verif_reference = $pdo->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
@@ -51,7 +51,7 @@ if (
     $verif_reference->execute();
 
     if ($verif_reference->rowCount() > 0 && empty($id_produit)) {
-        $msg .= '<div class="alert alert-danger mt-3">Attention, référence indisponible car déjà attribuée.</div>';
+        $msg = '<div class="alert alert-danger mt-3">Attention, référence indisponible car déjà attribuée.</div>';
     }
 
     if (empty($msg)) {
