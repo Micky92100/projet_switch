@@ -23,6 +23,7 @@ function showRoom($room_id)
 function getDeleteRoom()
 {
     deleteRoom();
+    $rooms_list = getAllRooms();
     require('view/back-office/roomsView.php');
 }
 

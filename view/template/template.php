@@ -88,7 +88,10 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
 var_dump($_GET);
 echo '<br>';
 echo '$_POST = ';
-var_dump($_POST); ?>
+var_dump($_POST);
+echo '<br>';
+echo '$_FILES = ';
+var_dump($_FILES);?>
 <?= $content ?>
 </body>
 <!------------->

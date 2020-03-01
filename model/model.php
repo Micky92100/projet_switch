@@ -62,8 +62,6 @@ function deleteRoom()
     $del = $pdo->prepare("DELETE FROM salle WHERE id_salle = :roomId");
     $del->bindParam(":roomId", $_GET['room-id'], PDO::PARAM_INT);
     $del->execute();
-
-    $_GET['action'] = 'listRooms';
 }
 
 function saveOrUpdateRoom()
@@ -99,10 +97,10 @@ function saveOrUpdateRoom()
     } else {
         // vérification du format de l'image, formats accèptés : jpg, jpeg, png, gif
         // est-ce qu'une image a été posté :
-        if (!empty($_FILES['photo']['name'])) {
+        if (!empty($_FILES['img']['name'])) {
 
             // on vérifie le format de l'image en récupérant son extension
-            $extension = strrchr($_FILES['photo']['name'], '.');
+            $extension = strrchr($_FILES['img']['name'], '.');
             // strrchr() découpe une chaine fournie en premier argument en partant de la fin. On remonte jusqu'au caractère fourni en deuxième argument et on récupère tout depuis ce caractère.
             // exemple strrchr('image.png', '.'); => on récupère .png
 //            var_dump($extension);
@@ -121,17 +119,17 @@ function saveOrUpdateRoom()
             if ($check_extension) {
 
                 // pour ne pas écraser une image du même nom, on renomme l'image en rajoutant la référence qui est une information unique
-                $img_name = $_FILES['photo']['name'];
+                $img_name = $_FILES['img']['name'];
 
                 $db_img = $img_name; // représente l'insertion en BDD
 
                 // on prépare le chemin où on va enregistrer l'image
                 // $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
-                $img_file = '../img/' . $img_name;
+                $img_file = 'img/' . $img_name;
 //                var_dump($img_file);
 
                 // copy(); permet de copier un fichier depuis un emplacement fourni en premier argument vers un emplacement fourni en deuxième
-                copy($_FILES['photo']['tmp_name'], $img_file);
+                copy($_FILES['img']['tmp_name'], $img_file);
             } else {
                 $msg = '<div class="alert alert-danger mt-3">Attention, le format description de la photo est invalide, extensions autorisées : jpg, jpeg, png, gif.</div>';
             }

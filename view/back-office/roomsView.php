@@ -52,7 +52,7 @@
                 echo '<td>' . $room['capacite'] . '</td>';
 
                 echo '<td><a href="?action=editRoom&room-id=' . $room['id_salle'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
-                echo '<td><a href="?action=deleteRoom&room_id=' . $room['id_salle'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
+                echo '<td><a href="?action=deleteRoom&room-id=' . $room['id_salle'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
                 echo '</tr>';
             }
             ?>
