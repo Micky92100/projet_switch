@@ -79,7 +79,7 @@ if (
             $enregistrement = $pdo->prepare("INSERT INTO membre 
             (pseudo, mdp, nom, prenom, email, civilite, statut,date_enregistrement)
              VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, 1,NOW())");
-           
+
             $enregistrement->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
             $enregistrement->bindParam(':mdp', $mdp, PDO::PARAM_STR);
             $enregistrement->bindParam(':nom', $nom, PDO::PARAM_STR);
@@ -93,17 +93,11 @@ if (
 
 ?>
 
-<div class="starter-template">
-    <h1><i style="color: #4c6ef5;"></i> Inscription <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
-    <p class="lead"><?php echo $msg; ?></p>
-</div>
-
 <div class="row">
     <div class="col-12">
-        <form method="post" action="">
+        <form method="post" action=""><!--TODO fill out action-->
             <div class="row">
                 <div class="col-6">
-
                     <div class="form-group">
                         <label for="pseudo">Pseudo</label>
                         <input type="text" name="pseudo" id="pseudo" value="<?php echo $pseudo; ?>" class="form-control">

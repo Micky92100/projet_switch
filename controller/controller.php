@@ -34,3 +34,13 @@ function saveRoom() {
     $rooms_list = getAllRooms();
     require('view/back-office/roomsView.php');
 }
+
+function getSignUp() {
+
+    require('view/front-office/signupView.php');
+}
+
+function getLogin() {
+
+    require('view/front-office/loginView.php');
+}

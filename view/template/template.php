@@ -61,10 +61,10 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
                         <a class="nav-link" href="../../index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/view/front-office/loginView.php">Connexion</a>
+                        <a class="nav-link" href="?action=login">Connexion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/view/front-office/signupView.php">Inscription</a>
+                        <a class="nav-link" href="?action=signup">Inscription</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/view/front-office/profileView.php">Profil</a>

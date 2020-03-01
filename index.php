@@ -19,8 +19,12 @@ if (
     getDeleteRoom();
 } else if (isset($_GET['action']) && $_GET['action'] == 'listRooms') {
     listRooms();
-} /*else if (isset($_GET['action']) && $_GET['action'] == 'home') {
+} else if (isset($_GET['action']) && $_GET['action'] == 'home') {
     listRoomsIndex();
-}*/ else {
+} else if (isset($_GET['action']) && $_GET['action'] == 'signup') {
+    getSignUp();
+}else if (isset($_GET['action']) && $_GET['action'] == 'login') {
+    getLogin();
+} else {
     listRoomsIndex();
 }
