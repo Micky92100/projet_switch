@@ -2,6 +2,8 @@
 include '../inc/init.inc.php';
 include '../inc/function.inc.php';
 
+//********
+
 
 //**********************************************²***********************
 // SUPPRESSION D'UN ARTICLE
@@ -47,6 +49,12 @@ if (
     if (empty($prix) || !is_numeric($prix)) {
         $msg .= '<div class="alert alert-danger mt-3">Attention, le tarif est obligatoire et doit être numérique.</div>';
     }
+
+    if ($date_arrivee > $date_depart){
+        $msg .= '<div class="alert alert-danger mt-3">Votre date de départ précéde votre date d\'arrivée</div>';
+    }
+
+
 
     $verif_reference = $pdo->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
     $verif_reference->bindParam(':id_produit', $id_produit, PDO::PARAM_INT);
