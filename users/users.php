@@ -11,7 +11,7 @@ include '../inc/nav.inc.php';
 // 	header('location:' . URL . 'login.php');
 // 	exit(); // bloque l'exécution du code 
 // }
-// var_dump($_POST);
+var_dump($_POST);
 //Affichage des membres et modif/suppr*****************************
 $liste_membre = $pdo->query("SELECT *  FROM membre");
 

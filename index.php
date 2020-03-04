@@ -3,27 +3,73 @@ include 'inc/init.inc.php';
 include 'inc/function.inc.php';
 ?>
 
-    <br>
-    <br>
-    <br>
+<br>
+<br>
+<br>
 
 
-    <!--refaire la requçte pour afficher les produit(enjointure vers salle et en jointure)
+<!--refaire la requçte pour afficher les produit(enjointure vers salle et en jointure)
     et effectuer pour le formuliare-->
 <?php
 // récupération des catégories en BDD
 
 
 // Récupération des titre en BDD
-$liste_produit = $pdo->query("SELECT salle.id_salle, titre, description, photo, prix, date_arrivee, date_depart FROM salle, produit
+if (isset($_GET['action']) && $_GET['action'] == 'plus') {
+    $liste_produit = $pdo->query("SELECT salle.id_salle, titre, description, photo, prix, date_arrivee, date_depart FROM salle, produit
 WHERE produit.id_salle = salle.id_salle AND date_arrivee > NOW()");
+} else {
+    $liste_produit = $pdo->query("SELECT id_produit, prix, date_arrivee, date_depart, titre, description, photo FROM produit, salle 
+                                         WHERE produit.id_salle = salle.id_salle 
+                                         AND etat = 'libre'
+                                         AND date_arrivee >= NOW()
+                                         LIMIT 0,6");
+}
 
+
+
+// $_GET['action'] = 'affichage';
+
+// création de variables vides pour receuillir les données du formulaire
+$categorie = '';
+$ville = '';
+$capacite = '';
+$prix = '';
+$date_arrivee = '';
+$date_depart = '';   
 $nbre_salle = $liste_produit->rowCount();
 
 
-$id_salle = '';    // pour la modification
+// recuperation des données du formulaire et enregaistrements dans des variables
+if (isset($_POST) && !empty($_POST)) {
+    $categorie = $_POST['category'];
+    $ville = $_POST['city'];
+    $capacite = $_POST['capacity'];
+    $prix = $_POST['price'];
+    $date_arrivee = $_POST['arrival'];
+    $date_depart = $_POST['departure'];
 
-$_GET['action'] = 'affichage';
+    $liste_prod_filtre = $pdo->prepare("SELECT id_produit, prix, date_arrivee, date_depart, titre, description, photo 
+    FROM produit, salle 
+    WHERE produit.id_salle = salle.id_salle
+    AND categorie = :categorie
+    AND ville = :ville
+    AND capacite >= :capacite
+    AND prix <= :prix
+    AND date_arrivee >= :date_arrivee
+    AND date_arrivee >= NOW()
+    AND date_depart <= :date_depart
+    AND etat = 'libre'");
+    $liste_prod_filtre->bindParam(":categorie", $categorie, PDO::FETCH_ASSOC);
+    $liste_prod_filtre->bindParam(":ville", $ville, PDO::FETCH_ASSOC);
+    $liste_prod_filtre->bindParam(":capacite", $capacite, PDO::FETCH_ASSOC);
+    $liste_prod_filtre->bindParam(":prix", $prix, PDO::FETCH_ASSOC);
+    $liste_prod_filtre->bindParam(":date_arrivee", $date_arrivee, PDO::FETCH_ASSOC);
+    $liste_prod_filtre->bindParam(":date_depart", $date_depart, PDO::FETCH_ASSOC);
+    $liste_prod_filtre->execute();
+
+    $nbre_salle= $liste_prod_filtre->rowCount();
+}
 
 ?>
 
@@ -39,21 +85,22 @@ $_GET['action'] = 'affichage';
 //     $liste_produit = $pdo->query("SELECT * FROM salle ORDER BY titre");
 //     }   
 
-var_dump($_GET);
+var_dump($liste_produit);
 include 'inc/nav.inc.php';
 ?>
 
-    <div class="starter-template">
-        <h1><i style="color: #4c6ef5;"></i> Accueil <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
-        <p class="lead"><?php echo $msg; ?></p>
-    </div>
+<div class="starter-template">
+    <h1><i style="color: #4c6ef5;"></i> Accueil <i class="fas fa-ghost" style="color: #4c6ef5;"></i></h1>
+    <p class="lead"><?php echo $msg; ?></p>
+</div>
 
-    <div class="row">
+<div class="row">
     <div class="col-3">
         <!--------------------->
         <!-- ADVANCED SEARCH -->
         <!--------------------->
-        <form><!-- method="post" action="model/model.php"-->
+        <!--- Requete reliées avec les names du formulaire-->
+        <form method="post" action="">
             <label for="category">Catégories</label>
             <select name="category" id="category" class="form-control">
                 <option value="1">Réunion</option>
@@ -83,6 +130,9 @@ include 'inc/nav.inc.php';
             <button type="submit" class="btn-primary form-control">Rechercher</button>
             <button type="reset" class="btn-danger form-control">Réinitialiser</button>
         </form>
+        <div>
+            <p><?php echo $nbre_salle; ?> résultats</p>
+        </div>
         <!--------------------->
         <!-- ADVANCED SEARCH -->
         <!--------------------->
@@ -98,12 +148,12 @@ include 'inc/nav.inc.php';
 
             echo '<p>Nombre d\'article : <b>' . $nbre_salle . '</b></p>';
 
-
-            while ($produit = $liste_produit->fetch(PDO::FETCH_ASSOC)) {
+            if (isset($_POST) && !empty($_POST)) {
+            while ($produit = $liste_prod_filtre->fetch(PDO::FETCH_ASSOC)) {
 
                 echo '<tr>';
                 echo '<pre>';
-                var_dump($produit);
+                // var_dump($produit);
                 echo '</pre><hr>';
                 echo '<div class="col-sm-3 text-center p-2">';
 
@@ -117,15 +167,27 @@ include 'inc/nav.inc.php';
 
                 echo '<h5>' . $produit['date_arrivee'] . 'au' . $produit['date_depart'] . '"</h5>';
 
-                // bouton voir la fiche article
-                echo '<a href="product-details.php?id_salle=' . $produit['id_salle'] . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
-                echo '<td><a href="?action=modifier&id_salle=' . $produit['id_salle'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
+                // bouton voir la fiche produit
+                echo '<a href="product-details.php?id_salle=' . $produit['id_produit'] . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
+                echo '<td><a href="?action=modifier&id_salle=' . $produit['id_produit'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
 
-                echo '<td><a href="?action=supprimer&id_salle=' . $produit['id_salle'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
+                echo '<td><a href="?action=supprimer&id_salle=' . $produit['id_produit'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
 
                 echo '</tr>';
                 echo '</div>';
             }
+        } else {
+            while ($produit = $liste_produit->fetch(PDO::FETCH_ASSOC)) {
+
+                echo '<div class="col-3 text-center m-1 border rounded border-primary">';
+                echo '<img src="img/' . $produit['photo'] . '" class="img-thumbnail" width="100%"></div>';
+                echo '<p>' . $produit['titre'] . ' : ' . $produit['prix'] . '</p>';
+                echo '<p style="overflow: hidden">' . $produit['description'] . '</p>';
+                echo '<p><i class="far fa-calendar-alt"></i>' . $produit['date_arrivee'] . ' au ' . $produit['date_depart'] . '</p>';
+                echo '<a href="fiche_produit.php?id_produit=' . $produit['id_produit'] . '" class="btn btn-primary"><i class="fas fa-search">Voir</i></a>';
+                echo '</div>';
+            }
+        }
             // }
             //     ///////////////////////FIN AFFICHAGE ARTICLES////////////////////////
 
@@ -158,5 +220,5 @@ include 'inc/nav.inc.php';
 </div> -->
     <!-- /.container -->
 
-<?php
+    <?php
 //include 'inc/footer.inc.php';
