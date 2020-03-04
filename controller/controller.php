@@ -2,9 +2,9 @@
 <?php
 require('model/model.php');
 
-function listRoomsIndex()
+function listProductsIndex()
 {
-    $rooms_list = getAllRooms();
+    $products_list = getAllProducts();
     require('indexView.php');
 }
 function listRooms()
@@ -56,4 +56,8 @@ function doSignUp() {
 function getLogin() {
 
     require('view/front-office/loginView.php');
+}
+function searchProducts(){
+    $products_list = getSearchedProducts();
+    require('indexView.php');
 }

@@ -23,8 +23,6 @@ if (isset($_GET['action'])) {
         getDeleteRoom();
     } else if ($_GET['action'] == 'listRooms') {
         listRooms();
-    } else if ($_GET['action'] == 'home') {
-        listRoomsIndex();
     } else if ($_GET['action'] == 'signup') {
         if (isset($_POST['pseudo']) &&
             isset($_POST['mdp']) &&
@@ -38,7 +36,16 @@ if (isset($_GET['action'])) {
         }
     } else if ($_GET['action'] == 'login') {
         getLogin();
+    } else if ($_GET['action'] == 'searchProducts') {
+        if (isset($_POST['category']) &&
+        isset($_POST['city']) &&
+        isset($_POST['capacity']) &&
+        isset($_POST['price']) &&
+        isset($_POST['arrival']) &&
+        isset($_POST['departure'])){
+            searchProducts();
+        }
     }
 } else {
-    listRoomsIndex();
+    listProductsIndex();
 }

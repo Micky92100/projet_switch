@@ -48,7 +48,7 @@ function getRoomForUpdate($room_id)
     $current_room->bindparam(":roomId", $room_id, PDO::PARAM_INT);
     $current_room->execute();
 
-//    var_dump($current_room);
+    //    var_dump($current_room);
 
     if ($current_room->rowCount() > 0) {
         return $current_room->fetch(PDO::FETCH_ASSOC);
@@ -103,7 +103,7 @@ function saveOrUpdateRoom()
             $extension = strrchr($_FILES['img']['name'], '.');
             // strrchr() découpe une chaine fournie en premier argument en partant de la fin. On remonte jusqu'au caractère fourni en deuxième argument et on récupère tout depuis ce caractère.
             // exemple strrchr('image.png', '.'); => on récupère .png
-//            var_dump($extension);
+            //            var_dump($extension);
 
             // on enlève le point et on passe l'extension en minuscule pour pouvoir la comparer.
             $extension = strtolower(substr($extension, 1));
@@ -126,7 +126,7 @@ function saveOrUpdateRoom()
                 // on prépare le chemin où on va enregistrer l'image
                 // $photo_dossier = SERVER_ROOT . SITE_ROOT . 'img/' . $nom_photo;
                 $img_file = 'img/' . $img_name;
-//                var_dump($img_file);
+                //                var_dump($img_file);
 
                 // copy(); permet de copier un fichier depuis un emplacement fourni en premier argument vers un emplacement fourni en deuxième
                 copy($_FILES['img']['tmp_name'], $img_file);
@@ -143,7 +143,6 @@ function saveOrUpdateRoom()
             $save = $pdo->prepare("UPDATE salle SET titre = :title, photo = :img, description = :description, pays = :country, ville = :city, adresse = :address, cp = :zip, capacite = :capacity, categorie = :category WHERE id_salle = :roomId");
             // on rajoute le bindParam pour l'room_id car => modification
             $save->bindParam(":roomId", $room_id, PDO::PARAM_INT);
-
         } else {
             // sinon un INSERT
             $save = $pdo->prepare("INSERT INTO salle
@@ -161,7 +160,6 @@ function saveOrUpdateRoom()
         $save->bindParam(":zip", $zip, PDO::PARAM_INT);
         $save->bindParam(":capacity", $capacity, PDO::PARAM_INT);
         $save->execute();
-
     } else {
         return $msg;
     }
@@ -237,4 +235,44 @@ function saveUser()
         $save->execute();
     }
     return $msg;
+}
+
+function getAllProducts()
+{
+    $pdo = dbConnect();
+    return $pdo->query("SELECT id_produit, prix, date_arrivee, date_depart, titre, description, photo FROM produit, salle WHERE produit.id_salle = salle.id_salle AND etat = 'libre' AND date_arrivee >= NOW()");
+}
+function getSearchedProducts()
+{
+    $pdo = dbConnect();
+    $categorie = $_POST['category'];
+    $ville = $_POST['city'];
+    $capacite = $_POST['capacity'];
+    $prix = $_POST['price'];
+    $date_arrivee = $_POST['arrival'];
+    $date_depart = $_POST['departure'];
+    $date_date_arrivee = date_create($date_arrivee);
+    $date_date_depart = date_create($date_depart);
+    $timestamp_arr = $date_date_arrivee->getTimestamp();
+    $timestamp_dep = $date_date_depart->getTimestamp();
+
+
+    $result_products = $pdo->prepare("SELECT id_produit, prix, date_arrivee, date_depart, titre, description, photo FROM produit, salle WHERE produit.id_salle = salle.id_salle 
+    AND categorie = :categorie 
+    AND ville = :ville 
+    AND capacite >= :capacite 
+    AND prix <= :prix 
+    AND date_arrivee >= :date_arrivee 
+    AND date_arrivee >= NOW() 
+    AND date_depart <= :date_depart 
+    AND etat = 'libre'");
+
+    $result_products->bindParam(":categorie", intval($categorie), PDO::FETCH_ASSOC);
+    $result_products->bindParam(":ville", $ville, PDO::FETCH_ASSOC);
+    $result_products->bindParam(":capacite", $capacite, PDO::FETCH_ASSOC);
+    $result_products->bindParam(":prix", $prix, PDO::FETCH_ASSOC);
+    $result_products->bindParam(":date_arrivee", $timestamp_arr, PDO::FETCH_ASSOC);
+    $result_products->bindParam(":date_depart", $timestamp_dep, PDO::FETCH_ASSOC);
+    $result_products->execute();
+    return $result_products;
 }
