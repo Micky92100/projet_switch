@@ -1,61 +1,15 @@
-
-<table class="table table-bordered" style="color:grey">
-    <thead>
-        <tr>
-            <th scope="col">id_membre</th>
-            <th scope="col">pseudo</th>
-            <th scope="col">nom</th>
-            <th scope="col">prenom</th>
-            <th scope="col">email</th>
-            <th scope="col">civilite</th>
-            <th scope="col">statut</th>
-            <th scope="col">date_enregistrement</th>
-            <th scope="col">actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-
-        </tr>
-    </tbody>
-</table>
+<?php $title = 'Gestion des membres' ?>
 
 
-
-
-
-
+<?php ob_start();
+$pseudo = '';
+$mdp = '';
+$nom = '';
+$prenom = '';
+$email = '';
+$civilite = '';
+$statut = '';
+?>
 <div class="starter-template">
     <div class="row">
         <div class="col-12">
@@ -122,3 +76,5 @@
         </div>
     </div>
 </div>
+<?php $content = ob_get_clean(); ?>
+<?php require('view/template/template.php'); ?>

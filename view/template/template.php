@@ -28,6 +28,8 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
     <li class="nav-item">
         <a class="nav-link" href="/view/back-office/statsView.php">Statistiques</a>
     </li>
+    
+
     <?php $backOfficeAdmin = ob_get_clean(); ?>
     <?php
 }

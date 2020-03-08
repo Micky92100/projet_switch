@@ -262,9 +262,9 @@ function getSearchedProducts()
     AND ville = :ville 
     AND capacite >= :capacite 
     AND prix <= :prix 
-    AND date_arrivee >= :date_arrivee 
-    AND date_arrivee >= NOW() 
-    AND date_depart <= :date_depart 
+    -- AND date_arrivee >= :date_arrivee 
+    -- AND date_arrivee >= NOW() 
+    -- AND date_depart <= :date_depart 
     AND etat = 'libre'");
 
     $result_products->bindParam(":categorie", intval($categorie), PDO::FETCH_ASSOC);
@@ -275,4 +275,70 @@ function getSearchedProducts()
     $result_products->bindParam(":date_depart", $timestamp_dep, PDO::FETCH_ASSOC);
     $result_products->execute();
     return $result_products;
+}
+function getidUsers(){
+   // déconnexion
+if(isset($_GET['action']) && $_GET['action'] == 'deconnexion') {
+	session_destroy(); // on détruit la session pour provoquer la déconnexion.
+}
+
+
+// si l'utilisateur est connecté, on le renvoie sur la page profil
+
+
+$pseudo = '';
+// est ce que le formulaire a été validé
+if(isset($_POST['pseudo']) && isset($_POST['mdp'])) {
+	$pseudo = trim($_POST['pseudo']);
+	$mdp = trim($_POST['mdp']);
+	
+	// on récupère les informations en bdd de l'utilisateur sur la base du pseudo (unique en bdd)
+	$verif_connexion = $pdo->prepare("SELECT * FROM membre WHERE pseudo = :pseudo");
+	$verif_connexion->bindParam(":pseudo", $pseudo, PDO::PARAM_STR);
+	$verif_connexion->execute();
+	
+	if($verif_connexion->rowCount() > 0) {
+		// s'il y a une ligne dans $verif_connexion alors le pseudo est bon
+		$infos = $verif_connexion->fetch(PDO::FETCH_ASSOC);
+		// echo '<pre>'; var_dump($infos); echo '</pre>';
+		
+		// on compare le mot de passe qui a été crypté avec password_hash() via la fonction prédéfinie pasword_verify()
+		if(password_verify($mdp, $infos['mdp'])) {
+			// le pseudo et le mot de passe sont corrects, on enregistre les informations du membre dans la session 
+			
+			$_SESSION['membre'] = array();
+			
+			$_SESSION['membre']['id_membre'] = $infos['id_membre'];
+			$_SESSION['membre']['pseudo'] = $infos['pseudo'];
+			$_SESSION['membre']['nom'] = $infos['nom'];
+			$_SESSION['membre']['prenom'] = $infos['prenom'];
+			$_SESSION['membre']['sexe'] = $infos['sexe'];
+			$_SESSION['membre']['email'] = $infos['email'];
+			$_SESSION['membre']['ville'] = $infos['ville'];
+			$_SESSION['membre']['cp'] = $infos['cp'];
+			$_SESSION['membre']['adresse'] = $infos['adresse'];
+			$_SESSION['membre']['statut'] = $infos['statut'];
+			
+			// avec un foreach()
+			/*
+			foreach($infos AS $indice => $valeur) {
+				if($indice != 'mdp') {
+					$_SESSION['membre'][$indice] = $valeur;
+				}				
+			}*/
+			
+			// maintenant que l'utilisateur est connecté, on le redirige vers profil.php
+			header('location:profil.php');
+			// header('location:...) doit être exécuté AVANT le moindre affichage dans la page sinon => bug
+			
+			
+		} else {
+			$msg .= '<div class="alert alert-danger mt-3">Erreur sur le pseudo et / ou le mot de passe !</div>';	
+		}
+		
+	} else {
+		$msg .= '<div class="alert alert-danger mt-3">Erreur sur le pseudo et / ou le mot de passe !</div>';	
+	}
+	
+}
 }

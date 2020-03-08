@@ -5,9 +5,11 @@
 // if(!user_is_connect()) {
 // 	header('location:loginView.php');
 // }
-
-
 ?>
+<?php $title = 'Profil'; ?>
+
+
+<?php ob_start(); ?>
 
     <div class="starter-template">
         <h1>Profil</h1>
@@ -43,5 +45,6 @@
             </b></li>
     </ul>
 
+    <?php $content = ob_get_clean(); ?>
 
-<?php
+<?php require('view/template/template.php'); ?>

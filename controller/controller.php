@@ -54,10 +54,19 @@ function doSignUp() {
 }
 
 function getLogin() {
-
+    
     require('view/front-office/loginView.php');
 }
+function getIduser(){
+      header('view/front-office/profileView.php');
+
+}
+                
 function searchProducts(){
     $products_list = getSearchedProducts();
     require('indexView.php');
+}
+function showProfile(){
+    
+    require('view/front-office/profileView.php');
 }
