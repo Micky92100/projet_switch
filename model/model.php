@@ -224,15 +224,6 @@ function getProductForUpdate($product_id)
     }
 }
 
-function getProductRoom($current_product)
-{
-    $msg = '';
-    $pdo = dbConnect();
-
-    $room_id = $current_product['id_salle'];
-    return getRoomForUpdate($room_id);
-}
-
 function getSearchedProducts()
 {
     $msg = '';

@@ -30,7 +30,7 @@
                 echo '<td>' . $product['prix'] . '€</td>';
                 echo '<td>' . $product['etat'] . '</td>';
 
-                echo '<td><a href="?action=editProduct&product-id=' . $product['id_produit'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
+                echo '<td><a href="?action=editProduct&product-id=' . $product['id_produit'] . '&room-id=' . $product['id_salle'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
                 echo '<td><a href="?action=deleteProduct&product-id=' . $product['id_produit'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
                 echo '</tr>';
             }
@@ -50,14 +50,12 @@ $room_address = '';
 $room_capacity = '';
 $price = '';
 
+
+
 if (!empty($current_product)) {
     $product_id = $current_product['id_produit'];
     $arrival = $current_product['date_arrivee'];
     $departure = $current_product['date_depart'];
-    $room_id = $current_product['id_salle'];
-    $room_title = $current_product['titre'];
-    $room_address = $current_product['adresse'];
-    $room_capacity = $current_product['capacite'];
     $price = $current_product['prix'];
 }
 ?>
@@ -75,13 +73,12 @@ if (!empty($current_product)) {
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="arrival">Date d'arrivée</label>
-                                <input type="datetime-local" name="arrival" id="arrival" value="<?php echo $arrival; ?>"
+                                <input type="datetime-local" name="arrival" id="arrival" value="<?php echo date('Y-m-d\TH:i', strtotime($arrival)); ?>"
                                        class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="departure">Date d'arrivée</label>
-                                <input type="datetime-local" name="departure" id="departure"
-                                       value="<?php echo $departure; ?>"
+                                <input type="datetime-local" name="departure" id="departure" value="<?php echo date('Y-m-d\TH:i', strtotime($departure)); ?>"
                                        class="form-control">
                             </div>
                         </div>

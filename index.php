@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
         ) {
             saveProduct();
         } else if (!empty($_GET['product-id'])){
-            showProduct($_GET['product-id']);
+            showProduct($_GET['product-id'], $_GET['room-id']);
         }
     } else if ($_GET['action'] == 'deleteProduct' && !empty($_GET['product-id'])) {
         getDeleteProduct();

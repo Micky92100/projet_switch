@@ -24,19 +24,22 @@ function listRooms()
 function showRoom($room_id)
 {
     $current_room = getRoomForUpdate($room_id);
-    listRooms();
+    $rooms_list = getAllRooms();
+    require('view/back-office/roomsView.php');
 }
 
 function getDeleteRoom()
 {
     deleteRoom();
-    listRooms();
+    $rooms_list = getAllRooms();
+    require('view/back-office/roomsView.php');
 }
 
 function saveRoom()
 {
     $msg = saveOrUpdateRoom();
-    listRooms();
+    $rooms_list = getAllRooms();
+    require('view/back-office/roomsView.php');
 }
 
 function getSignUp()
@@ -110,20 +113,26 @@ function listProducts()
     require('view/back-office/productsView.php');
 }
 
-function showProduct($product_id)
+function showProduct($product_id, $room_id)
 {
     $current_product = getProductForUpdate($product_id);
-    $current_room = getProductRoom($current_product);
-    listProducts();
+    $current_room = getRoomForUpdate($room_id);
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
 }
 function getDeleteProduct()
 {
     deleteProduct();
-    listProducts();
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
 }
 
 function saveProduct()
 {
     $msg = saveOrUpdateProduct();
-    listProducts();
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
 }
