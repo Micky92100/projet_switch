@@ -2,6 +2,12 @@
 <?php
 require('model/model.php');
 
+function showOrders(){
+    $orders_list = getAllOrders();
+    require('view/back-office/ordersView.php');
+
+}
+
 function listProductsIndex()
 {
     $products_list = getAllProducts();

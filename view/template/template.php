@@ -17,7 +17,7 @@ if (user_is_admin()) {
     </li>
     <a href="?action=add"></a>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/ordersView.php">Commandes</a>
+        <a class="nav-link" href="?action=listOrders">Commandes</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/view/back-office/ratingsView.php">Avis</a>

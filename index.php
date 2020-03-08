@@ -65,6 +65,10 @@ if (isset($_GET['action'])) {
             header("Location: " . $_SERVER['PHP_SELF']);
         }
         getLogin();
+    } else if ($_GET['action'] == 'listOrders') {
+        showOrders();
+    } else if ($_GET['action'] == 'deleteOrder') {
+
     } else {
         getLogin();
     }
