@@ -46,7 +46,8 @@ function doSignUp() {
 
     $msg = saveUser();
     if(!$msg){
-        listRoomsIndex();
+        $products_list = getAllProducts();
+        require('indexView.php');
     } else {
         $_POST='';
         require('view/front-office/signupView.php');
@@ -54,19 +55,35 @@ function doSignUp() {
 }
 
 function getLogin() {
-    
     require('view/front-office/loginView.php');
 }
-function getIduser(){
-      header('view/front-office/profileView.php');
 
+function doLogin() {
+    $msg = verifyLogin();
+    if(!$msg){
+        $products_list = getAllProducts();
+        require('indexView.php');
+    } else {
+        $_POST='';
+        require('view/front-office/loginView.php');
+    }
 }
-                
+//function getIduser(){
+//      header('view/front-office/profileView.php');
+//
+//}
+//function showProfile(){
+//
+//    require('view/front-office/profileView.php');
+//}
+
 function searchProducts(){
     $products_list = getSearchedProducts();
     require('indexView.php');
 }
-function showProfile(){
-    
-    require('view/front-office/profileView.php');
+
+function getUsers(){
+    $users_list = getAllUsers();
+    require('view/back-office/usersView.php');
 }
+

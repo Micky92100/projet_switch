@@ -32,10 +32,23 @@ if (isset($_GET['action'])) {
             isset($_POST['civilite'])) {
             doSignUp();
         } else {
+            session_destroy();
             getSignUp();
         }
     } else if ($_GET['action'] == 'login') {
+        session_destroy();
         getLogin();
+    } else if ($_GET['action'] == 'doLogin') {
+        if(
+            isset($_POST['pseudo']) &&
+            isset($_POST['mdp'])
+        ) {
+            doLogin();
+        }
+    } else if ($_GET['action'] == 'loggedIn') {
+        listProductsIndex();
+    } else if ($_GET['action'] == 'listUsers') {
+        getUsers();
     } else if ($_GET['action'] == 'searchProducts') {
         if (isset($_POST['category']) &&
         isset($_POST['city']) &&
@@ -45,7 +58,10 @@ if (isset($_GET['action'])) {
         isset($_POST['departure'])){
             searchProducts();
         }
+    } else if ($_GET['action'] == 'deconnexion') {
+        session_destroy();
+        listProductsIndex();
     }
 } else {
-    listProductsIndex();
+    getLogin();
 }

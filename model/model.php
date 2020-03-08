@@ -2,7 +2,7 @@
 session_start();
 define('SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
 define('SITE_ROOT', SERVER_ROOT . '/PHP ifocop/PHP/switch/');
-$msg = '';
+
 
 function dbConnect()
 {
@@ -18,6 +18,7 @@ function dbConnect()
 
 function user_is_connected()
 {
+    $msg = '';
     if (!empty($_SESSION['membre'])) {
         return true;
     }
@@ -26,6 +27,7 @@ function user_is_connected()
 
 function user_is_admin()
 {
+    $msg = '';
     if (user_is_connected() && $_SESSION['membre']['statut'] == 2) {
         return true;
     } else {
@@ -35,6 +37,7 @@ function user_is_admin()
 
 function getAllRooms()
 {
+    $msg = '';
     $pdo = dbConnect();
 
     return $pdo->query("SELECT * FROM salle");
@@ -42,6 +45,7 @@ function getAllRooms()
 
 function getRoomForUpdate($room_id)
 {
+    $msg = '';
     $pdo = dbConnect();
 
     $current_room = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :roomId");
@@ -57,6 +61,7 @@ function getRoomForUpdate($room_id)
 
 function deleteRoom()
 {
+    $msg = '';
     $pdo = dbConnect();
 
     $del = $pdo->prepare("DELETE FROM salle WHERE id_salle = :roomId");
@@ -66,6 +71,7 @@ function deleteRoom()
 
 function saveOrUpdateRoom()
 {
+    $msg = '';
     $pdo = dbConnect();
 
     $room_id = trim($_GET['room-id']);
@@ -167,6 +173,7 @@ function saveOrUpdateRoom()
 
 function saveUser()
 {
+    $msg = '';
     $pdo = dbConnect();
 
     $msg = false;
@@ -192,13 +199,13 @@ function saveUser()
 
     if (!$verif_caractere && !empty($pseudo)) {
         // cas d'erreur
-        $msg = true;/*'<div class="alert alert-danger mt-3">Pseudo invalide, caractères autorisés : a-z et de 0-9</div>';*/
+        $msg = '<div class="alert alert-danger mt-3">Pseudo invalide, caractères autorisés : a-z et de 0-9</div>';
     }
 
     // vérifier la taille du pseudo => message d'erreur si le pseudo n'est pas entre 4 et 14 caractères inclus.
     if (iconv_strlen($pseudo) < 4 || iconv_strlen($pseudo) > 14) {
         // cas d'erreur
-        $msg = true;/*'<div class="alert alert-danger mt-3">Pseudo invalide, le pseudo doit avoir entre 4 et 14 caractères inclus</div>';*/
+        $msg = '<div class="alert alert-danger mt-3">Pseudo invalide, le pseudo doit avoir entre 4 et 14 caractères inclus</div>';
     }
 
     // mettre en place un controle sur la validité du format de l'email
@@ -233,17 +240,28 @@ function saveUser()
         $save->bindParam(':email', $email, PDO::PARAM_STR);
         $save->bindParam(':civilite', $civilite, PDO::PARAM_STR);
         $save->execute();
+
+        $_SESSION['membre'] = array();
+
+        $_SESSION['membre']['pseudo'] = $pseudo;
+        $_SESSION['membre']['nom'] = $nom;
+        $_SESSION['membre']['prenom'] = $prenom;
+        $_SESSION['membre']['email'] = $email;
+        $_SESSION['membre']['statut'] = 1;
     }
     return $msg;
 }
 
 function getAllProducts()
 {
+    $msg = '';
     $pdo = dbConnect();
     return $pdo->query("SELECT id_produit, prix, date_arrivee, date_depart, titre, description, photo FROM produit, salle WHERE produit.id_salle = salle.id_salle AND etat = 'libre' AND date_arrivee >= NOW()");
 }
+
 function getSearchedProducts()
 {
+    $msg = '';
     $pdo = dbConnect();
     $categorie = $_POST['category'];
     $ville = $_POST['city'];
@@ -276,69 +294,51 @@ function getSearchedProducts()
     $result_products->execute();
     return $result_products;
 }
-function getidUsers(){
-   // déconnexion
-if(isset($_GET['action']) && $_GET['action'] == 'deconnexion') {
-	session_destroy(); // on détruit la session pour provoquer la déconnexion.
+
+function verifyLogin()
+{
+    $msg = '';
+
+    $pdo = dbConnect();
+    $pseudo = trim($_POST['pseudo']);
+    $mdp = trim($_POST['mdp']);
+
+    // on récupère les informations en bdd de l'utilisateur sur la base du pseudo (unique en bdd)
+    $verif_connexion = $pdo->prepare("SELECT * FROM membre WHERE pseudo = :pseudo");
+    $verif_connexion->bindParam(":pseudo", $pseudo, PDO::PARAM_STR);
+    $verif_connexion->execute();
+
+    if ($verif_connexion->rowCount() > 0) {
+        // s'il y a une ligne dans $verif_connexion alors le pseudo est bon
+        $infos = $verif_connexion->fetch(PDO::FETCH_ASSOC);
+        // echo '<pre>'; var_dump($infos); echo '</pre>';
+
+        // on compare le mot de passe qui a été crypté avec password_hash() via la fonction prédéfinie password_verify()
+        if (password_verify($mdp, $infos['mdp'])) {
+            // le pseudo et le mot de passe sont corrects, on enregistre les informations du membre dans la session
+
+            $_SESSION['membre'] = array();
+
+            $_SESSION['membre']['id_membre'] = $infos['id_membre'];
+            $_SESSION['membre']['pseudo'] = $infos['pseudo'];
+            $_SESSION['membre']['nom'] = $infos['nom'];
+            $_SESSION['membre']['prenom'] = $infos['prenom'];
+            $_SESSION['membre']['email'] = $infos['email'];
+            $_SESSION['membre']['statut'] = $infos['statut'];
+
+        } else {
+            $msg = '<div class="alert alert-danger mt-3">Erreur sur le pseudo et / ou le mot de passe !</div>';
+        }
+    } else {
+        $msg = '<div class="alert alert-danger mt-3">Erreur sur le pseudo et / ou le mot de passe !</div>';
+    }
+    return $msg;
 }
 
+function getAllUsers()
+{
+    $msg = '';
+    $pdo = dbConnect();
 
-// si l'utilisateur est connecté, on le renvoie sur la page profil
-
-
-$pseudo = '';
-// est ce que le formulaire a été validé
-if(isset($_POST['pseudo']) && isset($_POST['mdp'])) {
-	$pseudo = trim($_POST['pseudo']);
-	$mdp = trim($_POST['mdp']);
-	
-	// on récupère les informations en bdd de l'utilisateur sur la base du pseudo (unique en bdd)
-	$verif_connexion = $pdo->prepare("SELECT * FROM membre WHERE pseudo = :pseudo");
-	$verif_connexion->bindParam(":pseudo", $pseudo, PDO::PARAM_STR);
-	$verif_connexion->execute();
-	
-	if($verif_connexion->rowCount() > 0) {
-		// s'il y a une ligne dans $verif_connexion alors le pseudo est bon
-		$infos = $verif_connexion->fetch(PDO::FETCH_ASSOC);
-		// echo '<pre>'; var_dump($infos); echo '</pre>';
-		
-		// on compare le mot de passe qui a été crypté avec password_hash() via la fonction prédéfinie pasword_verify()
-		if(password_verify($mdp, $infos['mdp'])) {
-			// le pseudo et le mot de passe sont corrects, on enregistre les informations du membre dans la session 
-			
-			$_SESSION['membre'] = array();
-			
-			$_SESSION['membre']['id_membre'] = $infos['id_membre'];
-			$_SESSION['membre']['pseudo'] = $infos['pseudo'];
-			$_SESSION['membre']['nom'] = $infos['nom'];
-			$_SESSION['membre']['prenom'] = $infos['prenom'];
-			$_SESSION['membre']['sexe'] = $infos['sexe'];
-			$_SESSION['membre']['email'] = $infos['email'];
-			$_SESSION['membre']['ville'] = $infos['ville'];
-			$_SESSION['membre']['cp'] = $infos['cp'];
-			$_SESSION['membre']['adresse'] = $infos['adresse'];
-			$_SESSION['membre']['statut'] = $infos['statut'];
-			
-			// avec un foreach()
-			/*
-			foreach($infos AS $indice => $valeur) {
-				if($indice != 'mdp') {
-					$_SESSION['membre'][$indice] = $valeur;
-				}				
-			}*/
-			
-			// maintenant que l'utilisateur est connecté, on le redirige vers profil.php
-			header('location:profil.php');
-			// header('location:...) doit être exécuté AVANT le moindre affichage dans la page sinon => bug
-			
-			
-		} else {
-			$msg .= '<div class="alert alert-danger mt-3">Erreur sur le pseudo et / ou le mot de passe !</div>';	
-		}
-		
-	} else {
-		$msg .= '<div class="alert alert-danger mt-3">Erreur sur le pseudo et / ou le mot de passe !</div>';	
-	}
-	
-}
+    return $pdo->query('SELECT * FROM membre');
 }

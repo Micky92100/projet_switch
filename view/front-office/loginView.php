@@ -2,16 +2,11 @@
 
 <?php ob_start(); 
 $pseudo = '';
-$mdp = '';
 ?>
-<p>INSERT CONTENT HERE</p>
-
 <div class="starter-template">
     <div class="row">
         <div class="col-6 mx-auto" style="width: 400px;">
-            <form method="post" action="" enctype="multipart/form-data">
-                <!-- récupération de l'id_article pour la modification -->
-                <input type="hidden" name="id_article" value="">
+            <form method="post" action="?action=doLogin">
 
                 <div class="row">
                     <div class="col-6 mx-auto" style="width: 400px;">
@@ -23,7 +18,7 @@ $mdp = '';
                         </div>
                         <div class="form-group">
                             <label for="mdp">Mot de passe</label>
-                            <input type="text" autocomplete="off" name="mdp" id="mdp" value="" class="form-control">
+                            <input type="password" autocomplete="off" name="mdp" id="mdp" class="form-control">
                         </div>
                         <?php
                      

@@ -2,7 +2,7 @@
 $backOfficeAdmin = '<li></li>';
 ?>
 <?php
-if (!user_is_admin()) { // TODO invert that condition once security is implemented
+if (user_is_admin()) {
     ?>
     <?php ob_start(); ?>
 
@@ -10,7 +10,7 @@ if (!user_is_admin()) { // TODO invert that condition once security is implement
         <a class="nav-link">|</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/usersView.php">Membres</a>
+        <a class="nav-link" href="?action=listUsers">Membres</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="?action=listRooms">Salles</a>
@@ -95,7 +95,10 @@ echo '$_POST = ';
 var_dump($_POST);
 echo '<br>';
 echo '$_FILES = ';
-var_dump($_FILES);?>
+var_dump($_FILES);
+echo '<br>';
+echo '$_SESSION = ';
+var_dump($_SESSION);?>
 <?= $content ?>
 </body>
 <!------------->

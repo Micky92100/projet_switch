@@ -2,14 +2,15 @@
 
 
 <?php ob_start();
-$pseudo = '';
-$mdp = '';
-$nom = '';
-$prenom = '';
-$email = '';
-$civilite = '';
-$statut = '';
+//$pseudo = '';
+//$mdp = '';
+//$nom = '';
+//$prenom = '';
+//$email = '';
+//$civilite = '';
+//$statut = '';
 ?>
+<!--TODO come back and make listing of users here (example rooms)-->
 <div class="starter-template">
     <div class="row">
         <div class="col-12">
