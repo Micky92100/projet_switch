@@ -45,8 +45,30 @@ if (isset($_GET['action'])) {
         }
     } else if ($_GET['action'] == 'loggedIn') {
         listProductsIndex();
+     } else if ($_GET['action'] == 'editUsers' && !empty($_GET['user-id'])) {
+            if (
+                isset($_POST['user-id']) &&
+                isset($_POST['id_membre']) &&
+                isset($_POST['pseudo']) &&
+                isset($_POST['nom']) &&
+                isset($_POST['prenom']) &&
+                isset($_POST['email']) &&
+                isset($_POST['civilite']) &&
+                isset($_POST['statut']) &&
+                isset($_POST['date_enregistrement'])
+            ) {
+                saveUser();
+            } else {
+                showUsers($_GET['user-id']);
+            }
     } else if ($_GET['action'] == 'listUsers') {
         getUsers();
+    } else if ($_GET['action'] == 'deleteUser' && !empty($_GET['user-id'])) {
+        getDeleteUser();
+    } else if ($_GET['action'] == 'listUser') {
+        listUsers();
+
+
     } else if ($_GET['action'] == 'searchProducts') {
         if (isset($_POST['category']) &&
         isset($_POST['city']) &&
@@ -68,7 +90,11 @@ if (isset($_GET['action'])) {
     } else if ($_GET['action'] == 'listOrders') {
         showOrders();
     } else if ($_GET['action'] == 'deleteOrder') {
-
+   
+    } else if ($_GET['action'] == 'noticeList') {
+        showRates();
+    } else if ($_GET['action'] == 'deleteNotice') {
+    
     } else {
         getLogin();
     }

@@ -7,6 +7,11 @@ function showOrders(){
     require('view/back-office/ordersView.php');
 
 }
+function showRates(){
+    $notice_list = getAllrates();
+    require('view/back-office/ratingsView.php');
+
+}
 
 function listProductsIndex()
 {
@@ -89,7 +94,25 @@ function searchProducts(){
 }
 
 function getUsers(){
+    $user = "";
     $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
 
+function showUsers($user_id)
+{
+    $current_user = getRoomForUpdate($user_id);
+    $users_list = getUsers();
+    require('view/back-office/usersView.php');
+}
+function getDeleteUser()
+{
+    deleteUser();
+    $users_list = getAllUsers();
+    require('view/back-office/usersView.php');
+}
+function listUsers()
+{
+    $users_list = getAllUsers();
+    require('view/back-office/usersView.php');
+}
