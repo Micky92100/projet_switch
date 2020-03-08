@@ -1,19 +1,6 @@
-<?php
-// if(!user_is_admin()) {
-// 	header('location:' . URL . 'loginView.php');
-// 	exit(); // bloque l'exécution du code 
-// }
-?>
-<?php $title = 'Gestion produits'; ?>
+<?php $title = 'Gestion salles'; ?>
 
 <?php ob_start(); ?>
-
-    <!--<div class="starter-template">-->
-    <!--    <p class="text-center">-->
-    <!--        <a href="?action=add" class="btn btn-outline-danger">Ajout</a>-->
-    <!--        <a href="?action=display" class="btn btn-outline-primary">Affichage</a>-->
-    <!--    </p>-->
-    <!--</div>-->
 
     <!--****************************-->
     <!-- DEBUT AFFICHAGE DES SALLES -->

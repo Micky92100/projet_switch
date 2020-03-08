@@ -42,13 +42,12 @@ function saveRoom() {
 }
 
 function getSignUp() {
-    require('view/front-office/signupView.php');
+    if (isset($_SESSION)) {
+        session_destroy();
+    }    require('view/front-office/signupView.php');
 }
 
 function doSignUp() {
-    // ATTENTION //
-    // $msg a un problème et ne s'affiche pas.
-    // mais le comportement est ok a part ca : si le pseudo est déjà utilisé, la sauvegarde n'a pas lieu et l'utilisateur reste sur la page signup...
 
     $msg = saveUser();
     if(!$msg){
