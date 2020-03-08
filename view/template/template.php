@@ -72,6 +72,12 @@ if (user_is_admin()) {
                         <a class="nav-link" href="/view/front-office/profileView.php">Profil</a>
                     </li>
                     <?= $backOfficeAdmin ?>
+                    <li class="nav-item">
+                        <a class="nav-link">|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?action=deconnexion">Déconnexion</a>
+                    </li>
                 </ul>
             </div>
         </div>

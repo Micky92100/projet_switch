@@ -32,11 +32,9 @@ if (isset($_GET['action'])) {
             isset($_POST['civilite'])) {
             doSignUp();
         } else {
-            session_destroy();
             getSignUp();
         }
     } else if ($_GET['action'] == 'login') {
-        session_destroy();
         getLogin();
     } else if ($_GET['action'] == 'doLogin') {
         if(
@@ -59,8 +57,16 @@ if (isset($_GET['action'])) {
             searchProducts();
         }
     } else if ($_GET['action'] == 'deconnexion') {
-        session_destroy();
-        listProductsIndex();
+        if (!isset($_SESSION)){
+            session_start();
+        }
+        if (isset($_SESSION)) {
+            session_destroy();
+            header("Location: " . $_SERVER['PHP_SELF']);
+        }
+        getLogin();
+    } else {
+        getLogin();
     }
 } else {
     getLogin();

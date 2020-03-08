@@ -2,6 +2,7 @@
 
 <?php ob_start(); 
 $pseudo = '';
+header('Refresh')
 ?>
 <div class="starter-template">
     <div class="row">
