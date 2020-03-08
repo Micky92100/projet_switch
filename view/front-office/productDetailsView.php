@@ -18,12 +18,10 @@
 
                         echo '<h5>' . htmlspecialchars($product['titre']) . ' : ' . htmlspecialchars($product['prix']) . '€</h5>';
                          echo '<h5>' $rate['avis'];
-
                         echo '<img src="img/' . htmlspecialchars($product['photo']) . '" alt="' . htmlspecialchars($product['titre']) . '" class="img-thumbnail w-100">';
-
                         echo '<p style="overflow: hidden">'. htmlspecialchars(substr($product['description'], 0, 20)).'...' . '</p>';
                         echo '<p><i class="fa fa-calendar-alt"></i>&nbsp;' . $product['date_arrivee'] . ' au ' . $product['date_depart'] . '</p>';
-                        echo '<a href="?action=viewProduct&product-id=' . htmlspecialchars($product['id_produit']) . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
+                        <button type="submit" class="btn btn-primary w-100" name="ajouter_au_panier">Reserver</button>
                         echo '</div>';
                     }
                 // }
@@ -32,19 +30,7 @@
         </div>
 
 
-	<div class="row">
-		<div class="col-6">
-			<ul class="list-group">
-				<li class="list-group-item active"><b><?php echo $room['titre']; ?></b></li>
-				<li class="list-group-item">Avis : <b><?php echo $rate['avis']; ?></b></li>
-				<li class="list-group-item">Description : <b><?php echo $description['salle']; ?></b></li>
-                <li class="list-group-item">Couleur : <b><?php echo $arrival['date_enregistrement']; ?></b></li>
-                <li class="list-group-item">Couleur : <b><?php echo $departure['date_depart']; ?></b></li>
-
-				<li class="list-group-item">Taille : <b><?php echo $article['taille']; ?></b></li>
-				<li class="list-group-item">Sexe : <b><?php echo $article['sexe']; ?></b></li>
-				
-				<?php if($article['stock'] > 0) { ?>
+				<?php if($product['etat'] = 0) { ?>
 				
 				<li class="list-group-item">Stock : <b><?php echo $article['stock']; ?></b></li>
 				
@@ -81,6 +67,6 @@
 			<hr>
 			<?php } ?>
 			
-			<img src="<?php echo URL . 'img/' . $article['photo']; ?>" alt="<?php echo $article['titre']; ?>" class="w-100 img-thumbnail">
+
 		</div>
 	</div>

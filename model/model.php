@@ -342,3 +342,10 @@ function getAllUsers()
 
     return $pdo->query('SELECT * FROM membre');
 }
+function getAllOrders()
+{
+    $msg = '';
+    $pdo = dbConnect();
+    return $pdo->query('SELECT commande.id_commande, commande.id_membre, membre.email, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement FROM commande, produit, membre, salle WHERE commande.id_membre = membre.id_membre AND commande.id_produit = produit.id_produit AND produit.id_salle = salle.id_salle');
+
+}
