@@ -183,9 +183,24 @@ function deleteUser()
     $msg = '';
     $pdo = dbConnect();
 
-    $del = $pdo->prepare("DELETE FROM membre WHERE id_user = :userId");
+    $del = $pdo->prepare("DELETE FROM membre WHERE id_membre = :userId");
     $del->bindParam(":userId", $_GET['user-id'], PDO::PARAM_INT);
     $del->execute();
+}
+function getUserForUpdate($user_id)
+{
+    $msg = '';
+    $pdo = dbConnect();
+
+    $current_user = $pdo->prepare("SELECT * FROM membre WHERE id_membre = :userId");
+    $current_user->bindparam(":userId", $user_id, PDO::PARAM_INT);
+    $current_user->execute();
+
+    //    var_dump($current_user);
+
+    if ($current_user->rowCount() > 0) {
+        return $current_user->fetch(PDO::FETCH_ASSOC);
+    }
 }
 function saveUser()
 {

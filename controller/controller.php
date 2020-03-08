@@ -93,16 +93,16 @@ function searchProducts(){
     require('indexView.php');
 }
 
-function getUsers(){
-    $user = "";
-    $users_list = getAllUsers();
-    require('view/back-office/usersView.php');
-}
+// function getUsers(){
+//     $user = "";
+//     $users_list = getAllUsers();
+//     require('view/back-office/usersView.php');
+// }
 
-function showUsers($user_id)
+function showUser($user_id)
 {
-    $current_user = getRoomForUpdate($user_id);
-    $users_list = getUsers();
+    $current_user = getUserForUpdate($user_id);
+    $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
 function getDeleteUser()
@@ -114,5 +114,11 @@ function getDeleteUser()
 function listUsers()
 {
     $users_list = getAllUsers();
+    require('view/back-office/usersView.php');
+}
+function createUser()
+{
+    $users_list = getAllUsers();
+    $msg = saveUser();
     require('view/back-office/usersView.php');
 }

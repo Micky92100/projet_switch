@@ -35,14 +35,13 @@
             echo '<td>' . $user['pseudo'] . '</td>';
             echo '<td>' . $user['nom'] . '</td>';
             echo '<td>' . $user['prenom'] . '</td>';
-
             echo '<td>' . $user['email'] . '</td>';
             echo '<td>' . $user['civilite'] . '</td>';
             echo '<td>' . $user['statut'] . '</td>';
             echo '<td>' . $user['date_enregistrement'] . '</td>';
 
             echo '<td><a href="?action=editUser&user-id=' . $user['id_membre'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
-            echo '<td><a href="?action=deleteRoom&room-id=' . $user['id_membre'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
+            echo '<td><a href="?action=deleteUser&user-id=' . $user['id_membre'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
             echo '</tr>';
         }
         ?>
@@ -52,7 +51,6 @@
 <!-- FIN AFFICHAGE DES MEMBRES -->
 <!--**************************-->
 <?php
-$user_id = '';
 $id_membre = '';
 $pseudo = '';
 $nom = '';
@@ -60,18 +58,15 @@ $prenom = '';
 $email = '';
 $civilite = '';
 $statut = '';
-$date_enregistrement = '';
 
 if (!empty($current_user)) {
-    $user_id = $current_user['id_salle'];
     $id_membre = $current_user['id_membre'];
     $pseudo = $current_user['pseudo'];
     $nom = $current_user['nom'];
     $prenom = $current_user['prenom'];
     $email = $current_user['email'];
     $civilite = $current_user['civilite'];
-    $status = $current_user['status'];
-    $date_enregistrement = $current_user['date_enregistrement'];
+    $statut = $current_user['statut'];
 }
 ?>
 
@@ -83,9 +78,9 @@ if (!empty($current_user)) {
 <div class="starter-template">
     <div class="row">
         <div class="col-12">
-            <form method="post" action="?action=editUser&amp;user-id=<?= $user_id ?>" enctype="multipart/form-data">
+            <form method="post" action="?action=editUser&amp;user-id=<?= $id_membre ?>" enctype="multipart/form-data">
                 <!-- récupération de l'id_article pour la modification -->
-                <input type="hidden" name="id_article" value="<?php echo $user_id ?>">
+                <input type="hidden" name="id_membre" value="<?php echo $id_membre ?>">
 
                 <div class="row">
                     <div class="col-6">
@@ -95,7 +90,7 @@ if (!empty($current_user)) {
                         </div>
                         <div class="form-group">
                             <label for="mdp">Mot de passe</label>
-                            <input type="text" autocomplete="off" name="mdp" id="mdp" value="" class="form-control">
+                            <input type="password" autocomplete="off" name="mdp" id="mdp" value="" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="nom">Nom</label>
@@ -111,7 +106,7 @@ if (!empty($current_user)) {
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" value="<?php echo $email ?>" class="form-control">
+                            <input type="email" name="email" id="email" value="<?php echo $email ?>" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="civilite">Civilité</label>
@@ -125,8 +120,8 @@ if (!empty($current_user)) {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="status">Statut</label>
-                            <select name="status" id="status" class="form-control">
+                            <label for="statut">Statut</label>
+                            <select name="statut" id="statut" class="form-control">
                            <option <?php 
 							if($_SESSION['membre']['statut'] == 1) {
                                 echo 'membre';
@@ -140,7 +135,7 @@ if (!empty($current_user)) {
                         <?php
                         ?>
                         <div class="form-group">
-                            <button type="submit" name="enregistrement" id="enregistrement" class="form-control btn btn-outline-dark"> Enregistrer </button>
+                            <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer </button>
                         </div>
                     </div>
                 </div>
