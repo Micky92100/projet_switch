@@ -3,7 +3,6 @@ session_start();
 define('SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
 define('SITE_ROOT', SERVER_ROOT . '/PHP ifocop/PHP/switch/');
 
-
 function dbConnect()
 {
     $host_db = 'mysql:host=localhost;dbname=projet_switch';
@@ -342,10 +341,26 @@ function getAllUsers()
 
     return $pdo->query('SELECT * FROM membre');
 }
+
 function getAllOrders()
 {
     $msg = '';
     $pdo = dbConnect();
-    return $pdo->query('SELECT commande.id_commande, commande.id_membre, membre.email, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement FROM commande, produit, membre, salle WHERE commande.id_membre = membre.id_membre AND commande.id_produit = produit.id_produit AND produit.id_salle = salle.id_salle');
+    return $pdo->query(
+        'SELECT commande.id_commande, commande.id_membre, membre.email, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement 
+FROM commande, produit, membre, salle 
+WHERE commande.id_membre = membre.id_membre 
+  AND commande.id_produit = produit.id_produit 
+  AND produit.id_salle = salle.id_salle'
+    );
+}
 
+function deleteOrder()
+{
+    $msg = '';
+    $pdo = dbConnect();
+
+    $del = $pdo->prepare("DELETE FROM commande WHERE id_commande = :commandeId");
+    $del->bindParam(":commandeId", $_GET['order-id'], PDO::PARAM_INT);
+    $del->execute();
 }

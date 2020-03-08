@@ -68,7 +68,7 @@ if (isset($_GET['action'])) {
     } else if ($_GET['action'] == 'listOrders') {
         showOrders();
     } else if ($_GET['action'] == 'deleteOrder') {
-
+        getDeleteOrder();
     } else {
         getLogin();
     }

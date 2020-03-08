@@ -93,3 +93,10 @@ function getUsers(){
     require('view/back-office/usersView.php');
 }
 
+function getDeleteOrder()
+{
+    deleteOrder();
+    $orders_list = getAllOrders();
+    require('view/back-office/ordersView.php');
+}
+
