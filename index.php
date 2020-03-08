@@ -23,7 +23,7 @@ if (isset($_GET['action'])) {
         getDeleteRoom();
     } else if ($_GET['action'] == 'listRooms') {
         listRooms();
-    } else if ($_GET['action'] == 'editUsers' && !empty($_GET['user-id'])) {
+    } else if ($_GET['action'] == 'editUser' && !empty($_GET['user-id'])) {
             if (
                 isset($_POST['user-id']) &&
                 isset($_POST['id_membre']) &&
