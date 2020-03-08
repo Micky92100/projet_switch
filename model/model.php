@@ -137,7 +137,23 @@ function saveOrUpdateRoom()
         return $msg;
     }
 }
+function getAllUsers()
+{
+    $msg = '';
+    $pdo = dbConnect();
 
+    return $pdo->query('SELECT * FROM membre');
+}
+
+function deleteUser()
+{
+    $msg = '';
+    $pdo = dbConnect();
+
+    $del = $pdo->prepare("DELETE FROM membre WHERE id_user = :userId");
+    $del->bindParam(":userId", $_GET['user-id'], PDO::PARAM_INT);
+    $del->execute();
+}
 function saveUser()
 {
     $msg = '';
@@ -166,7 +182,7 @@ function saveUser()
     $verif_pseudo->execute();
 
     if ($verif_pseudo->rowCount() > 0) {
-        $msg = true; /*'<div class="alert alert-danger mt-3">Pseudo indisponible !</div>';*/
+        $msg = '<div class="alert alert-danger mt-3">Pseudo indisponible !</div>';
     } else if (!$msg) {
         $mdp = password_hash($mdp, PASSWORD_DEFAULT);
 
@@ -299,13 +315,7 @@ function verifyLogin()
     return $msg;
 }
 
-function getAllUsers()
-{
-    $msg = '';
-    $pdo = dbConnect();
 
-    return $pdo->query('SELECT * FROM membre');
-}
 
 function getAllOrders()
 {
@@ -328,4 +338,13 @@ function deleteOrder()
     $del = $pdo->prepare("DELETE FROM commande WHERE id_commande = :commandeId");
     $del->bindParam(":commandeId", $_GET['order-id'], PDO::PARAM_INT);
     $del->execute();
+}
+
+function getAllrates(){
+    $notice_list='';
+    $pdo = dbConnect();
+    return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
+    FROM avis, membre, salle 
+    WHERE avis.id_membre = membre.id_membre 
+    AND avis.id_salle = salle.id_salle');
 }
