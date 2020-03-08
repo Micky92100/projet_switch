@@ -83,30 +83,22 @@ function doLogin()
     }
 }
 
-//function getIduser(){
-//      header('view/front-office/profileView.php');
-//
-//}
-//function showProfile(){
-//
-//    require('view/front-office/profileView.php');
-//}
-
 function searchProducts()
 {
     $products_list = getSearchedProducts();
     require('indexView.php');
 }
 
-
-function getUsers(){
+function createUser()
+{
     $users_list = getAllUsers();
+    $msg = saveUser();
     require('view/back-office/usersView.php');
 }
 
-function showUsers($user_id)
+function showUser($user_id)
 {
-    $current_user = getRoomForUpdate($user_id);
+    $current_user = getUserForUpdate($user_id);
     $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }

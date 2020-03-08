@@ -25,25 +25,22 @@ if (isset($_GET['action'])) {
         listRooms();
     } else if ($_GET['action'] == 'editUser' && !empty($_GET['user-id'])) {
             if (
-                isset($_POST['user-id']) &&
                 isset($_POST['id_membre']) &&
                 isset($_POST['pseudo']) &&
+                isset($_POST['mdp']) &&
                 isset($_POST['nom']) &&
                 isset($_POST['prenom']) &&
                 isset($_POST['email']) &&
                 isset($_POST['civilite']) &&
-                isset($_POST['statut']) &&
-                isset($_POST['date_enregistrement'])
+                isset($_POST['statut'])
             ) {
-                saveUser();
+                createUser();
             } else {
-                showUsers($_GET['user-id']);
+                showUser($_GET['user-id']);
             }
-    } else if ($_GET['action'] == 'listUsers') {
-        getUsers();
     } else if ($_GET['action'] == 'deleteUser' && !empty($_GET['user-id'])) {
         getDeleteUser();
-    } else if ($_GET['action'] == 'listUser') {
+    } else if ($_GET['action'] == 'listUsers') {
         listUsers();
 
 
