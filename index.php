@@ -47,17 +47,9 @@ if (user_is_connected()) {
         } else if ($_GET['action'] == 'deleteOrder') {
             getDeleteOrder();
         } else if ($_GET['action'] == 'login') {
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            session_destroy();
             header("Location: " . $_SERVER['PHP_SELF']);
             getLogin();
         } else if ($_GET['action'] == 'doLogin') {
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            session_destroy();
             header("Location: " . $_SERVER['PHP_SELF']);
             if (
                 isset($_POST['pseudo']) &&

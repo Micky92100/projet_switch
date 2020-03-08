@@ -44,7 +44,8 @@ function saveRoom() {
 function getSignUp() {
     if (isset($_SESSION)) {
         session_destroy();
-    }    require('view/front-office/signupView.php');
+    }
+    require('view/front-office/signupView.php');
 }
 
 function doSignUp() {
@@ -60,10 +61,17 @@ function doSignUp() {
 }
 
 function getLogin() {
+    if (isset($_SESSION)) {
+        session_destroy();
+    }
     require('view/front-office/loginView.php');
 }
 
 function doLogin() {
+    if (isset($_SESSION)) {
+        session_destroy();
+    }
+
     $msg = verifyLogin();
     if(!$msg){
         $products_list = getAllProducts();
