@@ -69,7 +69,7 @@
                         // }
                         ?>
                         <div class="form-group">
-                            <button type="submit" name="enregistrement" id="enregistrement" class="form-control btn btn-outline-dark"> Enregistrer </button>
+                            <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer </button>
                         </div>
                     </div>
                 </div>

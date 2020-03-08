@@ -17,11 +17,11 @@
                         echo '<div class="col-sm-3 text-center p-2">';
 
                         echo '<h5>' . htmlspecialchars($product['titre']) . ' : ' . htmlspecialchars($product['prix']) . '€</h5>';
-                         echo '<h5>' $rate['avis'];
+                         echo '<h5>' . $rate['avis'];
                         echo '<img src="img/' . htmlspecialchars($product['photo']) . '" alt="' . htmlspecialchars($product['titre']) . '" class="img-thumbnail w-100">';
                         echo '<p style="overflow: hidden">'. htmlspecialchars(substr($product['description'], 0, 20)).'...' . '</p>';
                         echo '<p><i class="fa fa-calendar-alt"></i>&nbsp;' . $product['date_arrivee'] . ' au ' . $product['date_depart'] . '</p>';
-                        <button type="submit" class="btn btn-primary w-100" name="ajouter_au_panier">Reserver</button>
+                        echo '<button type="submit" class="btn btn-primary w-100">Reserver</button>';
                         echo '</div>';
                     }
                 // }
@@ -60,7 +60,7 @@
 						</select>
 					</div>
 					<div class="col">
-						<button type="submit" class="btn btn-primary w-100" name="ajouter_au_panier">Ajouter au panier</button>
+						<button type="submit" class="btn btn-primary w-100">Ajouter au panier</button>
 					</div>
 				</div>
 			</form>

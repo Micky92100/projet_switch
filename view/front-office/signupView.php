@@ -61,8 +61,7 @@ $civilite = '';
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="inscription" id="inscription"
-                                        class="form-control btn btn-outline-primary"> S'inscrire
+                                <button type="submit" class="form-control btn btn-outline-primary"> S'inscrire
                                 </button>
                             </div>
                         </div>

@@ -23,13 +23,13 @@ if (user_is_admin()) {
         <a class="nav-link" href="?action=listOrders">Commandes</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/ratingsView.php">Avis</a>
+        <a class="nav-link" href="?action=noticeList">Avis</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/productsView.php">Produits</a>
+        <a class="nav-link" href="?action=listProducts">Produits</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/statsView.php">Statistiques</a>
+        <a class="nav-link" href="?action=listStats">Statistiques</a>
     </li>
     <?php $backOfficeAdmin = ob_get_clean(); ?>
     <?php

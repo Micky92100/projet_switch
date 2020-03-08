@@ -1,20 +1,8 @@
-<?php
-
-
-// restriction d'accès, si l'utilisateur n'est pas connecté, on le renvoie sur loginView.php
-// if(!user_is_connect()) {
-// 	header('location:loginView.php');
-// }
-?>
 <?php $title = 'Profil'; ?>
 
 
 <?php ob_start(); ?>
 
-    <div class="starter-template">
-        <h1>Profil</h1>
-        <p class="lead"><?php echo $msg; ?></p>
-    </div>
 
     <ul class="list-group">
         <li class="list-group-item active">Bonjour <b><?php echo ucfirst($_SESSION['membre']['pseudo']); ?></b></li>
