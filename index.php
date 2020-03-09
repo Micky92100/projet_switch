@@ -4,7 +4,7 @@ require('controller/controller.php');
 
 if (isset($_GET['action'])) {
         ////////////////////////////////////////////////////////////////// ROOMS v
-    if ($_GET['action'] == 'editRoom' && !empty($_GET['room-id'])) {
+    if ($_GET['action'] == 'editRoom') {
         if (
             isset($_POST['room-id']) &&
             isset($_POST['title']) &&
@@ -17,7 +17,7 @@ if (isset($_GET['action'])) {
             isset($_POST['category'])
         ) {
             saveRoom();
-        } else {
+        } else if (!empty($_GET['room-id'])){
             showRoom($_GET['room-id']);
         }
     } else if ($_GET['action'] == 'deleteRoom' && !empty($_GET['room-id'])) {
@@ -26,7 +26,7 @@ if (isset($_GET['action'])) {
         listRooms();
         ////////////////////////////////////////////////////////////////// ROOMS ^
         ////////////////////////////////////////////////////////////////// USERS v
-    } else if ($_GET['action'] == 'editUser' && !empty($_GET['user-id'])) {
+    } else if ($_GET['action'] == 'editUser') {
         if (
             isset($_POST['id_membre']) &&
             isset($_POST['pseudo']) &&
@@ -38,7 +38,7 @@ if (isset($_GET['action'])) {
             isset($_POST['statut'])
         ) {
             createUser();
-        } else {
+        } else if (!empty($_GET['user-id'])){
             showUser($_GET['user-id']);
         }
     } else if ($_GET['action'] == 'deleteUser' && !empty($_GET['user-id'])) {
