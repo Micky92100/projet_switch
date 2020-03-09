@@ -116,15 +116,15 @@ if (!empty($current_room)) {
                             <div class="form-group">
                                 <label for="city">Ville</label>
                                 <select name="city" id="city" class="form-control">
-                                    <option <?php if ($city == 'Paris') {
+                                    <option value="Paris"<?php if ($city == 'Paris') {
                                         echo 'selected';
                                     } ?>>Paris
                                     </option>
-                                    <option <?php if ($city == 'Lyon') {
+                                    <option value="Lyon"<?php if ($city == 'Lyon') {
                                         echo 'selected';
                                     } ?>>Lyon
                                     </option>
-                                    <option <?php if ($city == 'Marseille') {
+                                    <option value="Marseille"<?php if ($city == 'Marseille') {
                                         echo 'selected';
                                     } ?>>Marseille
                                     </option>
@@ -152,15 +152,15 @@ if (!empty($current_room)) {
                             <div class="form-group">
                                 <label for="category">Catégorie</label>
                                 <select name="category" id="category" class="form-control">
-                                    <option <?php if ($category == 'reunion') {
+                                    <option value="reunion"<?php if ($category == 'reunion') {
                                         echo 'selected';
                                     } ?>>Réunion
                                     </option>
-                                    <option <?php if ($category == 'bureau') {
+                                    <option value="bureau"<?php if ($category == 'bureau') {
                                         echo 'selected';
                                     } ?>>Bureau
                                     </option>
-                                    <option <?php if ($category == 'formation') {
+                                    <option value="formation"<?php if ($category == 'formation') {
                                         echo 'selected';
                                     } ?>>Formation
                                     </option>
@@ -169,7 +169,7 @@ if (!empty($current_room)) {
                             <div class="form-group">
                                 <label for="country">Pays</label>
                                 <select name="country" id="country" class="form-control">
-                                    <option <?php if ($country == 'france') {
+                                    <option value="France"<?php if ($country == 'france') {
                                         echo 'selected';
                                     } ?>>France
                                     </option>
