@@ -343,17 +343,25 @@ function deleteOrder()
 }
 
 function getAllrates(){
-    $notice_list='';
     $pdo = dbConnect();
     return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
     FROM avis, membre, salle 
     WHERE avis.id_membre = membre.id_membre 
     AND avis.id_salle = salle.id_salle');
 }
-function getAllDetails(){
-    $profile_details='';
+function getAllDetails($user_id){
     $pdo = dbConnect();
-    return $pdo->query('SELECT  membre.pseudo, membre.nom, membre.pseudo, membre.email, membre.civilite, membre.ville, membre;cp, membre.adresse
-    FROM membre');
+    $get = $pdo->prepare(
+        'SELECT commande.id_commande, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement 
+FROM commande, produit, salle 
+WHERE commande.id_membre = :userId 
+  AND commande.id_produit = produit.id_produit 
+  AND produit.id_salle = salle.id_salle'
+    );
+    $get->bindParam(":userId", $user_id, PDO::PARAM_INT);
+    $get->execute();
+    if ($get->rowCount() > 0){
+        return $get;
+    }
 
 }

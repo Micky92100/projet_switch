@@ -112,12 +112,12 @@ if (isset($_GET['action'])) {
         session_destroy();
         header("Location: " . $_SERVER['PHP_SELF']);
         getLogin();
+        ////////////////////////////////////////////////////////////////// LOG&SIGN ^
+    } else if ($_GET['action'] == 'listDetails') {
+        showProfile($_SESSION['membre']['id_membre']);
     }
-    ////////////////////////////////////////////////////////////////// LOG&SIGN ^
 } else if (user_is_connected()) {
     listProductsIndex();
-} else if ($_GET['action'] == 'listDetails') {
-    showProfile();
 } else {
     getLogin();
 }

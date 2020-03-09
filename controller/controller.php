@@ -165,8 +165,8 @@ function listUsers()
 //////////////////////////////////////// USERS
 //////////////////////////////////////// PROFILE
 
-function showProfile(){
-    $profile_details = getAllDetails();
-    require('view/back-office/profile.View.php');
+function showProfile($user_id){
+    $profile_details = getAllDetails($user_id);
+    require('view/front-office/profileView.php');
 
 }
