@@ -75,7 +75,7 @@ if (isset($_GET['action'])) {
     } else if ($_GET['action'] == 'listProducts') {
         listProducts();
     } else if ($_GET['action'] == 'viewProduct' && !empty($_GET['product-id'])) {
-        getProduct();
+        showProductDetails($_GET['product-id']);
         ////////////////////////////////////////////////////////////////// PRODUCTS ^
         ////////////////////////////////////////////////////////////////// ORDERS v
     } else if ($_GET['action'] == 'listOrders') {

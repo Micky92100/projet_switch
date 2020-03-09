@@ -173,8 +173,8 @@ function showProfile($user_id){
 //////////////////////////////////////// PROFILE
 //////////////////////////////////////// PRODUCT DETAILS
 
-function showProductDetails($product_id, $room_id)
+function showProductDetails($product_id)
 {
-    $product = getProduct();
-    require('view/back-office/productsDetailsView.php');
+    $product = getProduct($product_id);
+    require('view/front-office/productDetailsView.php');
 }

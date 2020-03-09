@@ -90,10 +90,6 @@ if (user_is_connected()) {
                     <li class="nav-item">
                         <a class="nav-link" href="?action=listDetails">Profil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?action=productDetails">Fiche produit</a>
-                    </li>
-
                     <?= $backOfficeAdmin ?>
                     <?= $logout ?>
                 </ul>
