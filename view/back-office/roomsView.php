@@ -139,7 +139,7 @@ if (!empty($current_room)) {
 
                             <div class="form-group">
                                 <label for="zip">Code Postal</label>
-                                <input type="text" name="zip" id="zip" value="<?php echo $zip; ?>"
+                                <input type="number" name="zip" id="zip" value="<?php echo $zip; ?>"
                                        class="form-control">
                             </div>
 

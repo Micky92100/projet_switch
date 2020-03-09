@@ -287,9 +287,9 @@ function saveUserByAdmin()
     return $msg;
 }
 
-/////////////////////////////////////////////////////////////////////// ROOMS
+/////////////////////////////////////////////////////////////////////// USERS
 
-/////////////////////////////////////////////////////////////////////// ROOMS
+/////////////////////////////////////////////////////////////////////// PRODUCTS
 function getAllProductsIndex()
 {
     $msg = '';
@@ -349,7 +349,9 @@ function getSearchedProducts()
     $result_products->execute();
     return $result_products;
 }
+/////////////////////////////////////////////////////////////////////// PRODUCTS
 
+/////////////////////////////////////////////////////////////////////// LOG&SIGN
 function verifyLogin()
 {
     $msg = '';
@@ -384,8 +386,9 @@ function verifyLogin()
     }
     return $msg;
 }
+/////////////////////////////////////////////////////////////////////// LOG&SIGN
 
-
+/////////////////////////////////////////////////////////////////////// ORDERS
 function getAllOrders()
 {
     $msg = '';
@@ -408,13 +411,57 @@ function deleteOrder()
     $del->bindParam(":commandeId", $_GET['order-id'], PDO::PARAM_INT);
     $del->execute();
 }
+/////////////////////////////////////////////////////////////////////// ORDERS
 
+/////////////////////////////////////////////////////////////////////// RATINGS
 function getAllrates()
 {
-    $notice_list = '';
+    $msg = '';
     $pdo = dbConnect();
     return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
     FROM avis, membre, salle 
     WHERE avis.id_membre = membre.id_membre 
     AND avis.id_salle = salle.id_salle');
 }
+/////////////////////////////////////////////////////////////////////// RATINGS
+
+/////////////////////////////////////////////////////////////////////// STATS (TOP5s)
+function getRoomRatingStats()
+{
+    $msg = '';
+    $pdo = dbConnect();
+    return $pdo->query('SELECT salle.titre, avis.note 
+    FROM salle, avis 
+    WHERE salle.id_salle = avis.id_avis');
+}
+
+function getRoomOrderStats()
+{
+    $msg = '';
+    $pdo = dbConnect();
+    return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
+    FROM avis, membre, salle 
+    WHERE avis.id_membre = membre.id_membre 
+    AND avis.id_salle = salle.id_salle');
+}
+
+function getUserPurchaseStats()
+{
+    $msg = '';
+    $pdo = dbConnect();
+    return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
+    FROM avis, membre, salle 
+    WHERE avis.id_membre = membre.id_membre 
+    AND avis.id_salle = salle.id_salle');
+}
+
+function getUserValueStats()
+{
+    $msg = '';
+    $pdo = dbConnect();
+    return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
+    FROM avis, membre, salle 
+    WHERE avis.id_membre = membre.id_membre 
+    AND avis.id_salle = salle.id_salle');
+}
+/////////////////////////////////////////////////////////////////////// STATS (TOP5s)
