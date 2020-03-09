@@ -1,25 +1,23 @@
-<!-- I AM CONTROLLER -->
 <?php
 require('model/model.php');
 
+//////////////////////////////////////// ORDERS
 function showOrders()
 {
     $orders_list = getAllOrders();
     require('view/back-office/ordersView.php');
 
 }
-function showRates(){
-    $notice_list = getAllrates();
-    require('view/back-office/ratingsView.php');
 
-}
-
-function listProductsIndex()
+function getDeleteOrder()
 {
-    $products_list = getAllProductsIndex();
-    require('indexView.php');
+    deleteOrder();
+    $orders_list = getAllOrders();
+    require('view/back-office/ordersView.php');
 }
+//////////////////////////////////////// ORDERS
 
+//////////////////////////////////////// ROOMS
 function listRooms()
 {
     $rooms_list = getAllRooms();
@@ -46,7 +44,62 @@ function saveRoom()
     $rooms_list = getAllRooms();
     require('view/back-office/roomsView.php');
 }
+//////////////////////////////////////// ROOMS
 
+//////////////////////////////////////// RATINGS
+function showRates(){
+    $notice_list = getAllrates();
+    require('view/back-office/ratingsView.php');
+
+}
+//////////////////////////////////////// RATINGS
+
+//////////////////////////////////////// PRODUCTS
+function listProductsIndex()
+{
+    $products_list = getAllProductsIndex();
+    require('indexView.php');
+}
+
+function searchProducts()
+{
+    $products_list = getSearchedProducts();
+    require('indexView.php');
+}
+
+function listProducts()
+{
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
+}
+
+function showProduct($product_id, $room_id)
+{
+    $current_product = getProductForUpdate($product_id);
+    $current_room = getRoomForUpdate($room_id);
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
+}
+function getDeleteProduct()
+{
+    deleteProduct();
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
+}
+
+function saveProduct()
+{
+    $msg = saveOrUpdateProduct();
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
+}
+//////////////////////////////////////// PRODUCTS
+
+//////////////////////////////////////// LOG&SIGN
 function getSignUp()
 {
     require('view/front-office/signupView.php');
@@ -82,13 +135,9 @@ function doLogin()
         require('view/front-office/loginView.php');
     }
 }
+//////////////////////////////////////// LOG&SIGN
 
-function searchProducts()
-{
-    $products_list = getSearchedProducts();
-    require('indexView.php');
-}
-
+//////////////////////////////////////// USERS
 function createUser()
 {
     $users_list = getAllUsers();
@@ -113,41 +162,4 @@ function listUsers()
     $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
-
-function getDeleteOrder()
-{
-    deleteOrder();
-    $orders_list = getAllOrders();
-    require('view/back-office/ordersView.php');
-}
-
-function listProducts()
-{
-    $products_list = getAllProducts();
-    $rooms_list = getAllRooms();
-    require('view/back-office/productsView.php');
-}
-
-function showProduct($product_id, $room_id)
-{
-    $current_product = getProductForUpdate($product_id);
-    $current_room = getRoomForUpdate($room_id);
-    $products_list = getAllProducts();
-    $rooms_list = getAllRooms();
-    require('view/back-office/productsView.php');
-}
-function getDeleteProduct()
-{
-    deleteProduct();
-    $products_list = getAllProducts();
-    $rooms_list = getAllRooms();
-    require('view/back-office/productsView.php');
-}
-
-function saveProduct()
-{
-    $msg = saveOrUpdateProduct();
-    $products_list = getAllProducts();
-    $rooms_list = getAllRooms();
-    require('view/back-office/productsView.php');
-}
+//////////////////////////////////////// USERS
