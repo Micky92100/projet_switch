@@ -47,7 +47,7 @@
 		</div>
 		<div class="col-6">
 			<?php if($article['stock'] > 0) { ?>
-			<form method="post" action="panier.php">
+			<form method="post" id="form" action="panier.php">
 				<input type="hidden" name="id_article" value="<?php echo $article['id_article']; ?>">
 				<div class="form-row">
 					<div class="col">

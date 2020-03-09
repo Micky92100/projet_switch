@@ -7,7 +7,7 @@ header('Refresh')
 <div class="starter-template">
     <div class="row">
         <div class="col-6 mx-auto" style="width: 400px;">
-            <form method="post" action="?action=doLogin">
+            <form method="post" id="form" action="?action=doLogin">
 
                 <div class="row">
                     <div class="col-6 mx-auto" style="width: 400px;">

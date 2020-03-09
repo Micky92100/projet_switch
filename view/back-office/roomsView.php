@@ -38,7 +38,7 @@
                 echo '<td>' . $room['cp'] . '</td>';
                 echo '<td>' . $room['capacite'] . '</td>';
 
-                echo '<td><a href="?action=editRoom&room-id=' . $room['id_salle'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
+                echo '<td><a href="?action=editRoom&room-id=' . $room['id_salle'] . '&#form" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
                 echo '<td><a href="?action=deleteRoom&room-id=' . $room['id_salle'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
                 echo '</tr>';
             }
@@ -79,7 +79,7 @@ if (!empty($current_room)) {
     <div class="starter-template">
         <div class="row">
             <div class="col-12">
-                <form method="post" action="?action=editRoom&amp;room-id=<?= $room_id ?>" enctype="multipart/form-data">
+                <form method="post" id="form" action="?action=editRoom&amp;room-id=<?= $room_id ?>" enctype="multipart/form-data">
                     <input type="hidden" name="room-id" value="<?php echo $room_id; ?>">
                     <div class="row">
                         <div class="col-6">

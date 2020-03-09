@@ -66,7 +66,7 @@ if (!empty($current_product)) {
     <div class="starter-template">
         <div class="row">
             <div class="col-12">
-                <form method="post" action="?action=editProduct&amp;product-id=<?= $product_id ?>"
+                <form method="post" id="form" action="?action=editProduct&amp;product-id=<?= $product_id ?>"
                       enctype="multipart/form-data">
                     <input type="hidden" name="room-id" value="<?php echo $product_id; ?>">
                     <div class="row">
