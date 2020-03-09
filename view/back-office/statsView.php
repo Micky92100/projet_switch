@@ -30,7 +30,7 @@
             <tr>
                 <th>Id salle</th>
                 <th>Titre</th>
-                <th>Réservation</th>
+                <th>Nombre de réservations</th>
             </tr>
             <?php
             if (!empty($room_times_ordered)) {
