@@ -30,7 +30,7 @@
                 echo '<td>' . $product['prix'] . '€</td>';
                 echo '<td>' . $product['etat'] . '</td>';
 
-                echo '<td><a href="?action=editProduct&product-id=' . $product['id_produit'] . '&room-id=' . $product['id_salle'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
+                echo '<td><a href="?action=editProduct&product-id=' . $product['id_produit'] . '&room-id=' . $product['id_salle'] . '&#form" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
                 echo '<td><a href="?action=deleteProduct&product-id=' . $product['id_produit'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
                 echo '</tr>';
             }

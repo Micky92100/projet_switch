@@ -40,7 +40,7 @@
                 echo '<td>' . $user['statut'] . '</td>';
                 echo '<td>' . $user['date_enregistrement'] . '</td>';
 
-                echo '<td><a href="?action=editUser&user-id=' . $user['id_membre'] . '" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
+                echo '<td><a href="?action=editUser&user-id=' . $user['id_membre'] . '&#form" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
                 echo '<td><a href="?action=deleteUser&user-id=' . $user['id_membre'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
                 echo '</tr>';
             }
