@@ -138,6 +138,10 @@ function saveOrUpdateRoom()
         return $msg;
     }
 }
+
+/////////////////////////////////////////////////////////////////////// ROOMS
+
+/////////////////////////////////////////////////////////////////////// USERS
 function getAllUsers()
 {
     $msg = '';
@@ -155,6 +159,7 @@ function deleteUser()
     $del->bindParam(":userId", $_GET['user-id'], PDO::PARAM_INT);
     $del->execute();
 }
+
 function getUserForUpdate($user_id)
 {
     $msg = '';
@@ -168,12 +173,12 @@ function getUserForUpdate($user_id)
         return $current_user->fetch(PDO::FETCH_ASSOC);
     }
 }
-function saveUser()
+
+function saveUserByUser()
 {
     $msg = '';
     $pdo = dbConnect();
 
-    $msg = false;
     $pseudo = trim($_POST['pseudo']);
     $mdp = trim($_POST['mdp']);
     $prenom = trim($_POST['prenom']);
@@ -194,10 +199,13 @@ function saveUser()
     $verif_pseudo = $pdo->prepare("SELECT * FROM membre WHERE pseudo = :pseudo");
     $verif_pseudo->bindParam(":pseudo", $pseudo, PDO::PARAM_STR);
     $verif_pseudo->execute();
+    $verif_email = $pdo->prepare("SELECT * FROM membre WHERE email = :email");
+    $verif_email->bindParam(":email", $email, PDO::PARAM_STR);
+    $verif_email->execute();
 
-    if ($verif_pseudo->rowCount() > 0) {
-        $msg = '<div class="alert alert-danger mt-3">Pseudo indisponible !</div>';
-    } else if (!$msg) {
+    if ($verif_pseudo->rowCount() > 0 || $verif_email->rowCount() > 0) {
+        $msg = '<div class="alert alert-danger mt-3">Pseudo ou email indisponible !</div>';
+    } else if (empty($msg)) {
         $mdp = password_hash($mdp, PASSWORD_DEFAULT);
 
         $save = $pdo->prepare("INSERT INTO membre 
@@ -222,6 +230,66 @@ function saveUser()
     return $msg;
 }
 
+function saveUserByAdmin()
+{
+    $msg = '';
+    $pdo = dbConnect();
+
+    $user_id = trim($_POST['id_membre']);
+    $pseudo = trim($_POST['pseudo']);
+    $mdp = trim($_POST['mdp']);
+    $prenom = trim($_POST['prenom']);
+    $nom = trim($_POST['nom']);
+    $email = trim($_POST['email']);
+    $civilite = trim($_POST['civilite']);
+    $statut = trim($_POST['statut']);
+
+    $verif_caractere = preg_match('#^[a-zA-Z0-9._-]+$#', $pseudo);
+
+    if (!$verif_caractere && !empty($pseudo)) {
+        $msg = '<div class="alert alert-danger mt-3">Pseudo invalide, caractères autorisés : a-z et de 0-9</div>';
+    }
+
+    if (iconv_strlen($pseudo) < 4 || iconv_strlen($pseudo) > 14) {
+        $msg = '<div class="alert alert-danger mt-3">Pseudo invalide, le pseudo doit avoir entre 4 et 14 caractères inclus</div>';
+    }
+
+    if (!empty($user_id)) {
+        $save = $pdo->prepare("UPDATE membre SET id_membre = :userId, pseudo = :pseudo, mdp = :mdp, nom = :nom, prenom = :prenom, email = :email, civilite = :civilite, statut = :statut WHERE id_membre = :userId");
+        $save->bindParam(":userId", $user_id, PDO::PARAM_INT);
+    } else {
+        $verif_pseudo = $pdo->prepare("SELECT * FROM membre WHERE pseudo = :pseudo");
+        $verif_pseudo->bindParam(":pseudo", $pseudo, PDO::PARAM_STR);
+        $verif_pseudo->execute();
+        $verif_email = $pdo->prepare("SELECT * FROM membre WHERE email = :email");
+        $verif_email->bindParam(":email", $email, PDO::PARAM_STR);
+        $verif_email->execute();
+
+        if ($verif_pseudo->rowCount() > 0 || $verif_email->rowCount() > 0) {
+            $msg = '<div class="alert alert-danger mt-3">Pseudo ou email indisponible !</div>';
+        } else if (empty($msg)) {
+            $save = $pdo->prepare("INSERT INTO membre 
+            (pseudo, mdp, nom, prenom, email, civilite, statut, date_enregistrement)
+             VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, :statut, NOW())");
+        }
+    }
+    if (empty($msg)) {
+        $mdp = password_hash($mdp, PASSWORD_DEFAULT);
+        $save->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+        $save->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+        $save->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $save->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+        $save->bindParam(':email', $email, PDO::PARAM_STR);
+        $save->bindParam(':civilite', $civilite, PDO::PARAM_STR);
+        $save->bindParam(':statut', $statut, PDO::PARAM_INT);
+        $save->execute();
+    }
+    return $msg;
+}
+
+/////////////////////////////////////////////////////////////////////// ROOMS
+
+/////////////////////////////////////////////////////////////////////// ROOMS
 function getAllProductsIndex()
 {
     $msg = '';
@@ -318,7 +386,6 @@ function verifyLogin()
 }
 
 
-
 function getAllOrders()
 {
     $msg = '';
@@ -342,8 +409,9 @@ function deleteOrder()
     $del->execute();
 }
 
-function getAllrates(){
-    $notice_list='';
+function getAllrates()
+{
+    $notice_list = '';
     $pdo = dbConnect();
     return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
     FROM avis, membre, salle 

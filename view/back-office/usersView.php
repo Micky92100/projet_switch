@@ -1,16 +1,7 @@
 <?php $title = 'Gestion des membres' ?>
 
 
-<?php ob_start();
-//$pseudo = '';
-//$mdp = '';
-//$nom = '';
-//$prenom = '';
-//$email = '';
-//$civilite = '';
-//$statut = '';
-?>
-    <!--TODO come back and make listing of users here (example rooms)-->
+<?php ob_start(); ?>
 <?php if (!empty($users_list)) {
     echo '<p>Nombre de membres : <b>' . $users_list->rowCount() . '</b></p>';
 } ?>
@@ -73,14 +64,10 @@ if (!empty($current_user)) {
     <!--******************-->
     <!-- DEBUT FORMULAIRE -->
     <!--******************-->
-
-
     <div class="starter-template">
         <div class="row">
             <div class="col-12">
-                <form method="post" id="form" action="?action=editUser&amp;user-id=<?= $id_membre ?>"
-                      enctype="multipart/form-data">
-                    <!-- récupération de l'id_article pour la modification -->
+                <form method="post" id="form" action="?action=editUser&amp;user-id=<?= $id_membre ?>">
                     <input type="hidden" name="id_membre" value="<?php echo $id_membre ?>">
 
                     <div class="row">
@@ -140,10 +127,8 @@ if (!empty($current_user)) {
                                     </option>
                                 </select>
                             </div>
-                            <?php
-                            ?>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-outline-dark"> Enregistrer</button>
+                                <button type="submit" class="form-control btn btn-outline-dark">Enregistrer</button>
                             </div>
                         </div>
                     </div>

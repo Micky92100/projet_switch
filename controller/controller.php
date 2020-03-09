@@ -108,8 +108,8 @@ function getSignUp()
 function doSignUp()
 {
 
-    $msg = saveUser();
-    if (!$msg) {
+    $msg = saveUserByUser();
+    if (empty($msg)) {
         listProductsIndex();
     } else {
         $_POST = '';
@@ -128,7 +128,7 @@ function getLogin()
 function doLogin()
 {
     $msg = verifyLogin();
-    if (!$msg) {
+    if (empty($msg)) {
         listProductsIndex();
     } else {
         $_POST = '';
@@ -141,7 +141,7 @@ function doLogin()
 function createUser()
 {
     $users_list = getAllUsers();
-    $msg = saveUser();
+    $msg = saveUserByAdmin();
     require('view/back-office/usersView.php');
 }
 
