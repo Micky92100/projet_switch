@@ -34,6 +34,7 @@ function user_is_admin()
     }
 }
 
+/////////////////////////////////////////////////////////////////////// ROOMS
 function getAllRooms()
 {
     $msg = '';
@@ -269,19 +270,7 @@ function getSearchedProducts()
     $timestamp_dep = $date_date_depart->getTimestamp();
 
 
-    $result_products = $pdo->prepare('
-SELECT produit.id_produit, produit.prix, produit.date_arrivee, produit.date_depart, salle.titre, salle.description, salle.photo 
-FROM produit, salle 
-WHERE produit.id_salle = salle.id_salle 
-    AND salle.categorie = :categorie 
-    AND salle.ville = :ville 
-    AND salle.capacite >= :capacite 
-    AND produit.prix <= :prix 
-    AND produit.date_arrivee >= :date_arrivee 
-    AND produit.date_arrivee >= NOW() 
-    AND produit.date_depart <= :date_depart 
-    AND produit.etat = \'libre\'
-    ');
+    $result_products = $pdo->prepare('SELECT produit.id_produit, produit.prix, produit.date_arrivee, produit.date_depart, salle.titre, salle.description, salle.photo FROM produit, salle WHERE produit.id_salle = salle.id_salle AND salle.categorie = :categorie AND salle.ville = :ville AND salle.capacite >= :capacite AND produit.prix <= :prix AND produit.date_arrivee >= :date_arrivee AND produit.date_arrivee >= NOW() AND produit.date_depart <= :date_depart AND produit.etat = \'libre\'');
 
     $result_products->bindParam(":categorie", intval($categorie), PDO::FETCH_ASSOC);
     $result_products->bindParam(":ville", $ville, PDO::FETCH_ASSOC);
