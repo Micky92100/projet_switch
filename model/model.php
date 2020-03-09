@@ -430,38 +430,48 @@ function getRoomRatingStats()
 {
     $msg = '';
     $pdo = dbConnect();
-    return $pdo->query('SELECT salle.titre, avis.note 
-    FROM salle, avis 
-    WHERE salle.id_salle = avis.id_avis');
+    return $pdo->query('
+    SELECT salle.id_salle, salle.titre, (SELECT ROUND(AVG(avis.note), 2) FROM avis WHERE avis.id_salle = salle.id_salle) AS rating 
+    FROM salle 
+    ORDER BY rating DESC 
+    LIMIT 5
+    ');
+
 }
 
-function getRoomOrderStats()
+function getRoomTimesOrderedStats()
 {
     $msg = '';
     $pdo = dbConnect();
-    return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
-    FROM avis, membre, salle 
-    WHERE avis.id_membre = membre.id_membre 
-    AND avis.id_salle = salle.id_salle');
+    return $pdo->query('
+    SELECT salle.id_salle, salle.titre, (SELECT COUNT(commande.id_commande) FROM commande, produit WHERE commande.id_produit = produit.id_produit AND produit.id_salle = salle.id_salle) AS times_ordered 
+    FROM salle 
+    ORDER BY times_ordered DESC 
+    LIMIT 5
+    ');
 }
 
-function getUserPurchaseStats()
+function getUserPurchasesStats()
 {
     $msg = '';
     $pdo = dbConnect();
-    return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
-    FROM avis, membre, salle 
-    WHERE avis.id_membre = membre.id_membre 
-    AND avis.id_salle = salle.id_salle');
+    return $pdo->query('
+    SELECT membre.id_membre, membre.pseudo, (SELECT COUNT(commande.id_commande) FROM commande WHERE commande.id_membre = membre.id_membre) AS times_purchased 
+    FROM membre 
+    ORDER BY times_purchased DESC 
+    LIMIT 5
+    ');
 }
 
 function getUserValueStats()
 {
     $msg = '';
     $pdo = dbConnect();
-    return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
-    FROM avis, membre, salle 
-    WHERE avis.id_membre = membre.id_membre 
-    AND avis.id_salle = salle.id_salle');
+    return $pdo->query('
+    SELECT membre.id_membre, membre.pseudo, (SELECT ROUND(AVG(produit.prix), 2) FROM commande, produit WHERE commande.id_membre = membre.id_membre AND commande.id_produit = produit.id_produit) AS amount_spent
+    FROM membre 
+    ORDER BY amount_spent DESC 
+    LIMIT 5
+    ');
 }
 /////////////////////////////////////////////////////////////////////// STATS (TOP5s)

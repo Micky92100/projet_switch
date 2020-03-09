@@ -15,6 +15,7 @@ function getDeleteOrder()
     $orders_list = getAllOrders();
     require('view/back-office/ordersView.php');
 }
+
 //////////////////////////////////////// ORDERS
 
 //////////////////////////////////////// ROOMS
@@ -44,14 +45,17 @@ function saveRoom()
     $rooms_list = getAllRooms();
     require('view/back-office/roomsView.php');
 }
+
 //////////////////////////////////////// ROOMS
 
 //////////////////////////////////////// RATINGS
-function showRates(){
+function showRates()
+{
     $notice_list = getAllrates();
     require('view/back-office/ratingsView.php');
 
 }
+
 //////////////////////////////////////// RATINGS
 
 //////////////////////////////////////// PRODUCTS
@@ -82,6 +86,7 @@ function showProduct($product_id, $room_id)
     $rooms_list = getAllRooms();
     require('view/back-office/productsView.php');
 }
+
 function getDeleteProduct()
 {
     deleteProduct();
@@ -97,6 +102,7 @@ function saveProduct()
     $rooms_list = getAllRooms();
     require('view/back-office/productsView.php');
 }
+
 //////////////////////////////////////// PRODUCTS
 
 //////////////////////////////////////// LOG&SIGN
@@ -135,6 +141,7 @@ function doLogin()
         require('view/front-office/loginView.php');
     }
 }
+
 //////////////////////////////////////// LOG&SIGN
 
 //////////////////////////////////////// USERS
@@ -151,15 +158,28 @@ function showUser($user_id)
     $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
+
 function getDeleteUser()
 {
     deleteUser();
     $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
+
 function listUsers()
 {
     $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
+
 //////////////////////////////////////// USERS
+//////////////////////////////////////// STATS
+function getAllStats()
+{
+    $room_rating = getRoomRatingStats();
+    $room_times_ordered = getRoomTimesOrderedStats();
+    $user_purchases = getUserPurchasesStats();
+    $user_value = getUserValueStats();
+    require('view/back-office/statsView.php');
+}
+//////////////////////////////////////// STATS

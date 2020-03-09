@@ -76,7 +76,7 @@ if (user_is_connected()) {
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../../index.php">Home</a>
+                        <a class="nav-link" href="?action=listProductsIndex">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?action=login">Connexion</a>

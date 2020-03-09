@@ -30,4 +30,11 @@
 </div>
 <?php $content = ob_get_clean(); ?>
 
+<?php
+if (!user_is_admin()) {
+    $title = 'Accès interdit';
+    $content = '<h1>Vers l\'<a href="?action=listProductsIndex">accueil</a></h1>';
+}
+?>
+
 <?php require('view/template/template.php'); ?>

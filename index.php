@@ -71,7 +71,11 @@ if (isset($_GET['action'])) {
         getDeleteProduct();
     } else if ($_GET['action'] == 'listProducts') {
         listProducts();
+    } else if ($_GET['action'] == 'listProductsIndex') {
+        listProductsIndex();
         ////////////////////////////////////////////////////////////////// PRODUCTS ^
+    } else if ($_GET['action'] == 'listStats') {
+        getAllStats();
         ////////////////////////////////////////////////////////////////// ORDERS v
     } else if ($_GET['action'] == 'listOrders') {
         showOrders();
