@@ -163,3 +163,10 @@ function listUsers()
     require('view/back-office/usersView.php');
 }
 //////////////////////////////////////// USERS
+//////////////////////////////////////// PROFILE
+
+function showProfile(){
+    $profile_details = getAllDetails();
+    require('view/back-office/profile.View.php');
+
+}

@@ -350,3 +350,10 @@ function getAllrates(){
     WHERE avis.id_membre = membre.id_membre 
     AND avis.id_salle = salle.id_salle');
 }
+function getAllDetails(){
+    $profile_details='';
+    $pdo = dbConnect();
+    return $pdo->query('SELECT  membre.pseudo, membre.nom, membre.pseudo, membre.email, membre.civilite, membre.ville, membre;cp, membre.adresse
+    FROM membre');
+
+}

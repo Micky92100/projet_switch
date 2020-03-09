@@ -31,6 +31,9 @@ if (user_is_admin()) {
     <li class="nav-item">
         <a class="nav-link" href="?action=listStats">Statistiques</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="?action=listDetails">Profil</a>
+    </li>
     <?php $backOfficeAdmin = ob_get_clean(); ?>
     <?php
 }
@@ -85,7 +88,7 @@ if (user_is_connected()) {
                         <a class="nav-link" href="?action=signup">Inscription</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/view/front-office/profileView.php">Profil</a>
+                        <a class="nav-link" href="?action=listDetails">Profil</a>
                     </li>
                     <?= $backOfficeAdmin ?>
                     <?= $logout ?>

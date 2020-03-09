@@ -116,6 +116,9 @@ if (isset($_GET['action'])) {
     ////////////////////////////////////////////////////////////////// LOG&SIGN ^
 } else if (user_is_connected()) {
     listProductsIndex();
+} else if ($_GET['action'] == 'listDetails') {
+    showProfile();
 } else {
     getLogin();
 }
+
