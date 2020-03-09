@@ -1,4 +1,4 @@
-<?php $title = 'S\'enregistrer' ?>
+<?php $title = 'S\'identifier' ?>
 
 <?php ob_start(); 
 $pseudo = '';
@@ -7,7 +7,7 @@ header('Refresh')
 <div class="starter-template">
     <div class="row">
         <div class="col-6 mx-auto" style="width: 400px;">
-            <form method="post" action="?action=doLogin">
+            <form method="post" id="form" action="?action=doLogin">
 
                 <div class="row">
                     <div class="col-6 mx-auto" style="width: 400px;">
@@ -25,7 +25,7 @@ header('Refresh')
                      
                         ?>
                         <div class="form-group">
-                            <button type="submit" name="enregistrement" id="enregistrement" class="form-control btn btn-outline-dark"> Enregistrer</button>
+                            <button type="submit" class="form-control btn btn-outline-dark">Enregistrer</button>
                         </div>
                     </div>
                 </div>

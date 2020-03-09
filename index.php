@@ -23,29 +23,7 @@ if (isset($_GET['action'])) {
         getDeleteRoom();
     } else if ($_GET['action'] == 'listRooms') {
         listRooms();
-    } else if ($_GET['action'] == 'signup') {
-        if (isset($_POST['pseudo']) &&
-            isset($_POST['mdp']) &&
-            isset($_POST['prenom']) &&
-            isset($_POST['nom']) &&
-            isset($_POST['email']) &&
-            isset($_POST['civilite'])) {
-            doSignUp();
-        } else {
-            getSignUp();
-        }
-    } else if ($_GET['action'] == 'login') {
-        getLogin();
-    } else if ($_GET['action'] == 'doLogin') {
-        if(
-            isset($_POST['pseudo']) &&
-            isset($_POST['mdp'])
-        ) {
-            doLogin();
-        }
-    } else if ($_GET['action'] == 'loggedIn') {
-        listProductsIndex();
-     } else if ($_GET['action'] == 'editUser' && !empty($_GET['user-id'])) {
+    } else if ($_GET['action'] == 'editUser' && !empty($_GET['user-id'])) {
             if (
                 isset($_POST['id_membre']) &&
                 isset($_POST['pseudo']) &&
@@ -54,7 +32,7 @@ if (isset($_GET['action'])) {
                 isset($_POST['prenom']) &&
                 isset($_POST['email']) &&
                 isset($_POST['civilite']) &&
-                isset($_POST['statut']) 
+                isset($_POST['statut'])
             ) {
                 createUser();
             } else {
@@ -68,33 +46,68 @@ if (isset($_GET['action'])) {
 
     } else if ($_GET['action'] == 'searchProducts') {
         if (isset($_POST['category']) &&
-        isset($_POST['city']) &&
-        isset($_POST['capacity']) &&
-        isset($_POST['price']) &&
-        isset($_POST['arrival']) &&
-        isset($_POST['departure'])){
+            isset($_POST['city']) &&
+            isset($_POST['capacity']) &&
+            isset($_POST['price']) &&
+            isset($_POST['arrival']) &&
+            isset($_POST['departure'])) {
             searchProducts();
         }
     } else if ($_GET['action'] == 'deconnexion') {
-        if (!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
         }
-        if (isset($_SESSION)) {
-            session_destroy();
-            header("Location: " . $_SERVER['PHP_SELF']);
-        }
+        session_destroy();
+        header("Location: " . $_SERVER['PHP_SELF']);
         getLogin();
     } else if ($_GET['action'] == 'listOrders') {
         showOrders();
     } else if ($_GET['action'] == 'deleteOrder') {
-   
+        getDeleteOrder();
+    }
+    if ($_GET['action'] == 'editProduct') {
+        if (
+            isset($_POST['arrival']) &&
+            isset($_POST['departure']) &&
+            isset($_POST['room']) &&
+            isset($_POST['price'])
+        ) {
+            saveProduct();
+        } else if (!empty($_GET['product-id'])){
+            showProduct($_GET['product-id'], $_GET['room-id']);
+        }
+    } else if ($_GET['action'] == 'deleteProduct' && !empty($_GET['product-id'])) {
+        getDeleteProduct();
+    } else if ($_GET['action'] == 'listProducts') {
+        listProducts();
+    } else if ($_GET['action'] == 'login') {
+        header("Location: " . $_SERVER['PHP_SELF']);
+        getLogin();
     } else if ($_GET['action'] == 'noticeList') {
         showRates();
-    } else if ($_GET['action'] == 'deleteNotice') {
-    
-    } else {
-        getLogin();
+    } else if ($_GET['action'] == 'doLogin') {
+        header("Location: " . $_SERVER['PHP_SELF']);
+        if (
+            isset($_POST['pseudo']) &&
+            isset($_POST['mdp'])
+        ) {
+            doLogin();
+        }
+    } else if ($_GET['action'] == 'signup') {
+        if (isset($_POST['pseudo']) &&
+            isset($_POST['mdp']) &&
+            isset($_POST['prenom']) &&
+            isset($_POST['nom']) &&
+            isset($_POST['email']) &&
+            isset($_POST['civilite'])) {
+            doSignUp();
+        } else {
+            getSignUp();
+        }
+
     }
+} else if (user_is_connected()) {
+    listProductsIndex();
 } else {
     getLogin();
 }

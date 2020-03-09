@@ -2,7 +2,8 @@
 <?php
 require('model/model.php');
 
-function showOrders(){
+function showOrders()
+{
     $orders_list = getAllOrders();
     require('view/back-office/ordersView.php');
 
@@ -15,9 +16,10 @@ function showRates(){
 
 function listProductsIndex()
 {
-    $products_list = getAllProducts();
+    $products_list = getAllProductsIndex();
     require('indexView.php');
 }
+
 function listRooms()
 {
     $rooms_list = getAllRooms();
@@ -38,66 +40,61 @@ function getDeleteRoom()
     require('view/back-office/roomsView.php');
 }
 
-function saveRoom() {
-
+function saveRoom()
+{
     $msg = saveOrUpdateRoom();
-
     $rooms_list = getAllRooms();
     require('view/back-office/roomsView.php');
 }
 
-function getSignUp() {
+function getSignUp()
+{
     require('view/front-office/signupView.php');
 }
 
-function doSignUp() {
-    // ATTENTION //
-    // $msg a un problème et ne s'affiche pas.
-    // mais le comportement est ok a part ca : si le pseudo est déjà utilisé, la sauvegarde n'a pas lieu et l'utilisateur reste sur la page signup...
+function doSignUp()
+{
 
     $msg = saveUser();
-    if(!$msg){
-        $products_list = getAllProducts();
-        require('indexView.php');
+    if (!$msg) {
+        listProductsIndex();
     } else {
-        $_POST='';
+        $_POST = '';
         require('view/front-office/signupView.php');
     }
 }
 
-function getLogin() {
+function getLogin()
+{
+    if (isset($_SESSION)) {
+        session_destroy();
+    }
     require('view/front-office/loginView.php');
 }
 
-function doLogin() {
+function doLogin()
+{
     $msg = verifyLogin();
-    if(!$msg){
-        $products_list = getAllProducts();
-        require('indexView.php');
+    if (!$msg) {
+        listProductsIndex();
     } else {
-        $_POST='';
+        $_POST = '';
         require('view/front-office/loginView.php');
     }
 }
-//function getIduser(){
-//      header('view/front-office/profileView.php');
-//
-//}
-//function showProfile(){
-//
-//    require('view/front-office/profileView.php');
-//}
 
-function searchProducts(){
+function searchProducts()
+{
     $products_list = getSearchedProducts();
     require('indexView.php');
 }
 
-// function getUsers(){
-//     $user = "";
-//     $users_list = getAllUsers();
-//     require('view/back-office/usersView.php');
-// }
+function createUser()
+{
+    $users_list = getAllUsers();
+    $msg = saveUser();
+    require('view/back-office/usersView.php');
+}
 
 function showUser($user_id)
 {
@@ -116,9 +113,41 @@ function listUsers()
     $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
-function createUser()
+
+function getDeleteOrder()
 {
-    $users_list = getAllUsers();
-    $msg = saveUser();
-    require('view/back-office/usersView.php');
+    deleteOrder();
+    $orders_list = getAllOrders();
+    require('view/back-office/ordersView.php');
+}
+
+function listProducts()
+{
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
+}
+
+function showProduct($product_id, $room_id)
+{
+    $current_product = getProductForUpdate($product_id);
+    $current_room = getRoomForUpdate($room_id);
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
+}
+function getDeleteProduct()
+{
+    deleteProduct();
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
+}
+
+function saveProduct()
+{
+    $msg = saveOrUpdateProduct();
+    $products_list = getAllProducts();
+    $rooms_list = getAllRooms();
+    require('view/back-office/productsView.php');
 }

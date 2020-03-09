@@ -18,7 +18,7 @@ $civilite = '';
     <div class="starter-template">
         <div class="row">
             <div class="col-6 mx-auto" style="width: 400px;">
-                <form method="post" action="?action=signup">
+                <form method="post" id="form" action="?action=signup">
                     <!--TODO fill out action-->
                     <div class="row">
                         <div class="col-6 mx-auto" style="width: 400px;">
@@ -61,8 +61,7 @@ $civilite = '';
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="inscription" id="inscription"
-                                        class="form-control btn btn-outline-primary"> S'inscrire
+                                <button type="submit" class="form-control btn btn-outline-primary"> S'inscrire
                                 </button>
                             </div>
                         </div>

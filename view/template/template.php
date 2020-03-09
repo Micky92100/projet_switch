@@ -2,6 +2,9 @@
 $backOfficeAdmin = '<li></li>';
 ?>
 <?php
+$logout = '<li></li>';
+?>
+<?php
 if (user_is_admin()) {
     ?>
     <?php ob_start(); ?>
@@ -23,14 +26,27 @@ if (user_is_admin()) {
         <a class="nav-link" href="?action=noticeList">Avis</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/productsView.php">Produits</a>
+        <a class="nav-link" href="?action=listProducts">Produits</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/view/back-office/statsView.php">Statistiques</a>
+        <a class="nav-link" href="?action=listStats">Statistiques</a>
     </li>
-    
-
     <?php $backOfficeAdmin = ob_get_clean(); ?>
+    <?php
+}
+?>
+
+<?php
+if (user_is_connected()) {
+    ?>
+    <?php ob_start(); ?>
+    <li class="nav-item">
+        <a class="nav-link">|</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="?action=deconnexion">Déconnexion</a>
+    </li>
+    <?php $logout = ob_get_clean(); ?>
     <?php
 }
 ?>
@@ -72,12 +88,7 @@ if (user_is_admin()) {
                         <a class="nav-link" href="/view/front-office/profileView.php">Profil</a>
                     </li>
                     <?= $backOfficeAdmin ?>
-                    <li class="nav-item">
-                        <a class="nav-link">|</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?action=deconnexion">Déconnexion</a>
-                    </li>
+                    <?= $logout ?>
                 </ul>
             </div>
         </div>
@@ -104,7 +115,7 @@ echo '$_FILES = ';
 var_dump($_FILES);
 echo '<br>';
 echo '$_SESSION = ';
-var_dump($_SESSION);?>
+var_dump($_SESSION); ?>
 <?= $content ?>
 </body>
 <!------------->

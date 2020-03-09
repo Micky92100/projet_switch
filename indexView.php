@@ -8,7 +8,7 @@
             <!--------------------->
             <!-- ADVANCED SEARCH -->
             <!--------------------->
-            <form method="post" action="?action=searchProducts">
+            <form method="post" id="form" action="?action=searchProducts">
                 <label for="category">Catégories</label>
                 <select name="category" id="category" class="form-control">
                     <option value="1">Réunion</option>
