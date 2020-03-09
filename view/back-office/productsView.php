@@ -73,12 +73,12 @@ if (!empty($current_product)) {
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="arrival">Date d'arrivée</label>
-                                <input type="datetime-local" name="arrival" id="arrival" value="<?php echo date('Y-m-d\TH:i', strtotime($arrival)); ?>"
+                                <input type="datetime-local" name="arrival" id="arrival" value="<?php if (!empty($arrival)){echo date('Y-m-d\TH:i', strtotime($arrival));} ?>"
                                        class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="departure">Date d'arrivée</label>
-                                <input type="datetime-local" name="departure" id="departure" value="<?php echo date('Y-m-d\TH:i', strtotime($departure)); ?>"
+                                <input type="datetime-local" name="departure" id="departure" value="<?php if (!empty($departure)){echo date('Y-m-d\TH:i', strtotime($departure));} ?>"
                                        class="form-control">
                             </div>
                         </div>
