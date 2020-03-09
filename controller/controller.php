@@ -170,3 +170,11 @@ function showProfile($user_id){
     require('view/front-office/profileView.php');
 
 }
+//////////////////////////////////////// PROFILE
+//////////////////////////////////////// PRODUCT DETAILS
+
+function showProductDetails($product_id, $room_id)
+{
+    $product = getProduct();
+    require('view/back-office/productsDetailsView.php');
+}

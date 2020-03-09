@@ -3,7 +3,7 @@
 require('controller/controller.php');
 
 if (isset($_GET['action'])) {
-        ////////////////////////////////////////////////////////////////// ROOMS v
+    ////////////////////////////////////////////////////////////////// ROOMS v
     if ($_GET['action'] == 'editRoom' && !empty($_GET['room-id'])) {
         if (
             isset($_POST['room-id']) &&
@@ -44,16 +44,19 @@ if (isset($_GET['action'])) {
     } else if ($_GET['action'] == 'deleteUser' && !empty($_GET['user-id'])) {
         getDeleteUser();
     } else if ($_GET['action'] == 'listUsers') {
-        listUsers();
+        listUsers(); 
+   
         ////////////////////////////////////////////////////////////////// USERS ^
         ////////////////////////////////////////////////////////////////// PRODUCTS v
     } else if ($_GET['action'] == 'searchProducts') {
-        if (isset($_POST['category']) &&
+        if (
+            isset($_POST['category']) &&
             isset($_POST['city']) &&
             isset($_POST['capacity']) &&
             isset($_POST['price']) &&
             isset($_POST['arrival']) &&
-            isset($_POST['departure'])) {
+            isset($_POST['departure'])
+        ) {
             searchProducts();
         }
     } else if ($_GET['action'] == 'editProduct') {
@@ -71,6 +74,8 @@ if (isset($_GET['action'])) {
         getDeleteProduct();
     } else if ($_GET['action'] == 'listProducts') {
         listProducts();
+    } else if ($_GET['action'] == 'viewProduct' && !empty($_GET['product-id'])) {
+        getProduct();
         ////////////////////////////////////////////////////////////////// PRODUCTS ^
         ////////////////////////////////////////////////////////////////// ORDERS v
     } else if ($_GET['action'] == 'listOrders') {
@@ -95,12 +100,14 @@ if (isset($_GET['action'])) {
             doLogin();
         }
     } else if ($_GET['action'] == 'signup') {
-        if (isset($_POST['pseudo']) &&
+        if (
+            isset($_POST['pseudo']) &&
             isset($_POST['mdp']) &&
             isset($_POST['prenom']) &&
             isset($_POST['nom']) &&
             isset($_POST['email']) &&
-            isset($_POST['civilite'])) {
+            isset($_POST['civilite'])
+        ) {
             doSignUp();
         } else {
             getSignUp();
@@ -113,12 +120,13 @@ if (isset($_GET['action'])) {
         header("Location: " . $_SERVER['PHP_SELF']);
         getLogin();
         ////////////////////////////////////////////////////////////////// LOG&SIGN ^
-    } else if ($_GET['action'] == 'listDetails') {
+    } else if ($_GET['action'] == 'listDetails' && user_is_connected()) {
         showProfile($_SESSION['membre']['id_membre']);
+    } else {
+        getLogin();
     }
 } else if (user_is_connected()) {
     listProductsIndex();
 } else {
     getLogin();
 }
-

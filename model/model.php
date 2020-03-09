@@ -253,7 +253,17 @@ function getProductForUpdate($product_id)
         return $current_product->fetch(PDO::FETCH_ASSOC);
     }
 }
+function getProduct(){
+    $product='';
+    $pdo = dbConnect();
+    return $pdo->query(
+        'SELECT titre, photo, description, date_arrivee, date_depart, capacite, categorie, prix
+        
+        FROM salle, produit, membre, avis
+        WHERE produit.id_salle = salle.id_salle'
+    );
 
+}
 function getSearchedProducts()
 {
     $msg = '';

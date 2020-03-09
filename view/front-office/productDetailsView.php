@@ -1,72 +1,46 @@
-<?php
+<?php $title = 'Fiche produit'; ?>
 
+<?php ob_start(); ?>
 
-?>
-	<div class="starter-template">
-		<h1><?php echo $room['titre']; ?></h1>
-		<p class="lead"><?php echo $msg; ?></p>
-	</div>
-
-
-    <div class="col-sm-9">
-            <div class="row justify-content-around">
-                <?php
-                // if (!empty($products_list)) {
-                    while ($product = $products_list->fetch(PDO::FETCH_ASSOC)) {
-                      
-                        echo '<div class="col-sm-3 text-center p-2">';
-
-                        echo '<h5>' . htmlspecialchars($product['titre']) . ' : ' . htmlspecialchars($product['prix']) . '€</h5>';
-                         echo '<h5>' . $rate['avis'];
-                        echo '<img src="img/' . htmlspecialchars($product['photo']) . '" alt="' . htmlspecialchars($product['titre']) . '" class="img-thumbnail w-100">';
-                        echo '<p style="overflow: hidden">'. htmlspecialchars(substr($product['description'], 0, 20)).'...' . '</p>';
-                        echo '<p><i class="fa fa-calendar-alt"></i>&nbsp;' . $product['date_arrivee'] . ' au ' . $product['date_depart'] . '</p>';
-                        echo '<button type="submit" class="btn btn-primary w-100">Reserver</button>';
-                        echo '</div>';
-                    }
-                // }
-                ?>
-            </div>
-        </div>
-
-
-				<?php if($product['etat'] = 0) { ?>
-				
-				<li class="list-group-item">Stock : <b><?php echo $article['stock']; ?></b></li>
-				
-				<?php } else { ?>
-				
-				<li class="list-group-item"><span class="text-danger">Rupture de stock pour cet article</span></li>
-				
-				<?php } ?>
-				
-				<li class="list-group-item">Prix : <b><?php echo $article['prix']; ?></b>€</li>
-				<li class="list-group-item">Description : <?php echo $article['description']; ?></li>
-			</ul>
+    <!--******************************-->
+    <!-- DEBUT AFFICHAGE FICHE PRODUIT -->
+    <!--******************************-->
+<?php if (!empty($products_list)) {
+    echo '<p>Nombre d\'articles : <b>' . $products_list->rowCount() . '</b></p>';
+} ?>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+				<th>titre</th>
+				<th>avis</th>
+				<th>photo</th>
+				<th>description</th>
+				<!-- <th>localisation</th> -->
+                <th>Date d'arrivée</th>
+                <th>Date de départ</th>
+				<th>capacité</th>
+				<th>catégorie</th>
+				<th>Prix</th>
+            </tr>
+            <?php
+				echo '<tr>';
+				echo '<td>' . $product['titre'] . '</td>';
+				echo '<td>' . $product['avis'] . '</td>';
+				echo '<td><img src="../../img/' . $product['photo'] . '" class="img-thumbnail" width="140" alt="' . $product['description'] . '"></td>';
+				echo '<td>' . $product['description'] . '</td>';
+				echo '<td>' . $product['date_arrivee'] . '</td>';
+                echo '<td>' . $product['date_depart'] . '</td>';
+				echo '<td>' . $product['capacite'] . '</td>';
+				echo '<td>' . $product['categorie'] . '</td>';
+                echo '<td>' . $product['prix'] . '€</td>';
+                echo '</tr>';
 			
-		</div>
-		<div class="col-6">
-			<?php if($article['stock'] > 0) { ?>
-			<form method="post" id="form" action="panier.php">
-				<input type="hidden" name="id_article" value="<?php echo $article['id_article']; ?>">
-				<div class="form-row">
-					<div class="col">
-						<select name="quantite" class="form-control">
-						<?php
-							for($i = 1; $i <= $article['stock'] && $i <= 5; $i++) {
-								echo '<option>' . $i . '</option>';
-							}
-						?>
-						</select>
-					</div>
-					<div class="col">
-						<button type="submit" class="btn btn-primary w-100">Ajouter au panier</button>
-					</div>
-				</div>
-			</form>
-			<hr>
-			<?php } ?>
-			
+            ?>
+        </table>
+    </div>
+    <!--****************************-->
+    <!-- FIN AFFICHAGE DES PRODUITS -->
+	<!--****************************-->
+	<?php $content = ob_get_clean(); ?>
 
-		</div>
-	</div>
+<?php require('view/template/template.php'); ?>
