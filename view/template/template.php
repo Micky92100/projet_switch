@@ -31,9 +31,6 @@ if (user_is_admin()) {
     <li class="nav-item">
         <a class="nav-link" href="?action=listStats">Statistiques</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="?action=listDetails">Profil</a>
-    </li>
     <?php $backOfficeAdmin = ob_get_clean(); ?>
     <?php
 }
@@ -108,17 +105,6 @@ if (user_is_connected()) {
 <p id="phpMsg"><?php if (!empty($msg)) {
         echo $msg;
     } ?></p>
-<?php echo '$_GET = ';
-var_dump($_GET);
-echo '<br>';
-echo '$_POST = ';
-var_dump($_POST);
-echo '<br>';
-echo '$_FILES = ';
-var_dump($_FILES);
-echo '<br>';
-echo '$_SESSION = ';
-var_dump($_SESSION); ?>
 <?= $content ?>
 </body>
 <!------------->
