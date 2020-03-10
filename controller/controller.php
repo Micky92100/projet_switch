@@ -147,8 +147,8 @@ function doLogin()
 //////////////////////////////////////// USERS
 function createUser()
 {
-    $users_list = getAllUsers();
     $msg = saveUserByAdmin();
+    $users_list = getAllUsers();
     require('view/back-office/usersView.php');
 }
 

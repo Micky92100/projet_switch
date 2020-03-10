@@ -267,10 +267,10 @@ function saveUserByAdmin()
 
         if ($verif_pseudo->rowCount() > 0 || $verif_email->rowCount() > 0) {
             $msg = '<div class="alert alert-danger mt-3">Pseudo ou email indisponible !</div>';
-        } else if (empty($msg)) {
+        } else {
             $save = $pdo->prepare("INSERT INTO membre 
             (pseudo, mdp, nom, prenom, email, civilite, statut, date_enregistrement)
-             VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, :statut, NOW())");
+            VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, :statut, NOW())");
         }
     }
     if (empty($msg)) {
@@ -322,7 +322,8 @@ function getProductForUpdate($product_id)
     }
 }
 
-function getProduct($product_id){
+function getProduct($product_id)
+{
     $msg = '';
     $pdo = dbConnect();
     $get = $pdo->prepare('
@@ -334,7 +335,7 @@ function getProduct($product_id){
     );
     $get->bindParam(":productId", $product_id, PDO::PARAM_INT);
     $get->execute();
-    if ($get->rowCount() > 0){
+    if ($get->rowCount() > 0) {
         return $get->fetch(PDO::FETCH_ASSOC);
     }
 }
@@ -388,33 +389,25 @@ function saveOrUpdateProduct()
     $departure = trim($_POST['departure']);
     $price = trim($_POST['price']);
 
-    $ref_check = $pdo->prepare("SELECT * FROM produit WHERE id_produit = :productId");
-    $ref_check->bindParam(':productId', $product_id, PDO::PARAM_INT);
-    $ref_check->execute();
-
-    if ($ref_check->rowCount() > 0 && empty($product_id)) {
-        $msg = '<div class="alert alert-danger mt-3">Attention, référence indisponible car déjà attribuée.</div>';
-    }
-
-    if (empty($msg)) {
-        if (!empty($product_id)) {
-            $save = $pdo->prepare("UPDATE produit SET id_salle = :roomId, date_arrivee = :arrival, date_depart = :departure, prix = :price WHERE id_produit = :productId");
-            $save->bindParam(":productId", $product_id, PDO::PARAM_INT);
-        } else {
-            $save = $pdo->prepare("INSERT INTO produit
+    if (!empty($product_id)) {
+        $save = $pdo->prepare("UPDATE produit SET id_salle = :roomId, date_arrivee = :arrival, date_depart = :departure, prix = :price WHERE id_produit = :productId");
+        $save->bindParam(":productId", $product_id, PDO::PARAM_INT);
+    } else {
+        $save = $pdo->prepare("INSERT INTO produit
     (id_salle, date_arrivee, date_depart, prix)
     VALUES (:roomId, :arrival, :departure, :price)");
-        }
-
-        $save->bindParam(":roomId", $room_id, PDO::PARAM_STR);
-        $save->bindParam(":arrival", $arrival, PDO::PARAM_STR);
-        $save->bindParam(":departure", $departure, PDO::PARAM_STR);
-        $save->bindParam(":price", $price, PDO::PARAM_STR);
-        $save->execute();
-    } else {
-        return $msg;
     }
+
+    $save->bindParam(":roomId", $room_id, PDO::PARAM_STR);
+    $save->bindParam(":arrival", $arrival, PDO::PARAM_STR);
+    $save->bindParam(":departure", $departure, PDO::PARAM_STR);
+    $save->bindParam(":price", $price, PDO::PARAM_STR);
+    $save->execute();
+
+    return $msg;
+
 }
+
 /////////////////////////////////////////////////////////////////////// PRODUCTS
 
 /////////////////////////////////////////////////////////////////////// LOG&SIGN
@@ -452,6 +445,7 @@ function verifyLogin()
     }
     return $msg;
 }
+
 /////////////////////////////////////////////////////////////////////// LOG&SIGN
 
 /////////////////////////////////////////////////////////////////////// ORDERS
@@ -477,10 +471,12 @@ function deleteOrder()
     $del->bindParam(":commandeId", $_GET['order-id'], PDO::PARAM_INT);
     $del->execute();
 }
+
 /////////////////////////////////////////////////////////////////////// ORDERS
 
 /////////////////////////////////////////////////////////////////////// RATINGS
-function getAllRatings(){
+function getAllRatings()
+{
     $msg = '';
     $pdo = dbConnect();
     return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
@@ -488,6 +484,7 @@ function getAllRatings(){
     WHERE avis.id_membre = membre.id_membre 
     AND avis.id_salle = salle.id_salle');
 }
+
 /////////////////////////////////////////////////////////////////////// RATINGS
 
 /////////////////////////////////////////////////////////////////////// STATS (TOP5s)
@@ -541,10 +538,12 @@ function getUserValueStats()
     LIMIT 5
     ');
 }
+
 /////////////////////////////////////////////////////////////////////// STATS (TOP5s)
 
 /////////////////////////////////////////////////////////////////////// PROFILE
-function getProfileDetails($user_id){
+function getProfileDetails($user_id)
+{
     $pdo = dbConnect();
     $get = $pdo->prepare(
         'SELECT commande.id_commande, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement 
@@ -555,7 +554,7 @@ function getProfileDetails($user_id){
     );
     $get->bindParam(":userId", $user_id, PDO::PARAM_INT);
     $get->execute();
-    if ($get->rowCount() > 0){
+    if ($get->rowCount() > 0) {
         return $get;
     }
 
