@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2020 at 11:02 PM
+-- Generation Time: Mar 10, 2020 at 01:53 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -53,7 +53,11 @@ INSERT INTO `avis` (`id_avis`, `id_membre`, `id_salle`, `commentaire`, `note`, `
 (10, 5, 7, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. ', 3, '2020-03-09 22:06:56'),
 (11, 5, 7, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. ', 3, '2020-03-09 22:06:57'),
 (12, 5, 7, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. ', 3, '2020-03-09 22:06:57'),
-(13, 5, 7, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. ', 3, '2020-03-09 22:06:57');
+(13, 5, 7, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. ', 3, '2020-03-09 22:06:57'),
+(14, 5, 12, 'zdadfza', 1, '2020-03-10 00:53:16'),
+(15, 5, 12, 'zdadfza', 3, '2020-03-10 00:53:16'),
+(16, 5, 12, 'zdadfza', 3, '2020-03-10 00:53:16'),
+(17, 5, 12, 'zdadfza', 4, '2020-03-10 00:53:16');
 
 -- --------------------------------------------------------
 
@@ -74,7 +78,12 @@ CREATE TABLE `commande` (
 
 INSERT INTO `commande` (`id_commande`, `id_membre`, `id_produit`, `date_enregistrement`) VALUES
 (1, 3, 2, '2020-01-16 07:15:40'),
-(3, 1, 1, '2020-01-07 03:11:30');
+(3, 1, 1, '2020-01-07 03:11:30'),
+(7, 4, 3, '2020-03-10 01:18:18'),
+(8, 3, 2, '2020-03-10 01:18:28'),
+(9, 4, 1, '2020-03-10 01:18:29'),
+(10, 4, 3, '2020-03-10 01:18:29'),
+(11, 1, 3, '2020-03-10 01:18:29');
 
 -- --------------------------------------------------------
 
@@ -117,7 +126,7 @@ CREATE TABLE `produit` (
   `date_arrivee` datetime NOT NULL,
   `date_depart` datetime NOT NULL,
   `prix` int(3) NOT NULL,
-  `etat` enum('libre','reservation') COLLATE utf8_bin NOT NULL
+  `etat` enum('libre','reservation') COLLATE utf8_bin NOT NULL DEFAULT 'libre'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -127,7 +136,8 @@ CREATE TABLE `produit` (
 INSERT INTO `produit` (`id_produit`, `id_salle`, `date_arrivee`, `date_depart`, `prix`, `etat`) VALUES
 (1, 10, '2020-06-01 00:00:00', '2020-06-08 23:59:59', 590, 'libre'),
 (2, 2, '2020-06-12 00:00:00', '2020-06-14 23:59:59', 930, 'reservation'),
-(3, 12, '2020-06-20 00:00:00', '2020-06-25 23:59:59', 475, 'libre');
+(3, 12, '2020-06-20 00:00:00', '2020-06-25 23:59:59', 475, 'libre'),
+(4, 7, '2020-10-01 00:00:00', '2020-10-10 23:59:00', 450, 'libre');
 
 -- --------------------------------------------------------
 
@@ -213,31 +223,31 @@ ALTER TABLE `salle`
 -- AUTO_INCREMENT for table `avis`
 --
 ALTER TABLE `avis`
-  MODIFY `id_avis` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_avis` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `id_commande` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_commande` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `membre`
 --
 ALTER TABLE `membre`
-  MODIFY `id_membre` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_membre` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `produit`
 --
 ALTER TABLE `produit`
-  MODIFY `id_produit` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_produit` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `salle`
 --
 ALTER TABLE `salle`
-  MODIFY `id_salle` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id_salle` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- Constraints for dumped tables
