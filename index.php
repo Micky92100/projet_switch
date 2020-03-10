@@ -73,6 +73,8 @@ if (isset($_GET['action'])) {
         listProducts();
     } else if ($_GET['action'] == 'listProductsIndex') {
         listProductsIndex();
+    } else if ($_GET['action'] == 'viewProduct' && !empty($_GET['product-id'])) {
+        showProductDetails($_GET['product-id']);
         ////////////////////////////////////////////////////////////////// PRODUCTS ^
     } else if ($_GET['action'] == 'listStats') {
         getAllStats();
@@ -116,8 +118,12 @@ if (isset($_GET['action'])) {
         session_destroy();
         header("Location: " . $_SERVER['PHP_SELF']);
         getLogin();
+        ////////////////////////////////////////////////////////////////// LOG&SIGN ^
+    } else if ($_GET['action'] == 'listDetails' && user_is_connected()) {
+        showProfile($_SESSION['membre']['id_membre']);
+    } else {
+        getLogin();
     }
-    ////////////////////////////////////////////////////////////////// LOG&SIGN ^
 } else if (user_is_connected()) {
     listProductsIndex();
 } else {

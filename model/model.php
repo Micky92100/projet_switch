@@ -322,6 +322,23 @@ function getProductForUpdate($product_id)
     }
 }
 
+function getProduct($product_id){
+    $msg = '';
+    $pdo = dbConnect();
+    $get = $pdo->prepare('
+        SELECT titre, (SELECT ROUND(AVG(avis.note), 2) FROM avis WHERE avis.id_salle = produit.id_salle) AS note, photo, description, date_arrivee, date_depart, capacite, categorie, prix
+        FROM salle, produit
+        WHERE produit.id_salle = salle.id_salle
+        AND produit.id_produit = :productId
+        '
+    );
+    $get->bindParam(":productId", $product_id, PDO::PARAM_INT);
+    $get->execute();
+    if ($get->rowCount() > 0){
+        return $get->fetch(PDO::FETCH_ASSOC);
+    }
+}
+
 function getSearchedProducts()
 {
     $msg = '';
@@ -414,8 +431,7 @@ function deleteOrder()
 /////////////////////////////////////////////////////////////////////// ORDERS
 
 /////////////////////////////////////////////////////////////////////// RATINGS
-function getAllrates()
-{
+function getAllrates(){
     $msg = '';
     $pdo = dbConnect();
     return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
@@ -475,3 +491,20 @@ function getUserValueStats()
     ');
 }
 /////////////////////////////////////////////////////////////////////// STATS (TOP5s)
+
+function getAllDetails($user_id){
+    $pdo = dbConnect();
+    $get = $pdo->prepare(
+        'SELECT commande.id_commande, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement 
+FROM commande, produit, salle 
+WHERE commande.id_membre = :userId 
+  AND commande.id_produit = produit.id_produit 
+  AND produit.id_salle = salle.id_salle'
+    );
+    $get->bindParam(":userId", $user_id, PDO::PARAM_INT);
+    $get->execute();
+    if ($get->rowCount() > 0){
+        return $get;
+    }
+
+}

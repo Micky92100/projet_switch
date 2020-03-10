@@ -46,7 +46,7 @@
         <div class="col-sm-9">
             <div class="row justify-content-around">
                 <?php
-                // if (!empty($products_list)) {
+                 if (!empty($products_list)) {
                     while ($product = $products_list->fetch(PDO::FETCH_ASSOC)) {
                         echo '<div class="col-sm-3 text-center p-2">';
                         echo '<img src="img/' . htmlspecialchars($product['photo']) . '" alt="' . htmlspecialchars($product['titre']) . '" class="img-thumbnail w-100">';
@@ -54,10 +54,10 @@
 
                         echo '<p style="overflow: hidden">'. htmlspecialchars(substr($product['description'], 0, 20)).'...' . '</p>';
                         echo '<p><i class="fa fa-calendar-alt"></i>&nbsp;' . $product['date_arrivee'] . ' au ' . $product['date_depart'] . '</p>';
-                        echo '<a href="?action=viewProduct&product-id=' . htmlspecialchars($product['id_produit']) . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
+                        echo '<a href="?action=viewProduct&product-id=' . $product['id_produit'] . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
                         echo '</div>';
                     }
-                // }
+                 }
                 ?>
             </div>
         </div>

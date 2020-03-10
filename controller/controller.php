@@ -183,3 +183,18 @@ function getAllStats()
     require('view/back-office/statsView.php');
 }
 //////////////////////////////////////// STATS
+//////////////////////////////////////// PROFILE
+
+function showProfile($user_id){
+    $profile_details = getAllDetails($user_id);
+    require('view/front-office/profileView.php');
+
+}
+//////////////////////////////////////// PROFILE
+//////////////////////////////////////// PRODUCT DETAILS
+
+function showProductDetails($product_id)
+{
+    $product = getProduct($product_id);
+    require('view/front-office/productDetailsView.php');
+}
