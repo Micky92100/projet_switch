@@ -350,22 +350,35 @@ function getSearchedProducts()
     $prix = $_POST['price'];
     $date_arrivee = $_POST['arrival'];
     $date_depart = $_POST['departure'];
-    $date_date_arrivee = date_create($date_arrivee);
-    $date_date_depart = date_create($date_depart);
-    $timestamp_arr = $date_date_arrivee->getTimestamp();
-    $timestamp_dep = $date_date_depart->getTimestamp();
 
+    $result_products = $pdo->prepare(
+        '
+SELECT produit.id_produit, produit.prix, produit.date_arrivee, produit.date_depart, salle.titre, salle.description, salle.photo
+FROM produit, salle
+WHERE produit.id_salle = salle.id_salle
+AND salle.categorie = :categorie
+AND salle.ville = :ville
+AND salle.capacite >= :capacite
+AND produit.prix <= :prix
+AND produit.date_arrivee >= NOW()
+AND produit.etat = \'libre\'
+-- Dates not working :(
+-- AND UNIX_TIMESTAMP(produit.date_arrivee) >= UNIX_TIMESTAMP(:date_arrivee)
+-- AND UNIX_TIMESTAMP(produit.date_depart) <= UNIX_TIMESTAMP(:date_depart)
+');
 
-    $result_products = $pdo->prepare('SELECT produit.id_produit, produit.prix, produit.date_arrivee, produit.date_depart, salle.titre, salle.description, salle.photo FROM produit, salle WHERE produit.id_salle = salle.id_salle AND salle.categorie = :categorie AND salle.ville = :ville AND salle.capacite >= :capacite AND produit.prix <= :prix AND produit.date_arrivee >= :date_arrivee AND produit.date_arrivee >= NOW() AND produit.date_depart <= :date_depart AND produit.etat = \'libre\'');
-
-    $result_products->bindParam(":categorie", intval($categorie), PDO::FETCH_ASSOC);
-    $result_products->bindParam(":ville", $ville, PDO::FETCH_ASSOC);
-    $result_products->bindParam(":capacite", $capacite, PDO::FETCH_ASSOC);
-    $result_products->bindParam(":prix", $prix, PDO::FETCH_ASSOC);
-    $result_products->bindParam(":date_arrivee", $timestamp_arr, PDO::FETCH_ASSOC);
-    $result_products->bindParam(":date_depart", $timestamp_dep, PDO::FETCH_ASSOC);
+    $result_products->bindParam(":categorie", intval($categorie), PDO::PARAM_INT);
+    $result_products->bindParam(":ville", $ville, PDO::PARAM_STR);
+    $result_products->bindParam(":capacite", $capacite, PDO::PARAM_INT);
+    $result_products->bindParam(":prix", $prix, PDO::PARAM_INT);
+//  Dates not working :(
+//  $result_products->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
+//  $result_products->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
     $result_products->execute();
-    return $result_products;
+
+    if ($result_products->rowCount() > 0) {
+        return $result_products;
+    }
 }
 
 function deleteProduct()

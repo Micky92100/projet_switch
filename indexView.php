@@ -11,23 +11,25 @@
             <form method="post" id="form" action="?action=searchProducts">
                 <label for="category">Catégories</label>
                 <select name="category" id="category" class="form-control">
+                    <option value=""></option>
                     <option value="1">Réunion</option>
                     <option value="2">Bureau</option>
                     <option value="3">Formation</option>
-                </select>
+                </select required>
 
                 <label for="city">Ville</label>
                 <select name="city" id="city" class="form-control">
+                    <option value=""></option>
                     <option value="Paris">Paris</option>
                     <option value="Lyon">Lyon</option>
                     <option value="Marseille">Marseille</option>
-                </select>
+                </select required>
 
                 <label for="capacity">Capacité min</label>
-                <input type="number" min="0" name="capacity" id="capacity" class="form-control" step="5">
+                <input type="number" min="0" name="capacity" id="capacity" class="form-control" step="5" required>
 
                 <label for="price">Prix max</label>
-                <input type="number" min="0" name="price" id="price" class="form-control" step="10">
+                <input type="number" min="0" name="price" id="price" class="form-control" step="10" required>
 
                 <label for="arrival">Date d'arrivée</label>
                 <input type="datetime-local" name="arrival" id="arrival" class="form-control">
