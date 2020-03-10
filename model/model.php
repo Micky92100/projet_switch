@@ -366,6 +366,55 @@ function getSearchedProducts()
     $result_products->execute();
     return $result_products;
 }
+
+function deleteProduct()
+{
+    $msg = '';
+    $pdo = dbConnect();
+
+    $del = $pdo->prepare("DELETE FROM produit WHERE id_produit = :productId");
+    $del->bindParam(":productId", $_GET['product-id'], PDO::PARAM_INT);
+    $del->execute();
+}
+
+function saveOrUpdateProduct()
+{
+    $msg = '';
+    $pdo = dbConnect();
+
+    $product_id = trim($_GET['product-id']);
+    $room_id = trim($_POST['room']);
+    $arrival = trim($_POST['arrival']);
+    $departure = trim($_POST['departure']);
+    $price = trim($_POST['price']);
+
+    $ref_check = $pdo->prepare("SELECT * FROM produit WHERE id_produit = :productId");
+    $ref_check->bindParam(':productId', $product_id, PDO::PARAM_INT);
+    $ref_check->execute();
+
+    if ($ref_check->rowCount() > 0 && empty($product_id)) {
+        $msg = '<div class="alert alert-danger mt-3">Attention, référence indisponible car déjà attribuée.</div>';
+    }
+
+    if (empty($msg)) {
+        if (!empty($product_id)) {
+            $save = $pdo->prepare("UPDATE produit SET id_salle = :roomId, date_arrivee = :arrival, date_depart = :departure, prix = :price WHERE id_produit = :productId");
+            $save->bindParam(":productId", $product_id, PDO::PARAM_INT);
+        } else {
+            $save = $pdo->prepare("INSERT INTO produit
+    (id_salle, date_arrivee, date_depart, prix)
+    VALUES (:roomId, :arrival, :departure, :price)");
+        }
+
+        $save->bindParam(":roomId", $room_id, PDO::PARAM_STR);
+        $save->bindParam(":arrival", $arrival, PDO::PARAM_STR);
+        $save->bindParam(":departure", $departure, PDO::PARAM_STR);
+        $save->bindParam(":price", $price, PDO::PARAM_STR);
+        $save->execute();
+    } else {
+        return $msg;
+    }
+}
 /////////////////////////////////////////////////////////////////////// PRODUCTS
 
 /////////////////////////////////////////////////////////////////////// LOG&SIGN
