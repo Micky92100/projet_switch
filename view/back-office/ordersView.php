@@ -20,7 +20,7 @@
             echo '<td>' . $commande['id_commande'] . '</td>';
             echo '<td>' . $commande['id_membre'] . ' - ' . $commande['email'] . '</td>';
             echo '<td>' . $commande['id_produit'] . ' - ' . $commande['titre'] . '<br/>' . $commande['date_arrivee'] . ' au ' . $commande['date_depart'] .'</td>';
-            echo '<td>' . $commande['prix'] .'€</td>';
+            echo '<td>' . number_format($commande['prix'], 2, ',', ' ') . '€</td>';
             echo '<td>' . $commande['date_enregistrement'] . '</td>';
             echo '<td><a href="?action=deleteOrder&order-id=' . $commande['id_commande'] . '" class="btn btn-danger" onclick="return(confirm(\'Etes-vous sûr ?\'))"><i class="fas fa-trash-alt"></i></a></td>';
             echo '</tr>';

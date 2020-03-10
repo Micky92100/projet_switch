@@ -16,7 +16,7 @@
                     echo '<tr>';
                     echo '<td>' . $avis['id_salle'] . '</td>';
                     echo '<td>' . $avis['titre'] . '</td>';
-                    echo '<td>' . $avis['rating'] . '</td>';
+                    echo '<td>' . $avis['rating'] . '/5</td>';
                     echo '</tr>';
                 }
             }
@@ -82,7 +82,7 @@
                     echo '<tr>';
                     echo '<td>' . $avis['id_membre'] . '</td>';
                     echo '<td>' . $avis['pseudo'] . '</td>';
-                    echo '<td>' . $avis['amount_spent'] . '</td>';
+                    echo '<td>' . number_format($avis['amount_spent'], 2, ',', ' '). '€</td>';
                     echo '</tr>';
                 }
             }

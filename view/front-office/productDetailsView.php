@@ -41,7 +41,7 @@ if (!empty($product)) {
             echo '<td>' . $departure . '</td>';
             echo '<td>' . $capacity . '</td>';
             echo '<td>' . $category . '</td>';
-            echo '<td>' . $price . '€</td>';
+            echo '<td>' . number_format($price, 2, ',', ' ') . '€</td>';
             echo '</tr>';
             ?>
         </table>

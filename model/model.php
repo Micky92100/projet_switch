@@ -431,7 +431,7 @@ function deleteOrder()
 /////////////////////////////////////////////////////////////////////// ORDERS
 
 /////////////////////////////////////////////////////////////////////// RATINGS
-function getAllrates(){
+function getAllRatings(){
     $msg = '';
     $pdo = dbConnect();
     return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
@@ -473,8 +473,9 @@ function getUserPurchasesStats()
     $pdo = dbConnect();
     return $pdo->query('
     SELECT membre.id_membre, membre.pseudo, (SELECT COUNT(commande.id_commande) FROM commande WHERE commande.id_membre = membre.id_membre) AS times_purchased 
-    FROM membre 
-    ORDER BY times_purchased DESC 
+    FROM membre
+    WHERE membre.statut = 1
+    ORDER BY times_purchased DESC
     LIMIT 5
     ');
 }
@@ -484,22 +485,24 @@ function getUserValueStats()
     $msg = '';
     $pdo = dbConnect();
     return $pdo->query('
-    SELECT membre.id_membre, membre.pseudo, (SELECT ROUND(AVG(produit.prix), 2) FROM commande, produit WHERE commande.id_membre = membre.id_membre AND commande.id_produit = produit.id_produit) AS amount_spent
+    SELECT membre.id_membre, membre.pseudo, (SELECT SUM(produit.prix) FROM commande, produit WHERE commande.id_membre = membre.id_membre AND commande.id_produit = produit.id_produit) AS amount_spent
     FROM membre 
-    ORDER BY amount_spent DESC 
+    WHERE membre.statut = 1
+    ORDER BY amount_spent DESC
     LIMIT 5
     ');
 }
 /////////////////////////////////////////////////////////////////////// STATS (TOP5s)
 
-function getAllDetails($user_id){
+/////////////////////////////////////////////////////////////////////// PROFILE
+function getProfileDetails($user_id){
     $pdo = dbConnect();
     $get = $pdo->prepare(
         'SELECT commande.id_commande, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement 
-FROM commande, produit, salle 
-WHERE commande.id_membre = :userId 
-  AND commande.id_produit = produit.id_produit 
-  AND produit.id_salle = salle.id_salle'
+    FROM commande, produit, salle 
+    WHERE commande.id_membre = :userId 
+    AND commande.id_produit = produit.id_produit 
+    AND produit.id_salle = salle.id_salle'
     );
     $get->bindParam(":userId", $user_id, PDO::PARAM_INT);
     $get->execute();
@@ -508,3 +511,4 @@ WHERE commande.id_membre = :userId
     }
 
 }
+/////////////////////////////////////////////////////////////////////// PROFILE

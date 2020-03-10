@@ -49,9 +49,9 @@ function saveRoom()
 //////////////////////////////////////// ROOMS
 
 //////////////////////////////////////// RATINGS
-function showRates()
+function showRatings()
 {
-    $notice_list = getAllrates();
+    $notice_list = getAllRatings();
     require('view/back-office/ratingsView.php');
 
 }
@@ -186,7 +186,7 @@ function getAllStats()
 //////////////////////////////////////// PROFILE
 
 function showProfile($user_id){
-    $profile_details = getAllDetails($user_id);
+    $profile_details = getProfileDetails($user_id);
     require('view/front-office/profileView.php');
 
 }

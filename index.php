@@ -71,7 +71,7 @@ if (isset($_GET['action'])) {
         getDeleteProduct();
     } else if ($_GET['action'] == 'listProducts') {
         listProducts();
-    } else if ($_GET['action'] == 'listProductsIndex') {
+    } else if ($_GET['action'] == 'listProductsIndex' && user_is_connected()) {
         listProductsIndex();
     } else if ($_GET['action'] == 'viewProduct' && !empty($_GET['product-id'])) {
         showProductDetails($_GET['product-id']);
@@ -85,8 +85,8 @@ if (isset($_GET['action'])) {
         getDeleteOrder();
         ////////////////////////////////////////////////////////////////// ORDERS ^
         ////////////////////////////////////////////////////////////////// RATINGS v
-    } else if ($_GET['action'] == 'noticeList') {
-        showRates();
+    } else if ($_GET['action'] == 'listRatings') {
+        showRatings();
         ////////////////////////////////////////////////////////////////// RATINGS ^
         ////////////////////////////////////////////////////////////////// LOG&SIGN v
     } else if ($_GET['action'] == 'login') {
@@ -119,8 +119,12 @@ if (isset($_GET['action'])) {
         header("Location: " . $_SERVER['PHP_SELF']);
         getLogin();
         ////////////////////////////////////////////////////////////////// LOG&SIGN ^
-    } else if ($_GET['action'] == 'listDetails' && user_is_connected()) {
+        ////////////////////////////////////////////////////////////////// PROFILE v
+    } else if ($_GET['action'] == 'listDetails' && user_is_connected() &&!user_is_admin()) {
         showProfile($_SESSION['membre']['id_membre']);
+        ////////////////////////////////////////////////////////////////// PROFILE ^
+    } else if (user_is_connected()) {
+        listProductsIndex();
     } else {
         getLogin();
     }

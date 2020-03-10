@@ -27,7 +27,7 @@
                 echo '<td>' . $product['date_arrivee'] . '</td>';
                 echo '<td>' . $product['date_depart'] . '</td>';
                 echo '<td>' . $product['id_salle'] . ' - ' . $product['titre'] . '<br/><img src="../../img/' . $product['photo'] . '" class="img-thumbnail" width="140" alt="' . $product['description'] . '"></td>';
-                echo '<td>' . $product['prix'] . '€</td>';
+                echo '<td>' . number_format($product['prix'], 2, ',', ' ') . '€</td>';
                 echo '<td>' . $product['etat'] . '</td>';
 
                 echo '<td><a href="?action=editProduct&product-id=' . $product['id_produit'] . '&room-id=' . $product['id_salle'] . '&#form" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>';
