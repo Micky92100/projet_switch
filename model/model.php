@@ -344,12 +344,12 @@ function getSearchedProducts()
 {
     $msg = '';
     $pdo = dbConnect();
-    $categorie = $_POST['category'];
-    $ville = $_POST['city'];
-    $capacite = $_POST['capacity'];
-    $prix = $_POST['price'];
-    $date_arrivee = $_POST['arrival'];
-    $date_depart = $_POST['departure'];
+    $categorie = trim($_POST['category']);
+    $ville = trim($_POST['city']);
+    $capacite = trim($_POST['capacity']);
+    $prix = trim($_POST['price']);
+    $date_arrivee = trim($_POST['arrival']);
+    $date_depart = trim($_POST['departure']);
 
     $result_products = $pdo->prepare(
         '

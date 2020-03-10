@@ -55,7 +55,7 @@
                         echo '<h5>' . htmlspecialchars($product['titre']) . ' : ' . htmlspecialchars($product['prix']) . '€</h5>';
 
                         echo '<p style="overflow: hidden">'. htmlspecialchars(substr($product['description'], 0, 20)).'...' . '</p>';
-                        echo '<p><i class="fa fa-calendar-alt"></i>&nbsp;' . $product['date_arrivee'] . ' au ' . $product['date_depart'] . '</p>';
+                        echo '<p><i class="fa fa-calendar-alt"></i>&nbsp;du ' . $product['date_arrivee'] . '<br/>au ' . $product['date_depart'] . '</p>';
                         echo '<a href="?action=viewProduct&product-id=' . $product['id_produit'] . '" class="btn btn-primary w-100">Fiche produit</a><hr>';
                         echo '</div>';
                     }
